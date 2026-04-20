@@ -411,7 +411,7 @@ def link_for_card(post: dict, page: str) -> str:
 
 
 def cover_prefix(page: str) -> str:
-    return "../" if page == "blog" else "./"
+    return "../" if page in {"blog", "post"} else "./"
 
 
 if __name__ == "__main__":
