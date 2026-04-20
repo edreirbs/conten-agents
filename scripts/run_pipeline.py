@@ -90,14 +90,19 @@ def select_topic(api_key: str, brand: dict[str, Any], candidates: list[dict[str,
     instructions = """
 Eres un estratega editorial B2B para una consultora de automatizacion e integracion de IA.
 Debes elegir un solo tema con mayor potencial de atraer clientes empresariales.
+La seleccion debe favorecer temas donde haya tension, riesgo, contradiccion o oportunidad operativa clara.
+Evita temas demasiado genericos, celebratorios o puramente tecnicos sin implicacion de negocio.
 Responde solo con JSON valido.
 """
     payload = json.dumps(
         {
             "company": brand.get("company_name"),
+            "positioning": brand.get("positioning_statement"),
+            "contrarian_thesis": brand.get("contrarian_thesis"),
             "services": brand.get("services", []),
             "goals": brand.get("editorial_goals", []),
             "audience": brand.get("audience", []),
+            "voice": brand.get("voice", {}),
             "candidates": candidates,
             "required_output": {
                 "selected_url": "url elegida",
@@ -136,6 +141,8 @@ Cada articulo debe:
 - incluir una frase breve y afilada como golpe editorial;
 - bajar la tendencia al terreno operativo;
 - incluir ejemplos, listas utiles y un cierre con siguiente paso.
+La voz debe sonar a una consultora boutique, estrategica, frontal y sobria. Debe notarse criterio. Nunca grandilocuencia.
+Evita frases y lugares comunes corporativos. Si una frase suena intercambiable con la de cualquier agencia, reescribela.
 No incluyas datos personales, emails, telefonos, datos privados, secretos ni informacion confidencial.
 Responde solo con JSON valido.
 El campo article_html debe contener solo HTML interno del articulo, sin html ni body.
@@ -146,6 +153,9 @@ El campo linkedin_text debe cerrar con el placeholder {{ARTICLE_URL}}.
             "brand": brand,
             "selection": selection,
             "primary_candidate": candidate,
+            "positioning": brand.get("positioning_statement"),
+            "contrarian_thesis": brand.get("contrarian_thesis"),
+            "voice": brand.get("voice", {}),
             "limits": brand.get("content_rules", {}),
             "required_output": {
                 "title": "titulo final",

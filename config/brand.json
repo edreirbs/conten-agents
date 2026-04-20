@@ -1,10 +1,12 @@
 {
   "company_name": "Tu Consultora de Automatizacion e IA",
-  "site_name": "Ideas y Automatizacion para Empresas",
-  "site_tagline": "Blog sobre automatizacion, integracion de IA y operaciones inteligentes para empresas",
+  "site_name": "Automatizar con Criterio",
+  "site_tagline": "Ideas, riesgos y oportunidades para empresas que quieren integrar IA sin improvisar",
   "base_url": "https://edreirbs.github.io/conten-agents",
-  "homepage_intro": "Convertimos noticias, investigacion y mejores practicas en contenido util para lideres que quieren automatizar procesos, integrar IA y generar resultados medibles.",
+  "homepage_intro": "No publicamos para llenar un calendario. Publicamos para convertir noticias, investigacion y mejores practicas en argumentos que ayuden a lideres a decidir mejor, ejecutar mas rapido y automatizar sin humo.",
   "language": "es-MX",
+  "positioning_statement": "Una consultora boutique que ayuda a empresas a automatizar procesos e integrar IA con criterio operativo, rigor y enfoque en resultado.",
+  "contrarian_thesis": "El problema de la mayoria de las iniciativas de IA no es la tecnologia. Es la falta de criterio para priorizar, probar e integrar sin romper la operacion.",
   "audience": [
     "directores generales",
     "lideres de operaciones",
@@ -23,16 +25,42 @@
     "atraer trafico organico calificado",
     "demostrar criterio experto",
     "conectar actualidad con oportunidades reales de negocio",
-    "generar llamadas a la accion consultivas"
+    "generar conversaciones consultivas"
   ],
   "voice": {
-    "tone": "consultivo, claro, ejecutivo, aterrizado y sin hype vacio",
+    "tone": "afilado, claro, ejecutivo, provocador con sustancia y cero hype vacio",
+    "brand_personality": [
+      "boutique",
+      "estrategica",
+      "frontal",
+      "sobria",
+      "obsesionada con ejecucion"
+    ],
     "style_rules": [
       "escribir en espanol",
       "priorizar aplicaciones empresariales reales",
-      "evitar promesas exageradas",
-      "cerrar con una llamada a la accion suave"
-    ]
+      "abrir con una tension, contradiccion o riesgo visible",
+      "combinar frases largas con frases cortas y contundentes",
+      "explicar implicaciones operativas antes que detalles tecnicos",
+      "evitar tono academico y tono corporativo generico",
+      "cerrar con una llamada a la accion consultiva y elegante"
+    ],
+    "approved_devices": [
+      "frases de golpe editorial",
+      "contrastes entre promesa y realidad",
+      "preguntas directas",
+      "analogias ejecutivas sobrias",
+      "listas utiles y accionables"
+    ],
+    "avoid": [
+      "innovacion disruptiva",
+      "revolucionario",
+      "sin esfuerzo",
+      "transformacion magica",
+      "la ia lo cambia todo",
+      "lider en soluciones"
+    ],
+    "cta_style": "invitar a una conversacion de diagnostico o piloto, sin sonar vendedor agresivo"
   },
   "content_rules": {
     "min_words": 900,
@@ -45,4 +73,3 @@
     "writing": "gpt-5.4-mini"
   }
 }
-
