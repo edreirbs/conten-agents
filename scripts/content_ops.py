@@ -288,26 +288,49 @@ def openai_json_response(
     input_payload: str,
     effort: str = "low",
 ) -> dict[str, Any]:
-    response = requests.post(
-        "https://api.openai.com/v1/responses",
-        headers={
-            "Authorization": f"Bearer {api_key}",
-            "Content-Type": "application/json",
-        },
-        json={
-            "model": model,
-            "store": False,
-            "reasoning": {"effort": effort},
-            "instructions": instructions,
-            "input": input_payload,
-            "text": {"format": {"type": "json_object"}},
-        },
-        timeout=120,
-    )
-    response.raise_for_status()
-    payload = response.json()
-    output_text = extract_response_text(payload)
-    return json.loads(output_text)
+    candidate_models = [model, "gpt-5-mini", "gpt-4.1-mini"]
+    seen_models: set[str] = set()
+    last_error: str | None = None
+
+    for candidate_model in candidate_models:
+        if not candidate_model or candidate_model in seen_models:
+            continue
+        seen_models.add(candidate_model)
+
+        response = requests.post(
+            "https://api.openai.com/v1/responses",
+            headers={
+                "Authorization": f"Bearer {api_key}",
+                "Content-Type": "application/json",
+            },
+            json={
+                "model": candidate_model,
+                "store": False,
+                "reasoning": {"effort": effort},
+                "instructions": instructions,
+                "input": input_payload,
+            },
+            timeout=120,
+        )
+
+        if response.ok:
+            payload = response.json()
+            output_text = extract_response_text(payload)
+            try:
+                return json.loads(output_text)
+            except json.JSONDecodeError as exc:
+                snippet = output_text[:600].replace("\n", " ")
+                raise RuntimeError(
+                    f"OpenAI devolvio texto que no es JSON valido con el modelo {candidate_model}: {snippet}"
+                ) from exc
+
+        body_snippet = response.text[:700].replace("\n", " ")
+        last_error = f"{response.status_code} con modelo {candidate_model}: {body_snippet}"
+
+        if response.status_code not in {400, 404, 429}:
+            break
+
+    raise RuntimeError(f"Error llamando a OpenAI Responses API: {last_error}")
 
 
 def refresh_linkedin_access_token(
