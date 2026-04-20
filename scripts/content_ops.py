@@ -88,7 +88,6 @@ def redact_sensitive_text(value: str, enabled: bool = True) -> str:
         (r"\bsk-[A-Za-z0-9_\-]{12,}\b", "[redacted-token]"),
         (r"\bgh[pousr]_[A-Za-z0-9]{20,}\b", "[redacted-token]"),
         (r"\bAIza[0-9A-Za-z\-_]{20,}\b", "[redacted-token]"),
-        (r"\b[A-Za-z0-9_/\-]{32,}\b", "[redacted-long-string]"),
     ]
     for pattern, replacement in patterns:
         redacted = re.sub(pattern, replacement, redacted, flags=re.IGNORECASE)
@@ -408,6 +407,7 @@ class SafeHTMLParser(HTMLParser):
     def __init__(self) -> None:
         super().__init__(convert_charrefs=True)
         self.parts: list[str] = []
+        self.tag_stack: list[str] = []
 
     def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
         if tag not in self.allowed_tags:
@@ -430,13 +430,16 @@ class SafeHTMLParser(HTMLParser):
             self.parts.append(f"<{tag} {' '.join(safe_attrs)}>")
         else:
             self.parts.append(f"<{tag}>")
+        self.tag_stack.append(tag)
 
     def handle_endtag(self, tag: str) -> None:
         if tag in self.allowed_tags:
             self.parts.append(f"</{tag}>")
+            if self.tag_stack and self.tag_stack[-1] == tag:
+                self.tag_stack.pop()
 
     def handle_data(self, data: str) -> None:
-        if data:
+        if data and self.tag_stack:
             self.parts.append(html.escape(data))
 
     def render(self) -> str:

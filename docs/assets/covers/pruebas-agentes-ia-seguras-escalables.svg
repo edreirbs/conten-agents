@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-label="Antes de soltar un agente de IA en produccion, prueba esto">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3f0d12"/>
+      <stop offset="100%" stop-color="#a71d31"/>
+    </linearGradient>
+  </defs>
+  <style>
+    .eyebrow { font: 700 24px Georgia, serif; letter-spacing: 0.18em; text-transform: uppercase; fill: rgba(255,255,255,0.82); }
+    .title { font: 700 54px Georgia, serif; fill: white; }
+    .excerpt { font: 400 25px Georgia, serif; fill: rgba(255,255,255,0.84); }
+    .badge { font: 700 18px Georgia, serif; fill: #221712; }
+  </style>
+  <rect width="1200" height="675" rx="38" fill="url(#bg)"/>
+  <circle cx="1040" cy="122" r="140" fill="rgba(255,255,255,0.08)"/>
+  <circle cx="1125" cy="220" r="72" fill="rgba(255,255,255,0.12)"/>
+  <rect x="54" y="66" width="336" height="44" rx="22" fill="rgba(255,255,255,0.16)"/>
+  <text x="78" y="95" class="eyebrow">Riesgo operativo</text>
+  <text x="54" y="168" class="title">Antes de soltar un</text><text x="54" y="224" class="title">agente de IA en</text><text x="54" y="280" class="title">produccion, prueba esto</text>
+  <text x="54" y="520" class="excerpt">Una guia directa para probar agentes de IA con simulacion, detectar fallas antes de produccion y convertir testing en una ventaja competitiv</text>
+  <rect x="54" y="570" width="228" height="50" rx="25" fill="#ffd9c7"/>
+  <text x="86" y="602" class="badge">Contenido editorial</text>
+</svg>

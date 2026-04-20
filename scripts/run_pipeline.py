@@ -129,7 +129,13 @@ def draft_article(
     instructions = """
 Eres un editor senior de contenidos para una consultora que vende proyectos de automatizacion e IA.
 Escribe en espanol para directivos y responsables de operaciones.
-El articulo debe ser claro, riguroso, accionable y comercialmente util sin sonar agresivo.
+El articulo debe tener ritmo de blog premium: una apertura provocadora, frases largas combinadas con frases cortas contundentes, una tesis clara, storytelling ejecutivo y cierre consultivo.
+No escribas como whitepaper. No escribas como nota corporativa. Escribe como una pieza que abre una conversacion comercial inteligente.
+Cada articulo debe:
+- abrir con tension o contradiccion;
+- incluir una frase breve y afilada como golpe editorial;
+- bajar la tendencia al terreno operativo;
+- incluir ejemplos, listas utiles y un cierre con siguiente paso.
 No incluyas datos personales, emails, telefonos, datos privados, secretos ni informacion confidencial.
 Responde solo con JSON valido.
 El campo article_html debe contener solo HTML interno del articulo, sin html ni body.
@@ -143,9 +149,16 @@ El campo linkedin_text debe cerrar con el placeholder {{ARTICLE_URL}}.
             "limits": brand.get("content_rules", {}),
             "required_output": {
                 "title": "titulo final",
+                "deck": "subtitulo breve que sostenga la tesis",
                 "slug": "slug final",
                 "excerpt": "resumen corto de 140 a 180 caracteres",
                 "seo_description": "meta descripcion corta",
+                "pull_quote": "frase breve y memorable",
+                "key_takeaways": ["idea 1", "idea 2", "idea 3"],
+                "cover_label": "etiqueta corta para portada",
+                "cover_theme": "signal, risk, growth o systems",
+                "cta_title": "titulo corto para cierre",
+                "cta_body": "parrafo final de CTA consultivo",
                 "keywords": ["lista", "de", "keywords"],
                 "article_html": "<p>...</p>",
                 "linkedin_text": "post corto para LinkedIn con CTA y {{ARTICLE_URL}}",
@@ -178,6 +191,10 @@ def assemble_post(
     return {
         "id": now,
         "title": redact_sensitive_text(draft.get("title") or candidate["title"], enabled=security.get("redact_patterns", True)),
+        "deck": redact_sensitive_text(
+            draft.get("deck") or draft.get("excerpt") or candidate.get("summary", "")[:180],
+            enabled=security.get("redact_patterns", True),
+        ),
         "slug": slug,
         "excerpt": redact_sensitive_text(
             draft.get("excerpt") or candidate.get("summary", "")[:160],
@@ -185,6 +202,25 @@ def assemble_post(
         ),
         "seo_description": redact_sensitive_text(
             draft.get("seo_description") or candidate.get("summary", ""),
+            enabled=security.get("redact_patterns", True),
+        ),
+        "pull_quote": redact_sensitive_text(
+            draft.get("pull_quote") or "La automatizacion sin criterio genera ruido. La automatizacion bien probada genera margen.",
+            enabled=security.get("redact_patterns", True),
+        ),
+        "key_takeaways": [redact_sensitive_text(item, enabled=security.get("redact_patterns", True)) for item in draft.get("key_takeaways", [])[:3]],
+        "cover_label": redact_sensitive_text(
+            draft.get("cover_label") or "Analisis",
+            enabled=security.get("redact_patterns", True),
+        ),
+        "cover_theme": draft.get("cover_theme") or "signal",
+        "cta_title": redact_sensitive_text(
+            draft.get("cta_title") or "Llevemos esta idea a un piloto serio.",
+            enabled=security.get("redact_patterns", True),
+        ),
+        "cta_body": redact_sensitive_text(
+            draft.get("cta_body")
+            or "Si quieres convertir esta tendencia en una iniciativa aterrizada, podemos ayudarte a definir alcance, riesgos, metricas y una primera prueba controlada.",
             enabled=security.get("redact_patterns", True),
         ),
         "keywords": draft.get("keywords", []),
@@ -316,9 +352,20 @@ def mock_draft(selection: dict[str, Any], candidate: dict[str, Any], brand: dict
     )
     return {
         "title": title,
+        "deck": "Una lectura ejecutiva para traducir una novedad tecnica en decisiones operativas con retorno.",
         "slug": selection["slug"],
         "excerpt": "Analisis ejecutivo sobre una novedad de IA y su traduccion a decisiones reales de automatizacion empresarial.",
         "seo_description": "Articulo sobre automatizacion e IA aplicada a empresas a partir de una fuente reciente del sector.",
+        "pull_quote": "La tecnologia impresiona. El criterio operativo convierte.",
+        "key_takeaways": [
+            "Una noticia vale cuando puede convertirse en una mejora operativa medible.",
+            "La prioridad no es experimentar mas. Es reducir friccion y retrabajo.",
+            "Un piloto corto y bien acotado suele ganar mas que un roadmap inflado."
+        ],
+        "cover_label": "Analisis",
+        "cover_theme": "signal",
+        "cta_title": "Convirtamos la tendencia en un plan real.",
+        "cta_body": "Si quieres bajar esta tendencia a una iniciativa concreta, te ayudamos a definir alcance, proceso y retorno esperado.",
         "keywords": ["automatizacion empresarial", "ia en empresas", "integracion de ia"],
         "article_html": article_html.strip(),
         "linkedin_text": linkedin_text,
