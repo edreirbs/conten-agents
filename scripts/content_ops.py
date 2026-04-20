@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import html
 import json
+import os
 import re
 from html.parser import HTMLParser
 import urllib.error
@@ -220,8 +221,41 @@ def fetch_page_excerpt(url: str, max_chars: int = 6000, security: dict[str, Any]
     return text[:max_chars]
 
 
+def role_priority(role_id: str, candidate: dict[str, Any]) -> tuple[int, int]:
+    source_type = candidate.get("source_type", "")
+    text = f"{candidate.get('title', '')} {candidate.get('summary', '')}".lower()
+
+    if role_id == "hot_news":
+        type_score = {"x_signal": 0, "vendor": 1, "research": 2, "education": 3}.get(source_type, 4)
+        keyword_bonus = 0 if any(word in text for word in ["launch", "release", "announces", "introduces", "news"]) else 1
+        return (type_score, keyword_bonus)
+
+    if role_id == "good_practice":
+        keyword_bonus = 0 if any(
+            word in text for word in ["best practice", "guide", "how to", "checklist", "tips", "framework"]
+        ) else 1
+        type_score = {"education": 0, "research": 1, "vendor": 2, "x_signal": 3}.get(source_type, 4)
+        return (keyword_bonus, type_score)
+
+    if role_id == "tool_deep_dive":
+        keyword_bonus = 0 if any(
+            word in text for word in ["tool", "platform", "framework", "api", "sdk", "agent", "stack"]
+        ) else 1
+        type_score = {"vendor": 0, "research": 1, "education": 2, "x_signal": 3}.get(source_type, 4)
+        return (keyword_bonus, type_score)
+
+    if role_id == "reflective":
+        keyword_bonus = 0 if any(
+            word in text for word in ["risk", "governance", "lesson", "strategy", "tradeoff", "adoption", "future"]
+        ) else 1
+        type_score = {"research": 0, "education": 1, "vendor": 2, "x_signal": 3}.get(source_type, 4)
+        return (keyword_bonus, type_score)
+
+    return (9, 9)
+
+
 def choose_candidates(
-    sources: dict[str, Any], state: dict[str, Any], max_candidates: int, security: dict[str, Any]
+    sources: dict[str, Any], state: dict[str, Any], max_candidates: int, security: dict[str, Any], role_id: str = "hot_news"
 ) -> list[dict[str, Any]]:
     seen_urls = set(state.get("seen_source_urls", []))
     lookback_days = int(sources.get("lookback_days", 7))
@@ -256,7 +290,12 @@ def choose_candidates(
                 }
             )
 
-    candidates.sort(key=lambda item: item.get("published_at") or "", reverse=True)
+    candidates.sort(
+        key=lambda item: (
+            role_priority(role_id, item),
+            -(parse_date(item.get("published_at")).timestamp() if parse_date(item.get("published_at")) else 0),
+        )
+    )
     limited = candidates[:max_candidates]
     for item in limited:
         item["page_excerpt"] = fetch_page_excerpt(
@@ -265,6 +304,147 @@ def choose_candidates(
             security=security,
         )
     return limited
+
+
+def fetch_x_signals(queries: list[str], security: dict[str, Any], max_items: int = 6) -> list[dict[str, Any]]:
+    bearer_token = os.getenv("X_BEARER_TOKEN")
+    if not bearer_token or not queries:
+        return []
+
+    collected: list[dict[str, Any]] = []
+    seen_links: set[str] = set()
+
+    for query in queries[:3]:
+        response = requests.get(
+            "https://api.x.com/2/tweets/search/recent",
+            headers={"Authorization": f"Bearer {bearer_token}"},
+            params={
+                "query": query,
+                "max_results": 10,
+                "tweet.fields": "created_at,entities,author_id",
+                "expansions": "author_id",
+                "user.fields": "username,name",
+            },
+            timeout=45,
+        )
+        if not response.ok:
+            continue
+
+        payload = response.json()
+        users = {user["id"]: user for user in payload.get("includes", {}).get("users", [])}
+        for post in payload.get("data", []):
+            entities = post.get("entities", {})
+            urls = entities.get("urls", [])
+            expanded_url = ""
+            if urls:
+                expanded_url = urls[0].get("expanded_url") or urls[0].get("unwound_url") or urls[0].get("url") or ""
+            safe_link = sanitize_url(expanded_url, security)
+            if not safe_link or safe_link in seen_links:
+                continue
+
+            user = users.get(post.get("author_id", ""), {})
+            username = user.get("username", "signal")
+            collected.append(
+                {
+                    "source_name": f"X / @{username}",
+                    "source_type": "x_signal",
+                    "title": redact_sensitive_text(post.get("text", ""), enabled=security.get("redact_patterns", True))[:180],
+                    "summary": redact_sensitive_text(post.get("text", ""), enabled=security.get("redact_patterns", True))[:700],
+                    "link": safe_link,
+                    "published_at": post.get("created_at"),
+                }
+            )
+            seen_links.add(safe_link)
+            if len(collected) >= max_items:
+                return collected
+    return collected
+
+
+def select_contextual_image(
+    query: str,
+    orientation: str = "landscape",
+) -> dict[str, Any] | None:
+    pexels = search_pexels_image(query, orientation=orientation)
+    if pexels:
+        return pexels
+    unsplash = search_unsplash_image(query, orientation=orientation)
+    if unsplash:
+        return unsplash
+    return None
+
+
+def search_pexels_image(query: str, orientation: str = "landscape") -> dict[str, Any] | None:
+    api_key = os.getenv("PEXELS_API_KEY")
+    if not api_key:
+        return None
+    response = requests.get(
+        "https://api.pexels.com/v1/search",
+        headers={"Authorization": api_key},
+        params={"query": query, "per_page": 1, "orientation": orientation},
+        timeout=45,
+    )
+    if not response.ok:
+        return None
+    photos = response.json().get("photos", [])
+    if not photos:
+        return None
+    photo = photos[0]
+    return {
+        "provider": "pexels",
+        "url": photo.get("src", {}).get("large2x") or photo.get("src", {}).get("large"),
+        "alt": photo.get("alt") or query,
+        "photographer": photo.get("photographer"),
+        "photographer_url": photo.get("photographer_url"),
+        "source_url": photo.get("url"),
+        "attribution_label": "Foto vía Pexels",
+    }
+
+
+def search_unsplash_image(query: str, orientation: str = "landscape") -> dict[str, Any] | None:
+    access_key = os.getenv("UNSPLASH_ACCESS_KEY")
+    if not access_key:
+        return None
+    response = requests.get(
+        "https://api.unsplash.com/search/photos",
+        headers={"Authorization": f"Client-ID {access_key}"},
+        params={
+            "query": query,
+            "per_page": 1,
+            "orientation": orientation,
+            "content_filter": "high",
+        },
+        timeout=45,
+    )
+    if not response.ok:
+        return None
+    results = response.json().get("results", [])
+    if not results:
+        return None
+    photo = results[0]
+    download_location = photo.get("links", {}).get("download_location")
+    if download_location:
+        requests.get(
+            download_location,
+            headers={"Authorization": f"Client-ID {access_key}"},
+            timeout=30,
+        )
+    user = photo.get("user", {})
+    profile_url = user.get("links", {}).get("html", "")
+    source_url = photo.get("links", {}).get("html", "")
+    utm = "utm_source=conten_agents&utm_medium=referral"
+    if profile_url:
+        profile_url = f"{profile_url}?{utm}"
+    if source_url:
+        source_url = f"{source_url}?{utm}"
+    return {
+        "provider": "unsplash",
+        "url": photo.get("urls", {}).get("regular"),
+        "alt": photo.get("alt_description") or query,
+        "photographer": user.get("name"),
+        "photographer_url": profile_url,
+        "source_url": source_url,
+        "attribution_label": "Foto vía Unsplash",
+    }
 
 
 def extract_response_text(payload: dict[str, Any]) -> str:

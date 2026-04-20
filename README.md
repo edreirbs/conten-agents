@@ -8,17 +8,21 @@ Este repositorio monta un motor de contenido de costo minimo basado en:
 
 - GitHub Actions como orquestador.
 - OpenAI para seleccionar tema, redactar el blog y generar la version corta para LinkedIn.
+- Pexels y Unsplash como proveedores opcionales de imagen editorial libre.
+- X como radar opcional de actualidad para el rol de `hot news`.
 - GitHub Pages como hosting del blog estatico.
 - LinkedIn Posts API para publicar en la pagina de empresa.
 
 El flujo pensado es:
 
 1. Lee fuentes RSS de noticias, investigacion, divulgacion y buenas practicas.
-2. Selecciona el tema con mayor relevancia comercial para la consultora.
-3. Redacta un articulo largo orientado a SEO y conversion.
-4. Genera una version corta para LinkedIn con referencia al blog.
-5. Publica el nuevo post en el sitio estatico.
-6. Publica el resumen en LinkedIn si hay credenciales configuradas.
+2. Rota semanalmente entre 4 roles editoriales: `hot news`, `buena practica`, `tool deep dive` y `reflexivo`.
+3. Selecciona el tema con mayor relevancia comercial para la consultora.
+4. Busca una imagen libre y contextual con preferencia por Pexels/Unsplash.
+5. Redacta el articulo largo orientado a SEO y conversion.
+6. Genera una version corta para LinkedIn con referencia al blog.
+7. Publica el nuevo post en el sitio estatico.
+8. Publica el resumen en LinkedIn si hay credenciales configuradas.
 
 ## Modo seguro por defecto
 
@@ -34,6 +38,7 @@ El proyecto ya viene preparado para minimizar fugas:
 ## Estructura
 
 - `config/brand.json`: identidad editorial y parametros del sitio.
+- `config/editorial_plan.json`: rotacion de roles y reglas del calendario editorial.
 - `config/sources.json`: feeds RSS monitoreados.
 - `data/posts.json`: historial de posts generados.
 - `data/state.json`: estado interno del pipeline.
@@ -56,6 +61,9 @@ Opcionales:
 
 - `OPENAI_MODEL_DISCOVERY`
 - `OPENAI_MODEL_WRITING`
+- `PEXELS_API_KEY`
+- `UNSPLASH_ACCESS_KEY`
+- `X_BEARER_TOKEN`
 - `LINKEDIN_CLIENT_ID`
 - `LINKEDIN_CLIENT_SECRET`
 - `LINKEDIN_REFRESH_TOKEN`
@@ -83,6 +91,27 @@ Si quieres hacer lo menos posible:
 4. Ajusta `config/brand.json` con el nombre real de la consultora y propuesta de valor.
 
 Con eso ya queda funcionando el blog automatico. LinkedIn lo puedes prender despues sin tocar el codigo.
+
+## Rotacion editorial
+
+El calendario queda pensado para una publicacion por semana:
+
+1. `Hot news`: actualidad con angulo de negocio.
+2. `Buena practica`: checklist, guia o framework aplicable.
+3. `Tool deep dive`: explicacion a fondo de una herramienta o tecnologia.
+4. `Reflexivo`: tesis propia, error comun o marco de decision.
+
+La secuencia esta en `config/editorial_plan.json`.
+
+## Imagenes
+
+La politica de imagenes es:
+
+1. Buscar una imagen libre y contextual en Pexels.
+2. Si no hay resultado y existe key, buscar en Unsplash.
+3. Si no hay proveedor configurado o no hay match, usar la portada editorial SVG generada por el sitio.
+
+Las atribuciones se muestran automaticamente cuando viene de Pexels o Unsplash.
 
 ## Publicar en GitHub Pages
 

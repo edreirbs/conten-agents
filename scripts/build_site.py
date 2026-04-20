@@ -17,7 +17,8 @@ def build_site() -> None:
     (DOCS_DIR / "assets" / "covers").mkdir(parents=True, exist_ok=True)
 
     for post in posts:
-        render_cover_svg(post)
+        if not post.get("cover_image"):
+            render_cover_svg(post)
         render_post_page(brand, post)
 
     render_home_page(brand, posts)
@@ -111,7 +112,7 @@ def render_post_page(brand: dict, post: dict) -> None:
     source_links = source_links or "<li>Fuente principal no disponible.</li>"
     deck = escape(post.get("deck") or post.get("excerpt", ""))
     pull_quote = escape(post.get("pull_quote") or "")
-    cover_path = f"../assets/covers/{post['slug']}.svg"
+    cover_image = resolve_cover_image(post, page="post")
     takeaways = render_takeaways(post.get("key_takeaways", []))
     cta_title = escape(post.get("cta_title") or "Convirtamos esta idea en una ventaja operativa.")
     cta_body = escape(
@@ -142,10 +143,12 @@ def render_post_page(brand: dict, post: dict) -> None:
             <span>{format_date(post.get("published_at"))}</span>
             <span>{escape(post.get("source_name", "Curación automatizada"))}</span>
             <span>{reading_time(post)} min de lectura</span>
+            <span>{escape(post.get("editorial_role", {}).get("label", "Editorial"))}</span>
           </div>
         </div>
         <div class="story-cover panel">
-          <img src="{cover_path}" alt="{title}">
+          <img src="{cover_image['src']}" alt="{escape(cover_image['alt'])}">
+          {render_image_credit(post)}
         </div>
       </section>
       {takeaways}
@@ -180,12 +183,12 @@ def render_post_cards(posts: list[dict], page: str) -> str:
     cards: list[str] = []
     for post in posts:
         href = link_for_card(post, page)
-        cover_path = f"{cover_prefix(page)}assets/covers/{post['slug']}.svg"
+        cover_image = resolve_cover_image(post, page=page)
         cards.append(
             f"""
 <article class="post-card">
   <a class="card-cover" href="{href}">
-    <img src="{cover_path}" alt="{escape(post['title'])}">
+    <img src="{cover_image['src']}" alt="{escape(cover_image['alt'])}">
   </a>
   <div class="post-card-body">
     <div class="meta">
@@ -226,6 +229,24 @@ def render_quote_block(value: str) -> str:
   <blockquote>{value}</blockquote>
 </section>
 """.strip()
+
+
+def render_image_credit(post: dict) -> str:
+    cover_image = post.get("cover_image")
+    if not cover_image:
+        return ""
+    photographer = escape(cover_image.get("photographer") or "")
+    photographer_url = cover_image.get("photographer_url") or ""
+    source_url = cover_image.get("source_url") or ""
+    label = escape(cover_image.get("attribution_label") or "Imagen editorial")
+    parts = [label]
+    if photographer and photographer_url:
+        parts.append(f'<a href="{escape(photographer_url)}" target="_blank" rel="noopener noreferrer">{photographer}</a>')
+    elif photographer:
+        parts.append(photographer)
+    if source_url:
+        parts.append(f'<a href="{escape(source_url)}" target="_blank" rel="noopener noreferrer">ver fuente</a>')
+    return f'<p class="image-credit">{" · ".join(parts)}</p>'
 
 
 def render_robots_txt(brand: dict) -> None:
@@ -282,6 +303,20 @@ def render_cover_svg(post: dict) -> None:
 </svg>
 """
     write(DOCS_DIR / "assets" / "covers" / f"{post['slug']}.svg", svg)
+
+
+def resolve_cover_image(post: dict, page: str) -> dict[str, str]:
+    cover_image = post.get("cover_image")
+    if cover_image and cover_image.get("url"):
+        return {
+            "src": cover_image["url"],
+            "alt": cover_image.get("alt") or post.get("title", "Imagen editorial"),
+        }
+    prefix = cover_prefix(page)
+    return {
+        "src": f"{prefix}assets/covers/{post['slug']}.svg",
+        "alt": post.get("title", "Imagen editorial"),
+    }
 
 
 def header(brand: dict, prefix: str) -> str:

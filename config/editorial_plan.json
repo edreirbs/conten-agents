@@ -1,0 +1,38 @@
+{
+  "cadence": "weekly",
+  "publish_day": "MONDAY",
+  "role_sequence": [
+    {
+      "id": "hot_news",
+      "label": "Hot news",
+      "goal": "capturar atención con actualidad y una tesis de negocio clara"
+    },
+    {
+      "id": "good_practice",
+      "label": "Buena práctica",
+      "goal": "convertir experiencia y mejores prácticas en guías accionables"
+    },
+    {
+      "id": "tool_deep_dive",
+      "label": "Tool deep dive",
+      "goal": "explicar una herramienta o tecnología con profundidad y criterio operativo"
+    },
+    {
+      "id": "reflective",
+      "label": "Reflexivo",
+      "goal": "publicar una tesis, opinión o marco mental con voz propia"
+    }
+  ],
+  "x_signal_queries": [
+    "\"AI agent\" OR \"agentes de IA\" automation enterprise -is:retweet lang:en",
+    "\"workflow automation\" OR \"business automation\" AI -is:retweet lang:en",
+    "\"enterprise AI\" integration agents -is:retweet lang:en"
+  ],
+  "role_hints": {
+    "hot_news": "elige la noticia más reciente con implicación empresarial inmediata",
+    "good_practice": "prioriza guías, checklists, frameworks y lecciones operativas",
+    "tool_deep_dive": "prioriza herramientas, APIs, plataformas o stacks con aplicación clara",
+    "reflective": "prioriza tensiones estratégicas, errores comunes, gobernanza y criterio"
+  }
+}
+

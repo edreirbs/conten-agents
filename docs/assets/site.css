@@ -267,6 +267,17 @@ img {
   border-radius: 18px;
 }
 
+.image-credit {
+  margin: 12px 0 0;
+  color: var(--muted);
+  font-size: 0.88rem;
+  line-height: 1.5;
+}
+
+.image-credit a {
+  color: var(--accent);
+}
+
 .takeaways {
   margin: 20px 0 0;
 }

@@ -34,6 +34,11 @@
     ],
     "published_at": "2026-04-20T21:18:16.000177+00:00",
     "canonical_url": "https://edreirbs.github.io/conten-agents/blog/pruebas-agentes-ia-seguras-escalables.html",
+    "editorial_role": {
+      "id": "hot_news",
+      "label": "Hot news",
+      "goal": "capturar atención con actualidad y una tesis de negocio clara"
+    },
     "linkedin": {
       "status": "skipped",
       "post_reference": null

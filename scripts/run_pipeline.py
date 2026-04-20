@@ -4,6 +4,7 @@ import argparse
 import json
 import os
 import sys
+from datetime import datetime
 from pathlib import Path
 from typing import Any
 
@@ -11,6 +12,7 @@ from build_site import build_site
 from content_ops import (
     CONFIG_DIR,
     DATA_DIR,
+    fetch_x_signals,
     load_json,
     load_security,
     openai_json_response,
@@ -18,6 +20,7 @@ from content_ops import (
     redact_sensitive_text,
     refresh_linkedin_access_token,
     save_json,
+    select_contextual_image,
     sanitize_article_html,
     sanitize_url,
     slugify,
@@ -40,13 +43,24 @@ def main() -> int:
     args = parse_args()
 
     brand = load_json(CONFIG_DIR / "brand.json", {})
+    editorial_plan = load_json(CONFIG_DIR / "editorial_plan.json", {})
     sources = load_json(CONFIG_DIR / "sources.json", {})
     security = load_security()
     posts = load_json(DATA_DIR / "posts.json", [])
     state = load_json(DATA_DIR / "state.json", {"last_run_at": None, "seen_source_urls": []})
+    role = next_role(posts, editorial_plan)
 
     max_candidates = int(brand.get("content_rules", {}).get("max_candidates_per_run", 6))
-    candidates = choose_candidates(sources, state, max_candidates=max_candidates, security=security)
+    candidates = choose_candidates(
+        sources,
+        state,
+        max_candidates=max_candidates,
+        security=security,
+        role_id=role["id"],
+    )
+    if role["id"] == "hot_news":
+        x_signals = fetch_x_signals(editorial_plan.get("x_signal_queries", []), security, max_items=4)
+        candidates = sort_candidates_for_role(candidates + x_signals, role["id"])[:max_candidates]
 
     if not candidates:
         state["last_run_at"] = utc_now_iso()
@@ -56,19 +70,24 @@ def main() -> int:
         return 0
 
     if args.dry_run:
-        selection = mock_selection(candidates[0], brand)
-        draft = mock_draft(selection, candidates[0], brand)
+        selection = mock_selection(candidates[0], brand, role)
+        draft = mock_draft(selection, candidates[0], brand, role)
     else:
         api_key = os.getenv("OPENAI_API_KEY")
         if not api_key:
             print("Falta OPENAI_API_KEY para la ejecución normal.", file=sys.stderr)
             return 1
-        selection = select_topic(api_key, brand, candidates)
+        selection = select_topic(api_key, brand, candidates, role, editorial_plan)
         selected_candidate = match_candidate(selection, candidates)
-        draft = draft_article(api_key, brand, selection, selected_candidate)
+        draft = draft_article(api_key, brand, selection, selected_candidate, role)
 
     selected_candidate = match_candidate(selection, candidates)
     post = assemble_post(draft, selected_candidate, brand, posts, security)
+    post["editorial_role"] = role
+    image_query = draft.get("image_query") or selection.get("image_query") or post["title"]
+    image = select_contextual_image(image_query)
+    if image:
+        post["cover_image"] = image
     posts.insert(0, post)
     state["last_run_at"] = utc_now_iso()
     state["seen_source_urls"] = unique_urls(
@@ -85,7 +104,13 @@ def main() -> int:
     return 0
 
 
-def select_topic(api_key: str, brand: dict[str, Any], candidates: list[dict[str, Any]]) -> dict[str, Any]:
+def select_topic(
+    api_key: str,
+    brand: dict[str, Any],
+    candidates: list[dict[str, Any]],
+    role: dict[str, Any],
+    editorial_plan: dict[str, Any],
+) -> dict[str, Any]:
     discovery_model = os.getenv("OPENAI_MODEL_DISCOVERY", brand.get("models", {}).get("discovery", "gpt-5.4-nano"))
     instructions = """
 Eres un estratega editorial B2B para una consultora de automatización e integración de IA.
@@ -104,6 +129,8 @@ Responde solo con JSON válido.
             "goals": brand.get("editorial_goals", []),
             "audience": brand.get("audience", []),
             "voice": brand.get("voice", {}),
+            "editorial_role": role,
+            "role_hint": editorial_plan.get("role_hints", {}).get(role["id"]),
             "candidates": candidates,
             "required_output": {
                 "selected_url": "url elegida",
@@ -111,6 +138,7 @@ Responde solo con JSON válido.
                 "slug": "slug breve",
                 "angle": "ángulo comercial y editorial",
                 "why_it_matters": "por qué importa para empresas",
+                "image_query": "busqueda breve para imagen editorial",
                 "source_urls": ["urls de apoyo relevantes"],
             },
         },
@@ -130,6 +158,7 @@ def draft_article(
     brand: dict[str, Any],
     selection: dict[str, Any],
     candidate: dict[str, Any],
+    role: dict[str, Any],
 ) -> dict[str, Any]:
     writing_model = os.getenv("OPENAI_MODEL_WRITING", brand.get("models", {}).get("writing", "gpt-5.4-mini"))
     instructions = """
@@ -158,6 +187,7 @@ El campo linkedin_text debe cerrar con el placeholder {{ARTICLE_URL}}.
             "positioning": brand.get("positioning_statement"),
             "contrarian_thesis": brand.get("contrarian_thesis"),
             "voice": brand.get("voice", {}),
+            "editorial_role": role,
             "limits": brand.get("content_rules", {}),
             "required_output": {
                 "title": "título final",
@@ -171,6 +201,7 @@ El campo linkedin_text debe cerrar con el placeholder {{ARTICLE_URL}}.
                 "cover_theme": "signal, risk, growth o systems",
                 "cta_title": "título corto para cierre",
                 "cta_body": "párrafo final de CTA consultivo",
+                "image_query": "consulta corta y concreta para encontrar una imagen libre relevante",
                 "keywords": ["lista", "de", "keywords"],
                 "article_html": "<p>...</p>",
                 "linkedin_text": "post corto para LinkedIn con CTA y {{ARTICLE_URL}}",
@@ -236,6 +267,7 @@ def assemble_post(
             enabled=security.get("redact_patterns", True),
         ),
         "keywords": draft.get("keywords", []),
+        "image_query": draft.get("image_query"),
         "article_html": sanitize_article_html(draft.get("article_html") or "<p>Sin contenido.</p>"),
         "linkedin_text": redact_sensitive_text(
             (draft.get("linkedin_text") or "").replace("{{ARTICLE_URL}}", canonical_url)[:2600],
@@ -326,18 +358,19 @@ def match_candidate(selection: dict[str, Any], candidates: list[dict[str, Any]])
     return candidates[0]
 
 
-def mock_selection(candidate: dict[str, Any], brand: dict[str, Any]) -> dict[str, Any]:
+def mock_selection(candidate: dict[str, Any], brand: dict[str, Any], role: dict[str, Any]) -> dict[str, Any]:
     return {
         "selected_url": candidate["link"],
         "blog_title": f"Qué significa para las empresas: {candidate['title']}",
         "slug": slugify(candidate["title"]),
         "angle": f"Cómo convertir la novedad en una oportunidad de {brand.get('services', ['automatización'])[0]}",
         "why_it_matters": "Permite aterrizar una novedad del mercado en casos de uso empresariales concretos.",
+        "image_query": f"{role['label']} enterprise automation AI",
         "source_urls": [candidate["link"]],
     }
 
 
-def mock_draft(selection: dict[str, Any], candidate: dict[str, Any], brand: dict[str, Any]) -> dict[str, Any]:
+def mock_draft(selection: dict[str, Any], candidate: dict[str, Any], brand: dict[str, Any], role: dict[str, Any]) -> dict[str, Any]:
     title = selection["blog_title"]
     services = ", ".join(brand.get("services", [])[:3])
     article_html = f"""
@@ -378,11 +411,44 @@ def mock_draft(selection: dict[str, Any], candidate: dict[str, Any], brand: dict
         "cover_theme": "signal",
         "cta_title": "Convirtamos la tendencia en un plan real.",
         "cta_body": "Si quieres bajar esta tendencia a una iniciativa concreta, te ayudamos a definir alcance, proceso y retorno esperado.",
+        "image_query": selection.get("image_query") or f"{role['label']} automation",
         "keywords": ["automatización empresarial", "IA en empresas", "integración de IA"],
         "article_html": article_html.strip(),
         "linkedin_text": linkedin_text,
         "source_urls": [candidate["link"]],
     }
+
+
+def next_role(posts: list[dict[str, Any]], editorial_plan: dict[str, Any]) -> dict[str, Any]:
+    sequence = editorial_plan.get("role_sequence", [])
+    if not sequence:
+        return {"id": "hot_news", "label": "Hot news", "goal": "capturar atención con actualidad"}
+    return sequence[len(posts) % len(sequence)]
+
+
+def sort_candidates_for_role(candidates: list[dict[str, Any]], role_id: str) -> list[dict[str, Any]]:
+    def sort_key(item: dict[str, Any]) -> tuple[int, float]:
+        source_type = item.get("source_type", "")
+        published = item.get("published_at")
+        ts = 0.0
+        if published:
+            try:
+                ts = datetime_from_iso(published).timestamp()
+            except ValueError:
+                ts = 0.0
+        if role_id == "hot_news":
+            type_rank = {"x_signal": 0, "vendor": 1, "research": 2, "education": 3}.get(source_type, 4)
+            return (type_rank, -ts)
+        return (0, -ts)
+
+    deduped: dict[str, dict[str, Any]] = {}
+    for candidate in candidates:
+        deduped[candidate["link"]] = candidate
+    return sorted(deduped.values(), key=sort_key)
+
+
+def datetime_from_iso(value: str):
+    return datetime.fromisoformat(value.replace("Z", "+00:00"))
 
 
 if __name__ == "__main__":
