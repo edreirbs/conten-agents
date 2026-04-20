@@ -1,8 +1,11 @@
 {
-  "last_run_at": "2026-04-20T21:18:16.001267+00:00",
+  "last_run_at": "2026-04-20T22:26:22.287847+00:00",
   "seen_source_urls": [
     "https://aws.amazon.com/blogs/machine-learning/toolsimulator-scalable-tool-testing-for-ai-agents/",
     "https://aws.amazon.com/blogs/machine-learning/omnichannel-ordering-with-amazon-bedrock-agentcore-and-amazon-nova-2-sonic/",
-    "https://aws.amazon.com/blogs/machine-learning/accelerate-generative-ai-inference-on-amazon-sagemaker-ai-with-g7e-instances/"
+    "https://aws.amazon.com/blogs/machine-learning/accelerate-generative-ai-inference-on-amazon-sagemaker-ai-with-g7e-instances/",
+    "https://towardsdatascience.com/your-rag-system-retrieves-the-right-data-but-still-produces-wrong-answers-heres-why-and-how-to-fix-it/",
+    "https://towardsdatascience.com/from-risk-to-asset-designing-a-practical-data-strategy-that-actually-works/",
+    "https://towardsdatascience.com/a-practical-guide-to-memory-for-autonomous-llm-agents/"
   ]
 }

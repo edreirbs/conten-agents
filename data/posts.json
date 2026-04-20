@@ -1,5 +1,61 @@
 [
   {
+    "id": "2026-04-20T22:26:21.930972+00:00",
+    "title": "Cuando la RAG encuentra los documentos correctos pero entrega la respuesta equivocada",
+    "deck": "El riesgo silencioso de los conflictos de contexto en sistemas RAG y cómo mitigarlo sin rehacer toda la arquitectura",
+    "slug": "rag-conflictos-contexto-fallos-operacion",
+    "excerpt": "Los sistemas RAG pueden recuperar documentos perfectos y aun así generar respuestas plausibles pero incorrectas cuando devuelven contexto contradictorio. Es un fallo operativo, no solo técnico.",
+    "seo_description": "Cómo identificar y corregir el fallo de 'conflicto de contexto' en pipelines RAG: checklist operativo, métricas y micro‑piloto para reducir riesgo antes de escalar.",
+    "pull_quote": "El sistema trabajó bien. La respuesta, no.",
+    "key_takeaways": [
+      "El fallo ocurre entre recuperación y generación: la RAG puede traer documentos contradictorios y el modelo decide sin advertir.",
+      "Resolverlo requiere reglas de adjudicación de contexto, pruebas en escenarios reales y métricas de conflicto, no solo más datos o modelos.",
+      "Un micro‑piloto con tests controlados, triggers de no‑decisión y adjudicación humana reduce el riesgo con bajos recursos."
+    ],
+    "cover_label": "RAG en producción",
+    "cover_theme": "risk",
+    "cta_title": "Diagnóstico rápido de riesgo RAG",
+    "cta_body": "Si está desplegando RAG en flujos críticos —soporte, ventas, cumplimiento o finanzas— propongamos un diagnóstico y micro‑piloto de 6 semanas: pruebas de conflicto, reglas de adjudicación, métricas y un plan de escalado seguro. No vendemos magia: proponemos reducciones de riesgo medibles antes de ampliar.",
+    "keywords": [
+      "RAG",
+      "conflicto de contexto",
+      "pruebas IA",
+      "gobernanza de modelos",
+      "automatización",
+      "micro-piloto",
+      "operaciones"
+    ],
+    "image_query": "pantalla de interfaz RAG mostrando dos documentos contradictorios lado a lado, estilo ejecutivo sobrio",
+    "article_html": "<h2>La contradicción que nadie mide</h2><p>Las empresas compran RAG porque promete respuestas basadas en conocimiento propio: documentos, políticas, contratos. Recuperación perfecta. Métricas alineadas. Y aún así, cada tanto, el sistema devuelve una respuesta convincente y equivocada.</p><p>Suena raro. Lo es. Pero es real:</p><p><strong>El sistema trabajó bien. La respuesta, no.</strong></p><h3>Cómo sucede —sin aportar ruido técnico innecesario</h3><p>La tubería typical RAG tiene tres pasos claros: recuperar, ensamblar contexto y generar. Las métricas tradicionales evalúan la recuperación —¿regresó el documento correcto?— y la calidad de la generación —¿es fluida?—. Lo que casi nadie prueba es la interacción entre ambos: ¿qué ocurre si el top‑k incluye dos versiones distintas del mismo dato?</p><p>Ejemplo ejecutivo: su base de conocimiento contiene una nota de prensa con una cifra preliminar y, semanas después, otra con la versión auditada que revierte esa cifra. Si la consulta recupera ambas, el modelo puede elegir una, sintetizar una respuesta persuasiva y no decir que ha preferido una versión sobre otra. Resultado: el equipo comercial repite la cifra equivocada en una propuesta; el cliente firma; luego hay retrabajo y fricción reputacional.</p><h3>Por qué es un problema operativo, no solo técnico</h3><ul>\n  <li>Decisiones erróneas: ventas, precios, provisiones financieras, recomendaciones de cumplimiento.</li>\n  <li>Riesgo regulatorio: respuestas basadas en versiones obsoletas pueden infringir normas o contratos.</li>\n  <li>Pérdida de confianza: clientes y usuarios esperan certezas; recibir respuestas plausibles y falsas erosiona confianza.</li>\n  <li>Coste de corrección: investigar, notificar, arreglar contratos, compensaciones.</li>\n</ul><p>Esto no es un «bug» menor. Es una falla de producto operacional: la tubería no tiene reglas para adjudicar contradicciones ni métricas para señalarlas.</p><h3>Señales de alarma que debe monitorear ya</h3><ul>\n  <li>Alta varianza en respuestas para la misma consulta (sin cambios de KB).</li>\n  <li>Casos donde la respuesta cita múltiples fuentes incompatibles sin reconciliación.</li>\n  <li>Aumento de reclamos o tickets que citan documentos oficiales con versiones distintas.</li>\n  <li>Respuestas con frases tipo «según X» pero sin referencia clara a versión o fecha.</li>\n</ul><h3>Lista operativa: medidas prácticas y de bajo coste</h3><ol>\n  <li><strong>Versionado explícito en el contexto:</strong> adjunte metadatos (fecha, versión, estatus) a cada segmento recuperado y muéstrelos al modelo como señales estructuradas.</li>\n  <li><strong>Detector de conflicto:</strong> una capa simple que compara entidades/valores críticos (fechas, cifras, cláusulas) en el top‑k y marca conflictos si difieren.</li>\n  <li><strong>Reglas de adjudicación:</strong> priorice por estatus (audited &gt; draft), fecha (más reciente con anotación) o fuente (contratos &gt; comunicados comerciales).</li>\n  <li><strong>Trigger de no‑decisión:</strong> cuando haya conflicto relevante, devuelva una respuesta que pida validación humana o presente las versiones con su metadato en vez de una única afirmación.</li>\n  <li><strong>Métricas de conflicto:</strong> tasa de conflictos por query, tiempo hasta adjudicación humana, y porcentaje de respuestas en modo ‘no‑decisión’.</li>\n  <li><strong>Pruebas de escenario:</strong> tests automáticos que inyectan pares contradictorios y verifican comportamiento del pipeline.</li>\n</ol><h3>Checklist de pruebas antes de escalar</h3><ul>\n  <li>Definir los «campos críticos» que no pueden discrepar (precios, fechas, cláusulas).</li>\n  <li>Crear 50 consultas de control que recuperen documentos intencionadamente contradictorios.</li>\n  <li>Medir: exactitud condicionada (cuando no hay conflicto) y tasa de rechazo (cuando hay conflicto).</li>\n  <li>Verificar experiencia de usuario: ¿la respuesta ofrece versiones y pide confirmación cuando corresponde?</li>\n  <li>Incluir stakeholders legales/comerciales en la aceptación de reglas de adjudicación.</li>\n</ul><h3>Un micro‑piloto operativo: 6 pasos, 6 semanas</h3><ol>\n  <li><strong>Semana 1 — Diagnóstico:</strong> mapa de fuentes críticas y definición de campos sensibles. Entrevistas con 3 equipos consumidores (soporte, ventas, cumplimiento).</li>\n  <li><strong>Semana 2 — Simulador de conflicto:</strong> generar un set de 100 consultas con pares contradictorios simulados y medir comportamiento actual.</li>\n  <li><strong>Semana 3 — Capa de detección:</strong> implementar detector de conflicto (reglas + comparación de entidades) y métricas básicas.</li>\n  <li><strong>Semana 4 — Reglas de adjudicación:</strong> definir y codificar priorizaciones (metadata first) y modo ‘no‑decisión’.</li>\n  <li><strong>Semana 5 — Pruebas con usuarios:</strong> validación con casos reales y seguimiento de tiempos de adjudicación humana.</li>\n  <li><strong>Semana 6 — Informe y plan de escalado:</strong> resultados, reducción de riesgo estimada y roadmap para integrar la solución en producción.</li>\n</ol><p>Este piloto no exige cambiar modelos ni infraestructura pesada. Pide criterio: qué datos son sensibles, quién decide y cómo medir que la decisión fue la correcta.</p><h3>Roles y responsabilidades — lo operativo manda</h3><ul>\n  <li>Producto: define campos críticos y reglas de adjudicación.</li>\n  <li>Operaciones/Kb owners: mantienen versionado y metadatos.</li>\n  <li>ML/Ingeniería: implementa detector y modo de fallback.</li>\n  <li>Negocio/Legal: valida políticas de adjudicación y protocolos de notificación.</li>\n</ul><h3>Cierre consultivo</h3><p>Si su RAG ya sirve respuestas en flujos críticos, felicidades: usted ya cruzó el punto de riesgo. Ahora la pregunta es práctica: ¿cómo reduce la probabilidad de que una respuesta plausible cause daño real? La solución no empieza por un modelo mejor; empieza por disciplina en el ensamblaje de contexto y reglas claras de adjudicación.</p><p>Si quiere, podemos hacer el diagnóstico y el micro‑piloto de 6 semanas: pruebas controladas, detector de conflictos, reglas y métricas que permitan escalar con seguridad. Poco humo. Mucho criterio.</p>",
+    "linkedin_text": "Los sistemas RAG pueden recuperar los documentos correctos y aun así entregar respuestas plausibles pero equivocadas cuando devuelven contexto contradictorio. Es un fallo operativo, no solo técnico. En el artículo explicamos el modo de fallo, una checklist de pruebas y un micro‑piloto de 6 semanas para reducir riesgo antes de escalar. Lee más y propongamos un diagnóstico práctico: https://edreirbs.github.io/conten-agents/blog/rag-conflictos-contexto-fallos-operacion.html",
+    "source_name": "Towards Data Science",
+    "source_urls": [
+      "https://towardsdatascience.com/your-rag-system-retrieves-the-right-data-but-still-produces-wrong-answers-heres-why-and-how-to-fix-it/",
+      "https://towardsdatascience.com/from-risk-to-asset-designing-a-practical-data-strategy-that-actually-works/",
+      "https://towardsdatascience.com/a-practical-guide-to-memory-for-autonomous-llm-agents/"
+    ],
+    "published_at": "2026-04-20T22:26:21.930972+00:00",
+    "canonical_url": "https://edreirbs.github.io/conten-agents/blog/rag-conflictos-contexto-fallos-operacion.html",
+    "linkedin": {
+      "status": "skipped",
+      "post_reference": null
+    },
+    "editorial_role": {
+      "id": "good_practice",
+      "label": "Buena práctica",
+      "goal": "convertir experiencia y mejores prácticas en guías accionables"
+    },
+    "cover_image": {
+      "provider": "pexels",
+      "url": "https://images.pexels.com/photos/33433704/pexels-photo-33433704.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+      "alt": "A cluttered desk with a tablet showing a to-do list, monitor showing code, and office supplies.",
+      "photographer": "Jakub Zerdzicki",
+      "photographer_url": "https://www.pexels.com/@jakubzerdzicki",
+      "source_url": "https://www.pexels.com/photo/modern-workspace-with-to-do-list-and-coding-display-33433704/",
+      "attribution_label": "Foto vía Pexels"
+    }
+  },
+  {
     "id": "2026-04-20T21:18:16.000177+00:00",
     "title": "Antes de soltar un agente de IA en producción, prueba esto",
     "deck": "La mayoría de las empresas no fracasa por falta de IA. Fracasa por desplegarla sin una disciplina de pruebas capaz de contener riesgo, revelar fallas y proteger margen.",
