@@ -30,7 +30,7 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 def parse_args() -> argparse.Namespace:
-    parser = argparse.ArgumentParser(description="Genera y publica contenido organico.")
+    parser = argparse.ArgumentParser(description="Genera y publica contenido orgánico.")
     parser.add_argument("--dry-run", action="store_true", help="No usa OpenAI y genera una pieza mock.")
     parser.add_argument("--skip-linkedin", action="store_true", help="No intenta publicar en LinkedIn.")
     return parser.parse_args()
@@ -61,7 +61,7 @@ def main() -> int:
     else:
         api_key = os.getenv("OPENAI_API_KEY")
         if not api_key:
-            print("Falta OPENAI_API_KEY para la ejecucion normal.", file=sys.stderr)
+            print("Falta OPENAI_API_KEY para la ejecución normal.", file=sys.stderr)
             return 1
         selection = select_topic(api_key, brand, candidates)
         selected_candidate = match_candidate(selection, candidates)
@@ -88,11 +88,12 @@ def main() -> int:
 def select_topic(api_key: str, brand: dict[str, Any], candidates: list[dict[str, Any]]) -> dict[str, Any]:
     discovery_model = os.getenv("OPENAI_MODEL_DISCOVERY", brand.get("models", {}).get("discovery", "gpt-5.4-nano"))
     instructions = """
-Eres un estratega editorial B2B para una consultora de automatizacion e integracion de IA.
+Eres un estratega editorial B2B para una consultora de automatización e integración de IA.
 Debes elegir un solo tema con mayor potencial de atraer clientes empresariales.
-La seleccion debe favorecer temas donde haya tension, riesgo, contradiccion o oportunidad operativa clara.
-Evita temas demasiado genericos, celebratorios o puramente tecnicos sin implicacion de negocio.
-Responde solo con JSON valido.
+La selección debe favorecer temas donde haya tensión, riesgo, contradicción u oportunidad operativa clara.
+Evita temas demasiado genéricos, celebratorios o puramente técnicos sin implicación de negocio.
+Cuida siempre la ortografía, la puntuación y la acentuación.
+Responde solo con JSON válido.
 """
     payload = json.dumps(
         {
@@ -106,10 +107,10 @@ Responde solo con JSON valido.
             "candidates": candidates,
             "required_output": {
                 "selected_url": "url elegida",
-                "blog_title": "titulo del articulo en espanol",
+                "blog_title": "título del artículo en español",
                 "slug": "slug breve",
-                "angle": "angulo comercial y editorial",
-                "why_it_matters": "por que importa para empresas",
+                "angle": "ángulo comercial y editorial",
+                "why_it_matters": "por qué importa para empresas",
                 "source_urls": ["urls de apoyo relevantes"],
             },
         },
@@ -132,20 +133,21 @@ def draft_article(
 ) -> dict[str, Any]:
     writing_model = os.getenv("OPENAI_MODEL_WRITING", brand.get("models", {}).get("writing", "gpt-5.4-mini"))
     instructions = """
-Eres un editor senior de contenidos para una consultora que vende proyectos de automatizacion e IA.
-Escribe en espanol para directivos y responsables de operaciones.
-El articulo debe tener ritmo de blog premium: una apertura provocadora, frases largas combinadas con frases cortas contundentes, una tesis clara, storytelling ejecutivo y cierre consultivo.
-No escribas como whitepaper. No escribas como nota corporativa. Escribe como una pieza que abre una conversacion comercial inteligente.
-Cada articulo debe:
-- abrir con tension o contradiccion;
+Eres un editor senior de contenidos para una consultora que vende proyectos de automatización e IA.
+Escribe en español para directivos y responsables de operaciones.
+El artículo debe tener ritmo de blog premium: una apertura provocadora, frases largas combinadas con frases cortas contundentes, una tesis clara, storytelling ejecutivo y cierre consultivo.
+No escribas como whitepaper. No escribas como nota corporativa. Escribe como una pieza que abre una conversación comercial inteligente.
+Cada artículo debe:
+- abrir con tensión o contradicción;
 - incluir una frase breve y afilada como golpe editorial;
 - bajar la tendencia al terreno operativo;
-- incluir ejemplos, listas utiles y un cierre con siguiente paso.
-La voz debe sonar a una consultora boutique, estrategica, frontal y sobria. Debe notarse criterio. Nunca grandilocuencia.
-Evita frases y lugares comunes corporativos. Si una frase suena intercambiable con la de cualquier agencia, reescribela.
-No incluyas datos personales, emails, telefonos, datos privados, secretos ni informacion confidencial.
-Responde solo con JSON valido.
-El campo article_html debe contener solo HTML interno del articulo, sin html ni body.
+- incluir ejemplos, listas útiles y un cierre con siguiente paso.
+La voz debe sonar a una consultora boutique, estratégica, frontal y sobria. Debe notarse criterio. Nunca grandilocuencia.
+Evita frases y lugares comunes corporativos. Si una frase suena intercambiable con la de cualquier agencia, reescríbela.
+Cuida siempre la ortografía, la puntuación y la acentuación. No entregues texto con errores ortográficos.
+No incluyas datos personales, emails, teléfonos, datos privados, secretos ni información confidencial.
+Responde solo con JSON válido.
+El campo article_html debe contener solo HTML interno del artículo, sin html ni body.
 El campo linkedin_text debe cerrar con el placeholder {{ARTICLE_URL}}.
 """
     payload = json.dumps(
@@ -158,17 +160,17 @@ El campo linkedin_text debe cerrar con el placeholder {{ARTICLE_URL}}.
             "voice": brand.get("voice", {}),
             "limits": brand.get("content_rules", {}),
             "required_output": {
-                "title": "titulo final",
-                "deck": "subtitulo breve que sostenga la tesis",
+                "title": "título final",
+                "deck": "subtítulo breve que sostenga la tesis",
                 "slug": "slug final",
                 "excerpt": "resumen corto de 140 a 180 caracteres",
-                "seo_description": "meta descripcion corta",
+                "seo_description": "meta descripción corta",
                 "pull_quote": "frase breve y memorable",
                 "key_takeaways": ["idea 1", "idea 2", "idea 3"],
                 "cover_label": "etiqueta corta para portada",
                 "cover_theme": "signal, risk, growth o systems",
-                "cta_title": "titulo corto para cierre",
-                "cta_body": "parrafo final de CTA consultivo",
+                "cta_title": "título corto para cierre",
+                "cta_body": "párrafo final de CTA consultivo",
                 "keywords": ["lista", "de", "keywords"],
                 "article_html": "<p>...</p>",
                 "linkedin_text": "post corto para LinkedIn con CTA y {{ARTICLE_URL}}",
@@ -215,12 +217,12 @@ def assemble_post(
             enabled=security.get("redact_patterns", True),
         ),
         "pull_quote": redact_sensitive_text(
-            draft.get("pull_quote") or "La automatizacion sin criterio genera ruido. La automatizacion bien probada genera margen.",
+            draft.get("pull_quote") or "La automatización sin criterio genera ruido. La automatización bien probada genera margen.",
             enabled=security.get("redact_patterns", True),
         ),
         "key_takeaways": [redact_sensitive_text(item, enabled=security.get("redact_patterns", True)) for item in draft.get("key_takeaways", [])[:3]],
         "cover_label": redact_sensitive_text(
-            draft.get("cover_label") or "Analisis",
+            draft.get("cover_label") or "Análisis",
             enabled=security.get("redact_patterns", True),
         ),
         "cover_theme": draft.get("cover_theme") or "signal",
@@ -230,7 +232,7 @@ def assemble_post(
         ),
         "cta_body": redact_sensitive_text(
             draft.get("cta_body")
-            or "Si quieres convertir esta tendencia en una iniciativa aterrizada, podemos ayudarte a definir alcance, riesgos, metricas y una primera prueba controlada.",
+            or "Si quieres convertir esta tendencia en una iniciativa aterrizada, podemos ayudarte a definir alcance, riesgos, métricas y una primera prueba controlada.",
             enabled=security.get("redact_patterns", True),
         ),
         "keywords": draft.get("keywords", []),
@@ -327,9 +329,9 @@ def match_candidate(selection: dict[str, Any], candidates: list[dict[str, Any]])
 def mock_selection(candidate: dict[str, Any], brand: dict[str, Any]) -> dict[str, Any]:
     return {
         "selected_url": candidate["link"],
-        "blog_title": f"Que significa para las empresas: {candidate['title']}",
+        "blog_title": f"Qué significa para las empresas: {candidate['title']}",
         "slug": slugify(candidate["title"]),
-        "angle": f"Como convertir la novedad en una oportunidad de {brand.get('services', ['automatizacion'])[0]}",
+        "angle": f"Cómo convertir la novedad en una oportunidad de {brand.get('services', ['automatización'])[0]}",
         "why_it_matters": "Permite aterrizar una novedad del mercado en casos de uso empresariales concretos.",
         "source_urls": [candidate["link"]],
     }
@@ -339,44 +341,44 @@ def mock_draft(selection: dict[str, Any], candidate: dict[str, Any], brand: dict
     title = selection["blog_title"]
     services = ", ".join(brand.get("services", [])[:3])
     article_html = f"""
-<p>La conversacion alrededor de <strong>{candidate['title']}</strong> no solo importa por novedad tecnica. Tambien abre una ventana para que las empresas revisen donde pueden capturar valor real con {services}.</p>
-<h2>Por que vale la pena prestarle atencion</h2>
+<p>La conversación alrededor de <strong>{candidate['title']}</strong> no solo importa por novedad técnica. También abre una ventana para que las empresas revisen dónde pueden capturar valor real con {services}.</p>
+<h2>Por qué vale la pena prestarle atención</h2>
 <p>{selection['why_it_matters']}</p>
-<p>Cuando una noticia, investigacion o buena practica gana traccion, normalmente deja ver una tendencia mas profunda: mayor madurez tecnologica, menores barreras de adopcion o nuevas formas de integrar IA en procesos existentes.</p>
-<h2>Como lo traducimos a una agenda ejecutiva</h2>
-<p>En una consultora de automatizacion, el criterio clave no es si una tecnologia suena impresionante, sino si reduce tiempos, errores, retrabajo o friccion entre sistemas y equipos.</p>
+<p>Cuando una noticia, investigación o buena práctica gana tracción, normalmente deja ver una tendencia más profunda: mayor madurez tecnológica, menores barreras de adopción o nuevas formas de integrar IA en procesos existentes.</p>
+<h2>Cómo lo traducimos a una agenda ejecutiva</h2>
+<p>En una consultora de automatización, el criterio clave no es si una tecnología suena impresionante, sino si reduce tiempos, errores, retrabajo o fricción entre sistemas y equipos.</p>
 <ul>
-  <li>Identificar el proceso donde existe mas friccion operativa.</li>
-  <li>Definir una integracion con impacto visible en menos de 90 dias.</li>
-  <li>Conectar la iniciativa con indicadores de negocio y no solo con experimentacion.</li>
+  <li>Identificar el proceso donde existe más fricción operativa.</li>
+  <li>Definir una integración con impacto visible en menos de 90 días.</li>
+  <li>Conectar la iniciativa con indicadores de negocio y no solo con experimentación.</li>
 </ul>
-<h2>Que deberia hacer una empresa ahora</h2>
-<p>El siguiente paso sensato es evaluar donde la novedad puede convertirse en una mejora operativa concreta. A partir de ahi, conviene priorizar automatizaciones con datos disponibles, dueños claros y un retorno facil de medir.</p>
-<p>Si quieres convertir esta tendencia en una hoja de ruta real para tu operacion, una evaluacion corta de procesos suele ser el mejor punto de partida.</p>
+<h2>Qué debería hacer una empresa ahora</h2>
+<p>El siguiente paso sensato es evaluar dónde la novedad puede convertirse en una mejora operativa concreta. A partir de ahí, conviene priorizar automatizaciones con datos disponibles, dueños claros y un retorno fácil de medir.</p>
+<p>Si quieres convertir esta tendencia en una hoja de ruta real para tu operación, una evaluación corta de procesos suele ser el mejor punto de partida.</p>
 """
     linkedin_text = (
         f"{title}\n\n"
-        f"La noticia de hoy no importa solo por innovacion. Tambien deja ver oportunidades concretas para automatizar procesos, integrar IA y mejorar operaciones sin caer en hype.\n\n"
-        f"En el articulo aterrizamos implicaciones reales para empresas y como convertir la tendencia en una iniciativa con retorno.\n\n"
+        f"La noticia de hoy no importa solo por innovación. También deja ver oportunidades concretas para automatizar procesos, integrar IA y mejorar operaciones sin caer en hype.\n\n"
+        f"En el artículo aterrizamos implicaciones reales para empresas y cómo convertir la tendencia en una iniciativa con retorno.\n\n"
         f"Lee la pieza completa: {{ARTICLE_URL}}"
     )
     return {
         "title": title,
-        "deck": "Una lectura ejecutiva para traducir una novedad tecnica en decisiones operativas con retorno.",
+        "deck": "Una lectura ejecutiva para traducir una novedad técnica en decisiones operativas con retorno.",
         "slug": selection["slug"],
-        "excerpt": "Analisis ejecutivo sobre una novedad de IA y su traduccion a decisiones reales de automatizacion empresarial.",
-        "seo_description": "Articulo sobre automatizacion e IA aplicada a empresas a partir de una fuente reciente del sector.",
-        "pull_quote": "La tecnologia impresiona. El criterio operativo convierte.",
+        "excerpt": "Análisis ejecutivo sobre una novedad de IA y su traducción a decisiones reales de automatización empresarial.",
+        "seo_description": "Artículo sobre automatización e IA aplicada a empresas a partir de una fuente reciente del sector.",
+        "pull_quote": "La tecnología impresiona. El criterio operativo convierte.",
         "key_takeaways": [
             "Una noticia vale cuando puede convertirse en una mejora operativa medible.",
-            "La prioridad no es experimentar mas. Es reducir friccion y retrabajo.",
-            "Un piloto corto y bien acotado suele ganar mas que un roadmap inflado."
+            "La prioridad no es experimentar más. Es reducir fricción y retrabajo.",
+            "Un piloto corto y bien acotado suele ganar más que un roadmap inflado."
         ],
-        "cover_label": "Analisis",
+        "cover_label": "Análisis",
         "cover_theme": "signal",
         "cta_title": "Convirtamos la tendencia en un plan real.",
         "cta_body": "Si quieres bajar esta tendencia a una iniciativa concreta, te ayudamos a definir alcance, proceso y retorno esperado.",
-        "keywords": ["automatizacion empresarial", "ia en empresas", "integracion de ia"],
+        "keywords": ["automatización empresarial", "IA en empresas", "integración de IA"],
         "article_html": article_html.strip(),
         "linkedin_text": linkedin_text,
         "source_urls": [candidate["link"]],

@@ -43,7 +43,7 @@ def render_home_page(brand: dict, posts: list[dict]) -> None:
   <main class="shell">
     <section class="hero hero-home">
       <div class="hero-copy">
-        <span class="eyebrow">Contenido organico automatizado</span>
+        <span class="eyebrow">Contenido orgánico automatizado</span>
         <h1>{escape(brand.get("site_name", "Blog"))}</h1>
         <p>{escape(brand.get("homepage_intro", ""))}</p>
         <div class="cta-row">
@@ -52,13 +52,13 @@ def render_home_page(brand: dict, posts: list[dict]) -> None:
         </div>
       </div>
       <div class="hero-note panel">
-        <span class="eyebrow">Linea editorial</span>
+        <span class="eyebrow">Línea editorial</span>
         <h2>No publicamos por publicar.</h2>
-        <p>Tomamos noticias, investigacion y buenas practicas. Luego las convertimos en una lectura ejecutiva, provocadora y util para empresas que quieren mover operaciones, no solo experimentar.</p>
+        <p>Tomamos noticias, investigación y buenas prácticas. Luego las convertimos en una lectura ejecutiva, provocadora y útil para empresas que quieren mover operaciones, no solo experimentar.</p>
       </div>
     </section>
     <section class="section-head">
-      <span class="eyebrow">Ultimos analisis</span>
+      <span class="eyebrow">Últimos análisis</span>
       <h2>Ideas con criterio. Ritmo. Y una tesis clara.</h2>
       <p class="lede">{escape(brand.get("site_tagline", ""))}</p>
     </section>
@@ -116,7 +116,7 @@ def render_post_page(brand: dict, post: dict) -> None:
     cta_title = escape(post.get("cta_title") or "Convirtamos esta idea en una ventaja operativa.")
     cta_body = escape(
         post.get("cta_body")
-        or "Si quieres aterrizar esta tendencia en un caso de uso real, te ayudamos a convertirla en un piloto con alcance, metricas y criterio."
+        or "Si quieres aterrizar esta tendencia en un caso de uso real, te ayudamos a convertirla en un piloto con alcance, métricas y criterio."
     )
 
     body = f"""<!doctype html>
@@ -135,12 +135,12 @@ def render_post_page(brand: dict, post: dict) -> None:
     <article class="story">
       <section class="story-hero">
         <div class="story-copy">
-          <span class="eyebrow">{escape(post.get("cover_label") or post.get("source_name", "Analisis"))}</span>
+          <span class="eyebrow">{escape(post.get("cover_label") or post.get("source_name", "Análisis"))}</span>
           <h1>{title}</h1>
           <p class="deck">{deck}</p>
           <div class="meta meta-hero">
             <span>{format_date(post.get("published_at"))}</span>
-            <span>{escape(post.get("source_name", "Curacion automatizada"))}</span>
+            <span>{escape(post.get("source_name", "Curación automatizada"))}</span>
             <span>{reading_time(post)} min de lectura</span>
           </div>
         </div>
@@ -175,7 +175,7 @@ def render_post_page(brand: dict, post: dict) -> None:
 
 def render_post_cards(posts: list[dict], page: str) -> str:
     if not posts:
-        return '<div class="empty">Aun no hay articulos publicados. El primer run del pipeline creara la primera pieza.</div>'
+        return '<div class="empty">Aún no hay artículos publicados. El primer run del pipeline creará la primera pieza.</div>'
 
     cards: list[str] = []
     for post in posts:
@@ -190,7 +190,7 @@ def render_post_cards(posts: list[dict], page: str) -> str:
   <div class="post-card-body">
     <div class="meta">
       <span>{format_date(post.get("published_at"))}</span>
-      <span>{escape(post.get("source_name", "Curacion automatizada"))}</span>
+      <span>{escape(post.get("source_name", "Curación automatizada"))}</span>
     </div>
     <h3><a href="{href}">{escape(post["title"])}</a></h3>
     <p class="card-deck">{escape(post.get("deck") or post.get("excerpt", ""))}</p>
@@ -248,14 +248,14 @@ def render_sitemap(brand: dict, posts: list[dict]) -> None:
 
 
 def render_cover_svg(post: dict) -> None:
-    title = post.get("title", "Articulo")
+    title = post.get("title", "Artículo")
     theme = theme_palette(post.get("cover_theme") or post.get("source_name", "signal"))
     lines = wrap_text(title, width=24, max_lines=4)
     title_svg = "".join(
         f'<text x="54" y="{168 + index * 56}" class="title">{escape(line)}</text>'
         for index, line in enumerate(lines)
     )
-    eyebrow = escape(post.get("cover_label") or post.get("source_name", "Analisis"))
+    eyebrow = escape(post.get("cover_label") or post.get("source_name", "Análisis"))
     excerpt = escape((post.get("excerpt") or "")[:140])
     svg = f"""<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-label="{escape(title)}">
   <defs>
@@ -303,7 +303,7 @@ def footer(brand: dict) -> str:
     return f"""
 <footer class="site-footer">
   <div class="shell">
-    <p>{escape(brand.get("company_name", "Consultora IA"))} (c) {year}. Contenido automatizado para posicionamiento organico.</p>
+    <p>{escape(brand.get("company_name", "Consultora IA"))} (c) {year}. Contenido automatizado para posicionamiento orgánico.</p>
   </div>
 </footer>
 """.strip()
