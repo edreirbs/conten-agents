@@ -297,19 +297,22 @@ def openai_json_response(
             continue
         seen_models.add(candidate_model)
 
+        request_payload = {
+            "model": candidate_model,
+            "store": False,
+            "instructions": instructions,
+            "input": input_payload,
+        }
+        if candidate_model.startswith("gpt-5"):
+            request_payload["reasoning"] = {"effort": effort}
+
         response = requests.post(
             "https://api.openai.com/v1/responses",
             headers={
                 "Authorization": f"Bearer {api_key}",
                 "Content-Type": "application/json",
             },
-            json={
-                "model": candidate_model,
-                "store": False,
-                "reasoning": {"effort": effort},
-                "instructions": instructions,
-                "input": input_payload,
-            },
+            json=request_payload,
             timeout=120,
         )
 
