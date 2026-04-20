@@ -1,0 +1,46 @@
+{
+  "lookback_days": 10,
+  "feeds": [
+    {
+      "name": "OpenAI Blog",
+      "url": "https://openai.com/news/rss.xml",
+      "type": "vendor"
+    },
+    {
+      "name": "Google Cloud Blog AI",
+      "url": "https://cloudblog.withgoogle.com/topics/ai-ml/rss/",
+      "type": "vendor"
+    },
+    {
+      "name": "Microsoft Azure AI Blog",
+      "url": "https://azure.microsoft.com/en-us/blog/topics/ai-machine-learning/feed/",
+      "type": "vendor"
+    },
+    {
+      "name": "AWS Machine Learning Blog",
+      "url": "https://aws.amazon.com/blogs/machine-learning/feed/",
+      "type": "vendor"
+    },
+    {
+      "name": "Google Research",
+      "url": "https://research.google/blog/rss/",
+      "type": "research"
+    },
+    {
+      "name": "MIT News AI",
+      "url": "https://news.mit.edu/rss/topic/artificial-intelligence2",
+      "type": "research"
+    },
+    {
+      "name": "arXiv AI",
+      "url": "https://rss.arxiv.org/rss/cs.AI",
+      "type": "research"
+    },
+    {
+      "name": "Towards Data Science",
+      "url": "https://towardsdatascience.com/feed",
+      "type": "education"
+    }
+  ]
+}
+

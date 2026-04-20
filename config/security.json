@@ -1,0 +1,21 @@
+{
+  "public_web_only": true,
+  "require_https": true,
+  "allowed_domains": [
+    "openai.com",
+    "cloudblog.withgoogle.com",
+    "azure.microsoft.com",
+    "aws.amazon.com",
+    "research.google",
+    "news.mit.edu",
+    "rss.arxiv.org",
+    "arxiv.org",
+    "towardsdatascience.com",
+    "medium.com"
+  ],
+  "max_excerpt_chars": 2500,
+  "max_summary_chars": 700,
+  "redact_patterns": true,
+  "store_only_sanitized_urls": true
+}
+

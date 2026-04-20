@@ -1,0 +1,48 @@
+{
+  "company_name": "Tu Consultora de Automatizacion e IA",
+  "site_name": "Ideas y Automatizacion para Empresas",
+  "site_tagline": "Blog sobre automatizacion, integracion de IA y operaciones inteligentes para empresas",
+  "base_url": "https://edreirbs.github.io/conten-agents",
+  "homepage_intro": "Convertimos noticias, investigacion y mejores practicas en contenido util para lideres que quieren automatizar procesos, integrar IA y generar resultados medibles.",
+  "language": "es-MX",
+  "audience": [
+    "directores generales",
+    "lideres de operaciones",
+    "responsables de TI",
+    "equipos de transformacion digital",
+    "areas comerciales y de servicio"
+  ],
+  "services": [
+    "automatizacion de procesos",
+    "integracion de IA en flujos operativos",
+    "agentes internos",
+    "integracion entre sistemas",
+    "redisenio de procesos de negocio"
+  ],
+  "editorial_goals": [
+    "atraer trafico organico calificado",
+    "demostrar criterio experto",
+    "conectar actualidad con oportunidades reales de negocio",
+    "generar llamadas a la accion consultivas"
+  ],
+  "voice": {
+    "tone": "consultivo, claro, ejecutivo, aterrizado y sin hype vacio",
+    "style_rules": [
+      "escribir en espanol",
+      "priorizar aplicaciones empresariales reales",
+      "evitar promesas exageradas",
+      "cerrar con una llamada a la accion suave"
+    ]
+  },
+  "content_rules": {
+    "min_words": 900,
+    "max_words": 1400,
+    "max_sources_per_article": 4,
+    "max_candidates_per_run": 6
+  },
+  "models": {
+    "discovery": "gpt-5.4-nano",
+    "writing": "gpt-5.4-mini"
+  }
+}
+
