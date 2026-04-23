@@ -1,52 +1,87 @@
 {
-  "company_name": "Tu Consultora de Automatizacion e IA",
-  "site_name": "Automatizar con Criterio",
-  "site_tagline": "Ideas, riesgos y oportunidades para empresas que quieren integrar IA sin improvisar",
+  "company_name": "Axon Labs",
+  "site_name": "Axon Labs",
+  "site_tagline": "Integra IA inteligentemente",
   "base_url": "https://edreirbs.github.io/conten-agents",
-  "homepage_intro": "No publicamos para llenar un calendario. Publicamos para convertir noticias, investigacion y mejores practicas en argumentos que ayuden a lideres a decidir mejor, ejecutar mas rapido y automatizar sin humo.",
+  "homepage_intro": "Axon Labs ayuda a empresas a integrar IA de forma practica y estrategica para automatizar procesos, operar con mas claridad y convertir la tecnologia en una ventaja real.",
   "language": "es-MX",
-  "positioning_statement": "Una consultora boutique que ayuda a empresas a automatizar procesos e integrar IA con criterio operativo, rigor y enfoque en resultado.",
-  "contrarian_thesis": "El problema de la mayoria de las iniciativas de IA no es la tecnologia. Es la falta de criterio para priorizar, probar e integrar sin romper la operacion.",
+  "positioning_statement": "Axon Labs integra IA de forma inteligente para ayudar a las empresas a automatizar procesos, operar con mas claridad y convertir la tecnologia en una ventaja real.",
+  "contrarian_thesis": "La mayoria de las empresas no necesita mas experimentos con IA. Necesita criterio para convertir procesos manuales en sistemas utiles, claros y escalables.",
   "audience": [
     "directores generales",
     "lideres de operaciones",
     "responsables de TI",
     "equipos de transformacion digital",
-    "areas comerciales y de servicio"
+    "areas comerciales y de servicio",
+    "fundadores y directores de empresas medianas"
   ],
   "services": [
+    "diagnostico de oportunidades de IA",
     "automatizacion de procesos",
-    "integracion de IA en flujos operativos",
-    "agentes internos",
+    "integracion de IA en procesos clave",
+    "agentes de IA a la medida",
     "integracion entre sistemas",
-    "redisenio de procesos de negocio"
+    "acompanamiento estrategico"
   ],
   "editorial_goals": [
     "atraer trafico organico calificado",
     "demostrar criterio experto",
     "conectar actualidad con oportunidades reales de negocio",
-    "generar conversaciones consultivas"
+    "generar conversaciones consultivas",
+    "posicionar a Axon Labs como firma seria en automatizacion e IA aplicada"
   ],
+  "editorial_filters": {
+    "include_any": [
+      "automatizacion",
+      "operaciones",
+      "workflow automation",
+      "enterprise AI",
+      "AI agents",
+      "agentes de IA",
+      "CRM",
+      "ERP",
+      "ventas",
+      "servicio al cliente",
+      "revenue operations",
+      "productividad",
+      "back office",
+      "integracion entre sistemas",
+      "adopcion de IA",
+      "gobernanza",
+      "casos de uso empresariales"
+    ],
+    "exclude_any": [
+      "quantum",
+      "qubit",
+      "qutrit",
+      "genomics",
+      "drug discovery",
+      "protein folding",
+      "materials science",
+      "astrophysics",
+      "astronomy"
+    ]
+  },
   "voice": {
-    "tone": "afilado, claro, ejecutivo, provocador con sustancia y cero hype vacio",
+    "tone": "claro, seguro, ejecutivo, sobrio y con criterio; profesional sin sonar frio ni generico",
     "brand_personality": [
       "boutique",
       "estrategica",
-      "frontal",
       "sobria",
+      "practica",
       "obsesionada con ejecucion"
     ],
     "style_rules": [
       "escribir en espanol",
       "priorizar aplicaciones empresariales reales",
       "abrir con una tension, contradiccion o riesgo visible",
-      "combinar frases largas con frases cortas y contundentes",
+      "combinar claridad ejecutiva con ritmo narrativo",
       "explicar implicaciones operativas antes que detalles tecnicos",
       "evitar tono academico y tono corporativo generico",
-      "cerrar con una llamada a la accion consultiva y elegante"
+      "cerrar con una llamada a la accion consultiva y elegante",
+      "sonar seguro y con criterio, no agresivo"
     ],
     "approved_devices": [
-      "frases de golpe editorial",
       "contrastes entre promesa y realidad",
       "preguntas directas",
       "analogias ejecutivas sobrias",
@@ -58,7 +93,9 @@
       "sin esfuerzo",
       "transformacion magica",
       "la ia lo cambia todo",
-      "lider en soluciones"
+      "lider en soluciones",
+      "disruptivo",
+      "revoluciona tu negocio"
     ],
     "cta_style": "invitar a una conversacion de diagnostico o piloto, sin sonar vendedor agresivo"
   },

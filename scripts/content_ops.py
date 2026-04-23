@@ -4,6 +4,7 @@ import html
 import json
 import os
 import re
+import unicodedata
 from html.parser import HTMLParser
 import urllib.error
 import urllib.parse
@@ -29,6 +30,77 @@ DEFAULT_SECURITY = {
     "max_summary_chars": 700,
     "redact_patterns": True,
     "store_only_sanitized_urls": True,
+}
+DEFAULT_COMMERCIAL_TERMS = [
+    "automatizacion",
+    "inteligencia artificial",
+    "integracion",
+    "agentes",
+    "enterprise",
+    "business",
+    "empresa",
+    "empresas",
+    "operaciones",
+    "operacion",
+    "workflow",
+    "process",
+    "proceso",
+    "procesos",
+    "crm",
+    "erp",
+    "ventas",
+    "sales",
+    "clientes",
+    "customer",
+    "servicio",
+    "support",
+    "revenue",
+    "productividad",
+    "back office",
+    "gobernanza",
+    "adopcion",
+]
+DEFAULT_EXCLUSION_TERMS = [
+    "quantum",
+    "qubit",
+    "qutrit",
+    "genomics",
+    "protein folding",
+    "drug discovery",
+    "astrophysics",
+    "astronomy",
+    "materials science",
+]
+STOPWORDS = {
+    "about",
+    "across",
+    "after",
+    "antes",
+    "around",
+    "areas",
+    "como",
+    "con",
+    "contra",
+    "donde",
+    "entre",
+    "from",
+    "hacia",
+    "hasta",
+    "para",
+    "porque",
+    "sobre",
+    "that",
+    "their",
+    "these",
+    "those",
+    "through",
+    "want",
+    "with",
+    "your",
+    "automatizacion",
+    "integracion",
+    "empresa",
+    "empresas",
 }
 
 
@@ -77,6 +149,102 @@ def clean_text(value: str) -> str:
     value = value.replace("\xa0", " ")
     value = re.sub(r"\s+", " ", value)
     return value.strip()
+
+
+def fold_text(value: str) -> str:
+    normalized = unicodedata.normalize("NFKD", value or "")
+    folded = "".join(char for char in normalized if not unicodedata.combining(char))
+    return folded.lower()
+
+
+def unique_phrases(values: list[str]) -> list[str]:
+    seen: set[str] = set()
+    phrases: list[str] = []
+    for value in values:
+        phrase = clean_text(value)
+        if not phrase:
+            continue
+        key = fold_text(phrase)
+        if key in seen:
+            continue
+        seen.add(key)
+        phrases.append(phrase)
+    return phrases
+
+
+def build_commercial_rules(brand: dict[str, Any] | None) -> dict[str, list[str]]:
+    brand = brand or {}
+    editorial_filters = brand.get("editorial_filters", {})
+    raw_include: list[str] = []
+    raw_include.extend(DEFAULT_COMMERCIAL_TERMS)
+    raw_include.extend(brand.get("services", []))
+    raw_include.extend(brand.get("audience", []))
+    raw_include.extend(brand.get("editorial_goals", []))
+    raw_include.extend(editorial_filters.get("include_any", []))
+    if brand.get("positioning_statement"):
+        raw_include.append(brand["positioning_statement"])
+    if brand.get("contrarian_thesis"):
+        raw_include.append(brand["contrarian_thesis"])
+
+    include_phrases = unique_phrases(raw_include)
+    include_tokens: set[str] = set()
+    for phrase in include_phrases:
+        for token in re.findall(r"[a-z0-9]{4,}", fold_text(phrase)):
+            if token not in STOPWORDS:
+                include_tokens.add(token)
+
+    exclude_phrases = unique_phrases(DEFAULT_EXCLUSION_TERMS + editorial_filters.get("exclude_any", []))
+    return {
+        "include_phrases": include_phrases,
+        "include_tokens": sorted(include_tokens),
+        "exclude_phrases": exclude_phrases,
+    }
+
+
+def commercial_relevance_score(candidate: dict[str, Any], rules: dict[str, list[str]] | None) -> int:
+    if not rules:
+        return 0
+
+    haystack = " ".join(
+        [
+            candidate.get("title", ""),
+            candidate.get("summary", ""),
+            candidate.get("page_excerpt", ""),
+            candidate.get("source_name", ""),
+        ]
+    )
+    folded_haystack = fold_text(haystack)
+    words = set(re.findall(r"[a-z0-9]{4,}", folded_haystack))
+    score = 0
+
+    for phrase in rules.get("include_phrases", []):
+        folded_phrase = fold_text(phrase)
+        if not folded_phrase:
+            continue
+        if " " in folded_phrase:
+            if folded_phrase in folded_haystack:
+                score += 4
+        elif folded_phrase in words:
+            score += 2
+
+    for token in rules.get("include_tokens", []):
+        if token in words:
+            score += 1
+
+    for phrase in rules.get("exclude_phrases", []):
+        folded_phrase = fold_text(phrase)
+        if not folded_phrase:
+            continue
+        if " " in folded_phrase:
+            if folded_phrase in folded_haystack:
+                score -= 6
+        elif folded_phrase in words:
+            score -= 4
+
+    if candidate.get("source_type") == "research" and score < 4:
+        score -= 2
+
+    return score
 
 
 def redact_sensitive_text(value: str, enabled: bool = True) -> str:
@@ -255,12 +423,18 @@ def role_priority(role_id: str, candidate: dict[str, Any]) -> tuple[int, int]:
 
 
 def choose_candidates(
-    sources: dict[str, Any], state: dict[str, Any], max_candidates: int, security: dict[str, Any], role_id: str = "hot_news"
+    sources: dict[str, Any],
+    state: dict[str, Any],
+    max_candidates: int,
+    security: dict[str, Any],
+    role_id: str = "hot_news",
+    brand: dict[str, Any] | None = None,
 ) -> list[dict[str, Any]]:
     seen_urls = set(state.get("seen_source_urls", []))
     lookback_days = int(sources.get("lookback_days", 7))
     threshold = utc_now() - timedelta(days=lookback_days)
     candidates: list[dict[str, Any]] = []
+    commercial_rules = build_commercial_rules(brand)
 
     for source in sources.get("feeds", []):
         safe_feed_url = sanitize_url(source["url"], security)
@@ -287,16 +461,23 @@ def choose_candidates(
                         enabled=security.get("redact_patterns", True),
                     ),
                     "published_at": entry.get("published_at"),
+                    "commercial_score": 0,
                 }
             )
 
+    for candidate in candidates:
+        candidate["commercial_score"] = commercial_relevance_score(candidate, commercial_rules)
+
     candidates.sort(
         key=lambda item: (
+            -item.get("commercial_score", 0),
             role_priority(role_id, item),
             -(parse_date(item.get("published_at")).timestamp() if parse_date(item.get("published_at")) else 0),
         )
     )
-    limited = candidates[:max_candidates]
+
+    positive_fit = [item for item in candidates if item.get("commercial_score", 0) > 0]
+    limited = (positive_fit or candidates)[:max_candidates]
     for item in limited:
         item["page_excerpt"] = fetch_page_excerpt(
             item["link"],
@@ -568,7 +749,9 @@ def post_to_linkedin(
         },
         timeout=90,
     )
-    response.raise_for_status()
+    if not response.ok:
+        snippet = response.text[:500].replace("\n", " ")
+        raise RuntimeError(f"LinkedIn devolvio {response.status_code}: {snippet}")
     location = response.headers.get("x-restli-id") or response.headers.get("location")
     return {"status_code": response.status_code, "post_reference": location}
 

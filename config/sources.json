@@ -32,13 +32,18 @@
       "type": "research"
     },
     {
-      "name": "arXiv AI",
-      "url": "https://rss.arxiv.org/rss/cs.AI",
-      "type": "research"
+      "name": "LangChain Blog",
+      "url": "https://blog.langchain.dev/rss/",
+      "type": "vendor"
     },
     {
       "name": "Towards Data Science",
       "url": "https://towardsdatascience.com/feed",
+      "type": "education"
+    },
+    {
+      "name": "n8n Blog",
+      "url": "https://blog.n8n.io/rss/",
       "type": "education"
     }
   ]

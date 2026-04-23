@@ -24,6 +24,12 @@ El flujo pensado es:
 7. Publica el nuevo post en el sitio estatico.
 8. Publica el resumen en LinkedIn si hay credenciales configuradas.
 
+## Cambios importantes del pipeline
+
+- `--dry-run` ahora genera un preview sin modificar `data/posts.json`, `data/state.json` ni `docs/`.
+- La curacion de temas aplica un filtro de relevancia comercial antes de delegar la seleccion al LLM.
+- Si LinkedIn esta configurado y la publicacion falla, el pipeline falla en lugar de dejar un run "verde" engañoso.
+
 ## Modo seguro por defecto
 
 El proyecto ya viene preparado para minimizar fugas:
@@ -88,7 +94,7 @@ Si quieres hacer lo menos posible:
 1. Sube el repo.
 2. Activa GitHub Pages en `/docs`.
 3. Crea solo el secret `OPENAI_API_KEY`.
-4. Ajusta `config/brand.json` con el nombre real de la consultora y propuesta de valor.
+4. Ajusta `config/brand.json` con el nombre real de la consultora, propuesta de valor y filtros editoriales.
 
 Con eso ya queda funcionando el blog automatico. LinkedIn lo puedes prender despues sin tocar el codigo.
 
@@ -135,10 +141,11 @@ pip install -r requirements.txt
 python scripts/run_pipeline.py --dry-run --skip-linkedin
 ```
 
-`--dry-run` sirve para validar el flujo completo sin consumir tokens.
+`--dry-run` sirve para validar el flujo completo sin consumir tokens y sin persistir cambios.
 
 ## Ajustes rapidos
 
 - Edita `config/brand.json` para reflejar la propuesta de valor real de tu consultora.
+- Usa `editorial_filters.include_any` y `editorial_filters.exclude_any` para empujar o bloquear temas segun tu posicionamiento.
 - Edita `config/sources.json` si quieres agregar o quitar feeds.
 - Ajusta el cron en `.github/workflows/content-engine.yml` si quieres otra frecuencia.

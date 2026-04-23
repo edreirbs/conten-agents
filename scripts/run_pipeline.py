@@ -12,6 +12,8 @@ from build_site import build_site
 from content_ops import (
     CONFIG_DIR,
     DATA_DIR,
+    build_commercial_rules,
+    commercial_relevance_score,
     fetch_x_signals,
     load_json,
     load_security,
@@ -51,15 +53,19 @@ def main() -> int:
     role = next_role(posts, editorial_plan)
 
     max_candidates = int(brand.get("content_rules", {}).get("max_candidates_per_run", 6))
+    commercial_rules = build_commercial_rules(brand)
     candidates = choose_candidates(
         sources,
         state,
         max_candidates=max_candidates,
         security=security,
         role_id=role["id"],
+        brand=brand,
     )
     if role["id"] == "hot_news":
         x_signals = fetch_x_signals(editorial_plan.get("x_signal_queries", []), security, max_items=4)
+        for signal in x_signals:
+            signal["commercial_score"] = commercial_relevance_score(signal, commercial_rules)
         candidates = sort_candidates_for_role(candidates + x_signals, role["id"])[:max_candidates]
 
     if not candidates:
@@ -88,6 +94,28 @@ def main() -> int:
     image = select_contextual_image(image_query)
     if image:
         post["cover_image"] = image
+
+    if args.dry_run:
+        preview = {
+            "dry_run": True,
+            "selected_candidate": {
+                "title": selected_candidate.get("title"),
+                "source_name": selected_candidate.get("source_name"),
+                "link": selected_candidate.get("link"),
+                "commercial_score": selected_candidate.get("commercial_score"),
+            },
+            "post_preview": {
+                "title": post["title"],
+                "slug": post["slug"],
+                "canonical_url": post["canonical_url"],
+                "editorial_role": role.get("id"),
+                "linkedin_excerpt": post.get("linkedin_text", "")[:280],
+            },
+        }
+        print(json.dumps(preview, ensure_ascii=False, indent=2))
+        print("Dry-run completado sin modificar posts.json, state.json ni el sitio.")
+        return 0
+
     posts.insert(0, post)
     state["last_run_at"] = utc_now_iso()
     state["seen_source_urls"] = unique_urls(
@@ -293,6 +321,9 @@ def maybe_publish_to_linkedin(post: dict[str, Any]) -> None:
     client_id = os.getenv("LINKEDIN_CLIENT_ID")
     client_secret = os.getenv("LINKEDIN_CLIENT_SECRET")
     redirect_uri = os.getenv("LINKEDIN_REDIRECT_URI")
+    linkedin_requested = bool(
+        organization_urn and (access_token or (refresh_token and client_id and client_secret and redirect_uri))
+    )
 
     if refresh_token and client_id and client_secret and redirect_uri:
         refreshed = refresh_linkedin_access_token(
@@ -304,12 +335,19 @@ def maybe_publish_to_linkedin(post: dict[str, Any]) -> None:
         if refreshed and refreshed.get("access_token"):
             access_token = refreshed["access_token"]
 
-    if not organization_urn or not access_token:
+    if not linkedin_requested:
         post["linkedin"] = {
             "status": "skipped",
             "post_reference": None,
         }
         return
+
+    if not organization_urn or not access_token:
+        post["linkedin"] = {
+            "status": "error",
+            "post_reference": None,
+        }
+        raise RuntimeError("LinkedIn esta configurado, pero no se pudo resolver un access token valido.")
 
     try:
         result = post_to_linkedin(
@@ -327,6 +365,7 @@ def maybe_publish_to_linkedin(post: dict[str, Any]) -> None:
             "status": "error",
             "post_reference": None,
         }
+        raise
 
 
 def unique_urls(urls: list[str]) -> list[str]:
@@ -429,6 +468,7 @@ def next_role(posts: list[dict[str, Any]], editorial_plan: dict[str, Any]) -> di
 def sort_candidates_for_role(candidates: list[dict[str, Any]], role_id: str) -> list[dict[str, Any]]:
     def sort_key(item: dict[str, Any]) -> tuple[int, float]:
         source_type = item.get("source_type", "")
+        commercial_score = item.get("commercial_score", 0)
         published = item.get("published_at")
         ts = 0.0
         if published:
@@ -438,8 +478,8 @@ def sort_candidates_for_role(candidates: list[dict[str, Any]], role_id: str) -> 
                 ts = 0.0
         if role_id == "hot_news":
             type_rank = {"x_signal": 0, "vendor": 1, "research": 2, "education": 3}.get(source_type, 4)
-            return (type_rank, -ts)
-        return (0, -ts)
+            return (-commercial_score, type_rank, -ts)
+        return (-commercial_score, 0, -ts)
 
     deduped: dict[str, dict[str, Any]] = {}
     for candidate in candidates:
