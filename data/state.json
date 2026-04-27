@@ -1,5 +1,5 @@
 {
-  "last_run_at": "2026-04-20T22:37:50.003485+00:00",
+  "last_run_at": "2026-04-27T16:00:07.443089+00:00",
   "seen_source_urls": [
     "https://aws.amazon.com/blogs/machine-learning/toolsimulator-scalable-tool-testing-for-ai-agents/",
     "https://aws.amazon.com/blogs/machine-learning/omnichannel-ordering-with-amazon-bedrock-agentcore-and-amazon-nova-2-sonic/",
@@ -9,6 +9,10 @@
     "https://towardsdatascience.com/a-practical-guide-to-memory-for-autonomous-llm-agents/",
     "https://aws.amazon.com/blogs/machine-learning/rede-mater-dei-de-saude-monitoring-ai-agents-in-the-revenue-cycle-with-amazon-bedrock-agentcore/",
     "https://openai.com/index/the-next-evolution-of-the-agents-sdk",
-    "https://aws.amazon.com/blogs/machine-learning/from-hours-to-minutes-how-agentic-ai-gave-marketers-time-back-for-what-matters/"
+    "https://aws.amazon.com/blogs/machine-learning/from-hours-to-minutes-how-agentic-ai-gave-marketers-time-back-for-what-matters/",
+    "https://aws.amazon.com/blogs/machine-learning/company-wise-memory-in-amazon-bedrock-with-amazon-neptune-and-mem0/",
+    "https://aws.amazon.com/blogs/machine-learning/building-workforce-ai-agents-with-visier-and-amazon-quick/",
+    "https://towardsdatascience.com/how-spreadsheets-quietly-cost-supply-chains-millions/",
+    "https://openai.com/index/hyatt-advances-ai-with-chatgpt-enterprise"
   ]
 }
