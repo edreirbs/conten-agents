@@ -1,5 +1,63 @@
 [
   {
+    "id": "2026-05-04T16:15:04.525779+00:00",
+    "title": "Cuando los agentes de IA dejan de ser experimento: la lección de Choco para operaciones de distribución",
+    "deck": "No se trata de modelos: se trata de cómo los agentes se integran en procesos reales y de qué controles exigir antes de escalar.",
+    "slug": "agentes-ia-acciones-choco-distribucion",
+    "excerpt": "Choco muestra que los agentes de IA entregan valor cuando dejan de ser pruebas de laboratorio y se integran en procesos de pedidos, excepciones y trazabilidad. Aquí está lo que exigir antes de escalar.",
+    "seo_description": "Lecciones operativas del caso Choco: cómo convertir agentes de IA en automatizaciones robustas para pedidos, excepciones y trazabilidad en distribución.",
+    "pull_quote": "La IA no es el truco; la integración lo es.",
+    "key_takeaways": [
+      "Exigir métricas operativas concretas (SLA, tasa de excepción, conversiones) antes de escalar.",
+      "Diseñar contratos de integración, rollback y gobernanza mínima para evitar degradación de procesos.",
+      "Pasar de piloto a operación requiere observabilidad, pruebas de extremo a extremo y roles claros de decisión humana."
+    ],
+    "cover_label": "Agentes en operación",
+    "cover_theme": "systems",
+    "cta_title": "Diagnóstico o piloto",
+    "cta_body": "Si su organización acumula pilotos sin impacto repetible, el siguiente paso no es otro experimento: es diagnóstico con criterios, diseño de integración y un piloto con métricas operativas. Podemos ayudar a definir objetivos, contratos técnicos y un plan de gobernanza mínimo viable para desplegar agentes de forma segura y medible.",
+    "keywords": [
+      "agentes de IA",
+      "automatización",
+      "operaciones",
+      "distribución",
+      "integración de sistemas",
+      "gobernanza",
+      "SLA",
+      "rollback"
+    ],
+    "image_query": "agente de IA en logística, tablero operativo con alertas y flujo de pedidos, ejecutivo revisando métricas",
+    "article_html": "<p>En muchas compañías, la frase “estamos experimentando con IA” se ha convertido en un comodín. Pilotos aquí, demos allá, pero las operaciones siguen funcionando con hojas de cálculo, llamadas y reversiones manuales. Y sin embargo, hay casos que rompen esa inercia: Choco —cuya historia fue documentada en un post técnico— transformó agentes de IA en un engranaje operativo real para distribución de alimentos. ¿La diferencia? No fue el modelo: fue el diseño del agente dentro del flujo operativo.</p><p><strong>La IA no es el truco; la integración lo es.</strong></p><h2>Qué hizo distinto Choco (sin tecnicismos, con decisión)</h2><p>En su narrativa pública, Choco usó agentes para automatizar interacciones con restaurantes y proveedores: entrada de pedidos, confirmaciones, seguimiento de excepciones y recomendaciones para reorden. No fue un experimento aislado que respondía preguntas; se convirtió en una capa que ejecuta, corrige y deja rastro dentro del proceso de distribución.</p><p>Lo relevante para un director de operaciones no es cómo se entrenó el modelo, sino qué decisiones operativas permitieron que el agente no rompiera el proceso cuando falló. Esas decisiones son replicables y deben ser requisito antes de escalar cualquier piloto de agentes.</p><h2>Decisiones de diseño que separan piloto de operación</h2><ul>\n  <li><strong>Definir el alcance del agente:</strong> tareas concretas, límites y criterios de salida. ¿Solo sugerir? ¿Ejecutar órdenes? ¿Cerrar excepciones?</li>\n  <li><strong>Human-in-the-loop claro:</strong> puntos donde la intervención humana es obligatoria, y cuándo es opcional.</li>\n  <li><strong>Contratos de integración:</strong> API, esquemas de datos, idempotencia, y garantías de no duplicar transacciones.</li>\n  <li><strong>Observabilidad y trazabilidad:</strong> logs legibles, correlación con IDs de pedido, auditoría de decisiones del agente.</li>\n  <li><strong>Plan de rollback y canary:</strong> despliegue progresivo con capacidad de revertir cambios en segundos.</li>\n</ul><h2>Métricas operativas—no métricas de moda</h2><p>Avance con indicadores que impactan la operación diaria. Aquí una lista priorizada que le sirve a un responsable de operaciones para evaluar un piloto:</p><ol>\n  <li><strong>SLA de respuesta</strong> (tiempo medio de respuesta del agente vs humano para la misma tarea).</li>\n  <li><strong>Tasa de excepción</strong> (porcentaje de interacciones donde el agente no resolvió y requirió intervención humana).</li>\n  <li><strong>Accuracy transaccional</strong> (órdenes ejecutadas correctamente/órdenes totales).</li>\n  <li><strong>Time-to-resolution</strong> en casos de excepción.</li>\n  <li><strong>Conversion lift</strong> (porcentaje de pedidos que pasan de propuesta a confirmación gracias al agente).</li>\n  <li><strong>Costo por pedido</strong> —medido antes y después del agente.</li>\n  <li><strong>Impacto en la experiencia del proveedor/cliente</strong> (NPS o tasa de re-procesos).</li>\n</ol><h2>Riesgos operativos que requieren control</h2><p>No todo problema tecnológico se arregla con más datos. Estos riesgos son los que tienden a degradar procesos si no se gestionan desde el día uno:</p><ul>\n  <li><strong>Falsos positivos en automatizaciones:</strong> un agente que confirma una orden errónea puede dañar relaciones o generar pérdidas.</li>\n  <li><strong>Desalineación con sistemas legados:</strong> inconsistencias entre el ERP/CRM y el estado que reporta el agente.</li>\n  <li><strong>Fallo en la cadena de auditoría:</strong> si no queda rastro claro de por qué se tomó una acción, la resolución y responsabilidad se vuelven imposibles.</li>\n  <li><strong>Privacidad y gobernanza de datos:</strong> acceso a datos sensibles sin controles, o uso indebido de información de terceros.</li>\n</ul><h2>Checklist mínimo antes de escalar</h2><p>Antes de llevar un agente de IA a producción repetible, confirme lo siguiente:</p><ul>\n  <li>Objetivos operativos definidos y medibles (2–3 KPIs claros).</li>\n  <li>Contrato técnico de integración con los sistemas fuente (API, errores, formatos).</li>\n  <li>Mecanismo de aprobación humana para las acciones de alto riesgo.</li>\n  <li>Pipeline de pruebas automatizadas que incluya casos de borde y pruebas de regresión.</li>\n  <li>Dashboard de observabilidad en tiempo real con alertas y capacidad de rollback.</li>\n  <li>Plan de gobernanza: quién actualiza el agente, cómo se validan cambios y cada cuánto se reentrena o reemplaza.</li>\n</ul><h2>Ruta práctica de piloto a operación repetible</h2><p>Proponemos un camino en cinco pasos, pensado para minimizar riesgo y acelerar valor:</p><ol>\n  <li><strong>Diagnóstico de procesos:</strong> identificar 1–2 flujos de alto impacto y bajo variabilidad.</li>\n  <li><strong>Definición de KPIs operativos:</strong> SLA, tasa de excepción, accuracy, y coste por transacción.</li>\n  <li><strong>Desarrollo del agente con contratos API:</strong> integrar con simuladores del sistema legados y pruebas end-to-end.</li>\n  <li><strong>Despliegue canary:</strong> 5–10% del volumen con supervisión humana intensiva y rollback automatizado.</li>\n  <li><strong>Escalado por capacidad y gobernanza:</strong> replicar, auditar y convertir el piloto en un procedimiento operativo estándar.</li>\n</ol><h2>Cierre consultivo: qué pedir en su próxima conversación</h2><p>Si celebra un piloto de agentes en su empresa, no pida más demos; pida criterios. Solicite una propuesta que incluya objetivos operativos, contrato de integración, plan de rollback y un calendario de gobernanza. Pregunte por la trazabilidad: «¿puedo reconstruir cada decisión del agente hasta la acción en mi ERP?» Si la respuesta no es inmediata y verificable, no escale.</p><p>Choco no es un halo místico sobre la IA. Es un ejemplo práctico: el agente dejó de ser una curiosidad cuando quien lo diseñó puso límites, métricas y mecanismos para corregirlo rápido. Esa es la lección para cualquier director de operaciones serio.</p><p><strong>Siguiente paso sugerido:</strong> organice un diagnóstico de 4 semanas que identifique un flujo candidato, defina KPIs operativos, y entregue un plan de integración y rollback listo para un piloto canary. Esa inversión es la que separa anuncios de resultados.</p><blockquote>Fuentes: caso Choco (OpenAI) y prácticas industriales de integración y gobernanza.</blockquote>",
+    "linkedin_text": "Muchas empresas acumulan pilotos de IA que nunca llegan a operación. El caso de Choco muestra lo que falta: contratos de integración, KPIs operativos y planes de rollback. Si quiere convertir un piloto en una capa operativa fiable, hablemos de un diagnóstico de 4 semanas. https://edreirbs.github.io/conten-agents/blog/agentes-ia-acciones-choco-distribucion.html",
+    "source_name": "OpenAI Blog",
+    "source_urls": [
+      "https://openai.com/index/choco",
+      "https://aws.amazon.com/blogs/machine-learning/build-strands-agents-with-sagemaker-ai-models-and-mlflow/",
+      "https://aws.amazon.com/blogs/machine-learning/migrating-a-text-agent-to-a-voice-assistant-with-amazon-nova-2-sonic/",
+      "https://towardsdatascience.com/ghost-a-database-for-our-times/"
+    ],
+    "published_at": "2026-05-04T16:15:04.525779+00:00",
+    "canonical_url": "https://edreirbs.github.io/conten-agents/blog/agentes-ia-acciones-choco-distribucion.html",
+    "linkedin": {
+      "status": "skipped",
+      "post_reference": null
+    },
+    "editorial_role": {
+      "id": "hot_news",
+      "label": "Hot news",
+      "goal": "capturar atención con actualidad y una tesis de negocio clara"
+    },
+    "cover_image": {
+      "provider": "pexels",
+      "url": "https://images.pexels.com/photos/36326495/pexels-photo-36326495.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+      "alt": "A stunning aerial view of the historic Puebla de Sanabria Castillo in Castilla y León, Spain.",
+      "photographer": "Mike Art 🎥 Visual Creator | Photography and Video 📸",
+      "photographer_url": "https://www.pexels.com/@mike-art-visual-creator-photography-and-video-2159421235",
+      "source_url": "https://www.pexels.com/photo/aerial-view-of-puebla-de-sanabria-castillo-in-spain-36326495/",
+      "attribution_label": "Foto vía Pexels"
+    }
+  },
+  {
     "id": "2026-04-27T16:00:06.977774+00:00",
     "title": "Cuando la “memoria” de los agentes IA falla: riesgo operativo y cómo convertirla en ventaja",
     "deck": "La promesa de continuidad choca con la realidad operativa: sin criterio, la memoria persistente genera decisiones inconsistentes y costos ocultos.",
