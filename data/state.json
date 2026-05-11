@@ -1,5 +1,5 @@
 {
-  "last_run_at": "2026-05-04T16:15:04.860266+00:00",
+  "last_run_at": "2026-05-11T16:47:09.999535+00:00",
   "seen_source_urls": [
     "https://aws.amazon.com/blogs/machine-learning/toolsimulator-scalable-tool-testing-for-ai-agents/",
     "https://aws.amazon.com/blogs/machine-learning/omnichannel-ordering-with-amazon-bedrock-agentcore-and-amazon-nova-2-sonic/",
@@ -17,6 +17,10 @@
     "https://openai.com/index/choco",
     "https://aws.amazon.com/blogs/machine-learning/build-strands-agents-with-sagemaker-ai-models-and-mlflow/",
     "https://aws.amazon.com/blogs/machine-learning/migrating-a-text-agent-to-a-voice-assistant-with-amazon-nova-2-sonic/",
-    "https://towardsdatascience.com/ghost-a-database-for-our-times/"
+    "https://towardsdatascience.com/ghost-a-database-for-our-times/",
+    "https://aws.amazon.com/blogs/machine-learning/agents-that-transact-introducing-amazon-bedrock-agentcore-payments-built-with-coinbase-and-stripe/",
+    "https://aws.amazon.com/blogs/machine-learning/secure-ai-agents-with-amazon-bedrock-agentcore-identity-on-amazon-ecs/",
+    "https://openai.com/index/openai-launches-the-deployment-company",
+    "https://openai.com/index/openai-pwc-finance-collaboration"
   ]
 }
