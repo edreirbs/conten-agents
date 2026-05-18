@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Controlar dónde navegan tus agentes de IA: la política que convierte riesgo en herramienta | Axon Labs</title>
+  <meta name="description" content="Sin controles de navegador y confianza en certificados internos, los agentes de IA que actúan en la web son una amenaza operativa: filtrado de datos, fallos con proxies TLS y rechazo por compliance.">
+  <link rel="stylesheet" href="../assets/site.css">
+  <link rel="canonical" href="https://edreirbs.github.io/conten-agents/blog/control-agentes-ia-chrome-bedrock.html">
+</head>
+<body>
+  <header class="site-header">
+  <div class="shell masthead">
+    <a class="brand" href="../">Axon Labs</a>
+    <nav class="nav">
+      <a href="../">Inicio</a>
+      <a href="../blog/">Blog</a>
+    </nav>
+  </div>
+</header>
+  <main class="shell">
+    <article class="story">
+      <section class="story-hero">
+        <div class="story-copy">
+          <span class="eyebrow">Agentes seguros</span>
+          <h1>Controlar dónde navegan tus agentes de IA: la política que convierte riesgo en herramienta</h1>
+          <p class="deck">Chrome enterprise policies + certificados internos + Amazon Bedrock AgentCore: cómo desplegar agentes que navegan sin convertirse en un problema de seguridad o cumplimiento.</p>
+          <div class="meta meta-hero">
+            <span>18 May 2026</span>
+            <span>AWS Machine Learning Blog</span>
+            <span>5 min de lectura</span>
+            <span>Tool deep dive</span>
+          </div>
+        </div>
+        <div class="story-cover panel">
+          <img src="https://images.pexels.com/photos/4560039/pexels-photo-4560039.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Close-up of the Amazon shopping app icon on a smartphone screen. Ideal for online shopping and technology themes.">
+          <p class="image-credit">Foto vía Pexels · <a href="https://www.pexels.com/@sbsoneji" target="_blank" rel="noopener noreferrer">Sagar Soneji</a> · <a href="https://www.pexels.com/photo/close-up-of-smartphone-screen-with-icons-4560039/" target="_blank" rel="noopener noreferrer">ver fuente</a></p>
+        </div>
+      </section>
+      <section class="takeaways panel">
+  <span class="eyebrow">En 30 segundos</span>
+  <h2>Lo que importa de verdad</h2>
+  <ul><li>Los agentes de IA con acceso web deben someterse a políticas de navegador y a una CA corporativa antes de entrar en producción.</li><li>Chrome enterprise policies permiten limitar dominios, descargas y gestores de credenciales; los certificados raíz internos habilitan conectividad con servicios detrás de proxies TLS.</li><li>Una implantación segura requiere pruebas de conectividad, auditoría de sesiones y un plan operativo para fallos y actualizaciones.</li></ul>
+</section>
+      <section class="quote-band">
+  <blockquote>Sin control de navegador, el agente es un riesgo, no una ventaja.</blockquote>
+</section>
+      <section class="article-shell">
+        <div class="article-body">
+          <p>Las empresas aplauden agentes de IA que “pueden navegar” y resolver tareas en la web. Luego, en producción, esos mismos agentes tropiezan con proxies TLS, descargan archivos fuera de proceso, o consultan dominios no autorizados. La promesa de automatizar procesos se convierte en incidentes y rechazo por parte de compliance.</p><p><strong>Los agentes no son demos; son vectores.</strong></p><p>Breve y directo: permitir a un agente acceso irrestricto a un navegador corporativo es delegar en él decisiones críticas de seguridad. Esa delegación sin controles concretos significa: fuga de credenciales, bloqueo de servicios internos que usan certificados de la CA corporativa, y operaciones inconsistentes en entornos con inspección TLS.</p><h2>Por qué esto importa desde la operación</h2><p>Los fallos no ocurren solo por un bug en el modelo. Ocurren porque el agente se enfrenta a la realidad operativa: proxies que interceptan TLS, certificados internos no reconocidos, reglas de URL que deben restringir su alcance y políticas de descarga que impiden exfiltración. Para que un agente deje de ser un experimento y pase a ser una herramienta útil se necesitan tres cosas concretas: límites, confianza y trazabilidad.</p><ul>
+  <li><strong>Límites.</strong> Definir a qué dominios puede ir y cuáles están vetados.</li>
+  <li><strong>Confianza.</strong> Permitir que el agente confíe en los certificados internos (CA) para acceder a servicios corporativos.</li>
+  <li><strong>Trazabilidad.</strong> Registrar sesiones y acciones para auditoría y análisis operativo.</li>
+</ul><h2>Qué aporta la combinación Chrome enterprise policies + certificados raíz + Amazon Bedrock AgentCore</h2><p>Amazon Bedrock AgentCore ofrece un entorno en el que los agentes pueden ejecutar un navegador controlado. Chrome enterprise policies son la palanca que aplica límites (URL allowlist/denylist, bloqueo de descargas, desactivación del guardado de contraseñas, etc.). Agregar la posibilidad de inyectar certificados raíz personalizados hace que esos agentes puedan comunicarse con servicios internos detrás de proxies que realizan inspección TLS. El resultado: agentes útiles y conectados que respetan las reglas corporativas.</p><h2>Checklist operativo para llevar un agente navegador a producción</h2><ol>
+  <li>Identificar el alcance funcional del agente: dominios, APIs, descargas y credenciales necesarias.</li>
+  <li>Construir la política de Chrome como JSON: allowlist por tarea, bloqueo de password manager, restricción de descargas y control de extensiones.</li>
+  <li>Configurar el almacén de certificados del runtime de AgentCore con la CA corporativa y probar conexiones HTTPS a servicios internos.</li>
+  <li>Habilitar session recording y logging para cada ejecución del agente; definir retención y acceso para compliance.</li>
+  <li>Diseñar planes de fallo: comportamiento cuando una URL está bloqueada, reintentos y escalamiento humano.</li>
+  <li>Automatizar pruebas end-to-end en entornos que repliquen el proxy TLS y la inspección corporativa.</li>
+</ol><h2>Ejemplos prácticos (operativos)</h2><p>1) Automatización de facturas: un agente que consulta portales de proveedores y descarga PDFs. Sin políticas de Chrome, podría navergar fuera de los portales previstos o descargar ejecutables. Con allowlist y bloqueo de descargas no autorizadas, el agente solo accede a los dominios de proveedores y almacena PDFs en un repositorio controlado.</p><p>2) Atención al cliente en portales web: el agente necesita autenticarse y leer información detrás de un proxy. Si la CA interna no está presente, la sesión falla. Inyectando la CA en el runtime del agente, garantizamos conectividad y evitamos que el proceso dependa de contenedores no preparados.</p><p>3) Investigación documental automatizada: cuando el agente explora fuentes externas y las compara con documentación interna, la trazabilidad de sesiones y la denegación de dominios peligrosos evita que material sensible sea expuesto a servicios públicos.</p><h2>Modos de falla comunes y cómo mitigarlos</h2><ul>
+  <li>Fallo TLS con servicios internos: validar la CA en el contenedor del agente antes del despliegue; automatizar la rotación de certificados.</li>
+  <li>Exfiltración por descargas: bloquear descargas y enviar documentos a un canal controlado para revisión humana.</li>
+  <li>Sesiones inesperadas a dominios externos: implementar denylist global y notificaciones de bloqueo para análisis.</li>
+  <li>Actualizaciones de Chrome que cambian políticas: incluir pruebas de regresión de políticas en el pipeline CI/CD del agente.</li>
+</ul><h2>Arquitectura operativa, en una frase</h2><p>AgentCore ejecuta un navegador con un perfil de Chrome definido por JSON (políticas) y un almacén de certificados ampliado con la CA corporativa; todo ello envuelto en logging y session recording, detrás del proxy TLS y conectado a los servicios internos que el agente requiere.</p><h2>Qué medir antes y después del piloto</h2><ul>
+  <li>Tasa de fallos de conexión HTTPS con servicios internos.</li>
+  <li>Incidentes de navegación fuera de rango por ejecución.</li>
+  <li>Tiempo medio de recuperación ante bloqueo de URL permitida.</li>
+  <li>Calidad de resultados funcionales (por ejemplo, porcentaje de facturas procesadas correctamente).</li>
+</ul><h2>Cierre consultivo</h2><p>Si su empresa convierte demos de agentes en procesos críticos sin esta capa de control, está llevando riesgo a la operación. La buena noticia: no se requiere rehacer modelos ni renunciar a automatización. Se necesita criterio operativo: políticas de navegador bien diseñadas, confianza en certificados internos y pruebas que reproduzcan su proxy TLS.</p><p>Siguiente paso práctico: ejecutar un diagnóstico rápido en 4 semanas que valide dominios, construya la política de Chrome para sus casos de uso e implemente pruebas con certificados de su CA en un entorno controlado. Ese diagnóstico transforma la promesa técnica en una política operativa aplicable.</p>
+        </div>
+      </section>
+      <section class="cta-panel panel">
+        <span class="eyebrow">Siguiente paso</span>
+        <h2>Diagnóstico operativo de agentes IA</h2>
+        <p>Si su organización está probando agentes de IA en flujos reales —facturación, atención o investigación— proponga un diagnóstico de 4 semanas: validamos alcance, configuramos políticas de Chrome para AgentCore, probamos certificados internos y entregamos un plan de despliegue seguro y escalable. Hablemos para diseñar un piloto que convierta pruebas en producción controlada.</p>
+      </section>
+      <section class="sources panel">
+        <h2>Fuentes y referencias</h2>
+        <ul><li><a href="https://aws.amazon.com/blogs/machine-learning/control-where-your-ai-agents-can-browse-with-chrome-enterprise-policies-on-amazon-bedrock-agentcore/" target="_blank" rel="noopener noreferrer">https://aws.amazon.com/blogs/machine-learning/control-where-your-ai-agents-can-browse-with-chrome-enterprise-policies-on-amazon-bedrock-agentcore/</a></li><li><a href="https://towardsdatascience.com/building-an-evaluation-harness-for-production-ai-agents-a-12-metric-framework-from-100-deployments/" target="_blank" rel="noopener noreferrer">https://towardsdatascience.com/building-an-evaluation-harness-for-production-ai-agents-a-12-metric-framework-from-100-deployments/</a></li><li><a href="https://towardsdatascience.com/why-your-ai-demo-will-die-in-production/" target="_blank" rel="noopener noreferrer">https://towardsdatascience.com/why-your-ai-demo-will-die-in-production/</a></li><li><a href="https://towardsdatascience.com/the-next-ai-bottleneck-isnt-the-model-its-the-inference-system/" target="_blank" rel="noopener noreferrer">https://towardsdatascience.com/the-next-ai-bottleneck-isnt-the-model-its-the-inference-system/</a></li></ul>
+      </section>
+    </article>
+  </main>
+  <footer class="site-footer">
+  <div class="shell">
+    <p>Axon Labs (c) 2026. Contenido automatizado para posicionamiento orgánico.</p>
+  </div>
+</footer>
+</body>
+</html>

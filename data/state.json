@@ -1,5 +1,5 @@
 {
-  "last_run_at": "2026-05-11T16:47:09.999535+00:00",
+  "last_run_at": "2026-05-18T17:11:40.980309+00:00",
   "seen_source_urls": [
     "https://aws.amazon.com/blogs/machine-learning/toolsimulator-scalable-tool-testing-for-ai-agents/",
     "https://aws.amazon.com/blogs/machine-learning/omnichannel-ordering-with-amazon-bedrock-agentcore-and-amazon-nova-2-sonic/",
@@ -21,6 +21,10 @@
     "https://aws.amazon.com/blogs/machine-learning/agents-that-transact-introducing-amazon-bedrock-agentcore-payments-built-with-coinbase-and-stripe/",
     "https://aws.amazon.com/blogs/machine-learning/secure-ai-agents-with-amazon-bedrock-agentcore-identity-on-amazon-ecs/",
     "https://openai.com/index/openai-launches-the-deployment-company",
-    "https://openai.com/index/openai-pwc-finance-collaboration"
+    "https://openai.com/index/openai-pwc-finance-collaboration",
+    "https://aws.amazon.com/blogs/machine-learning/control-where-your-ai-agents-can-browse-with-chrome-enterprise-policies-on-amazon-bedrock-agentcore/",
+    "https://towardsdatascience.com/building-an-evaluation-harness-for-production-ai-agents-a-12-metric-framework-from-100-deployments/",
+    "https://towardsdatascience.com/why-your-ai-demo-will-die-in-production/",
+    "https://towardsdatascience.com/the-next-ai-bottleneck-isnt-the-model-its-the-inference-system/"
   ]
 }
