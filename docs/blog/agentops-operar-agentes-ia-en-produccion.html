@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AgentOps: por qué el verdadero proyecto no es el agente sino la disciplina operativa | Axon Labs</title>
+  <meta name="description" content="Los agentes de IA son poderosos y no determinísticos: sin disciplina operativa se convierten en ruido, riesgo y coste. Un marco práctico de AgentOps ayuda a decidir cuándo desplegar un agente y qué controles exigir antes del piloto.">
+  <link rel="stylesheet" href="../assets/site.css">
+  <link rel="canonical" href="https://edreirbs.github.io/conten-agents/blog/agentops-operar-agentes-ia-en-produccion.html">
+</head>
+<body>
+  <header class="site-header">
+  <div class="shell masthead">
+    <a class="brand" href="../">Axon Labs</a>
+    <nav class="nav">
+      <a href="../">Inicio</a>
+      <a href="../blog/">Blog</a>
+    </nav>
+  </div>
+</header>
+  <main class="shell">
+    <article class="story">
+      <section class="story-hero">
+        <div class="story-copy">
+          <span class="eyebrow">AgentOps</span>
+          <h1>AgentOps: por qué el verdadero proyecto no es el agente sino la disciplina operativa</h1>
+          <p class="deck">Los agentes autónomos prometen reducir trabajo; en la práctica, sin controles se convierten en facturas inesperadas y decisiones opacas. Aquí un marco ejecutivo para decidir, medir y pilotar con sentido.</p>
+          <div class="meta meta-hero">
+            <span>01 Jun 2026</span>
+            <span>AWS Machine Learning Blog</span>
+            <span>5 min de lectura</span>
+            <span>Hot news</span>
+          </div>
+        </div>
+        <div class="story-cover panel">
+          <img src="https://images.pexels.com/photos/32529354/pexels-photo-32529354.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Close-up of an industrial control panel with colorful buttons in a factory setting.">
+          <p class="image-credit">Foto vía Pexels · <a href="https://www.pexels.com/@fernando-narvaez-2150621466" target="_blank" rel="noopener noreferrer">Fernando Narvaez</a> · <a href="https://www.pexels.com/photo/industrial-control-panel-with-colorful-buttons-32529354/" target="_blank" rel="noopener noreferrer">ver fuente</a></p>
+        </div>
+      </section>
+      <section class="takeaways panel">
+  <span class="eyebrow">En 30 segundos</span>
+  <h2>Lo que importa de verdad</h2>
+  <ul><li>La decisión clave no es si construir un agente, sino si tu operación está lista para gestionarlo.</li><li>AgentOps articula cuatro pilares prácticos: gobernanza, build &amp; operations, evaluación y observabilidad.</li><li>Antes de un piloto, exige controles mínimos: límites de coste, versionado, métricas de calidad y rutas de intervención humana.</li></ul>
+</section>
+      <section class="quote-band">
+  <blockquote>Un agente sin disciplina es ruido con factura.</blockquote>
+</section>
+      <section class="article-shell">
+        <div class="article-body">
+          <p>Promesa: los agentes autónomos van a quitar trabajo, acelerar decisiones y reducir errores. Realidad: empiezan a tomar decisiones inesperadas, generan facturas de consumo que nadie esperaba y se rompen en formas que nadie puede reproducir.</p><p><strong>Un agente sin disciplina es ruido con factura.</strong></p><p>Es una contradicción útil: la tecnología promete autonomía y las organizaciones necesitan previsibilidad. Si usted es director general, líder de operaciones o responsable de TI, la pregunta deja de ser “¿podemos construir un agente?” y pasa a ser “¿podemos operar uno sin crear problemas mayores?”. Esa es la tesis de AgentOps: la disciplina operativa que convierte un experimento en un servicio fiable.</p><h2>La trampa común</h2><p>Las experiencias que fallan suelen compartir el mismo patrón. Se lanza un piloto con expectativas técnicas pero sin reglas operativas. Cuando el agente actúa fuera de lo previsto, se descubre que:</p><ul>
+  <li>No hay límites claros de coste: el uso se dispara.</li>
+  <li>No existe trazabilidad de por qué el agente tomó una acción.</li>
+  <li>No hay versiones controladas de herramientas, memoria o prompts.</li>
+  <li>No se midió la calidad con métricas que importan al negocio.</li>
+</ul><p>El resultado: aprendizaje pobre, impacto incierto y, con frecuencia, abandono o “migración” del problema al equipo de TI sin un plan.</p><h2>Cuatro pilares prácticos de AgentOps</h2><p>AgentOps no es un manual técnico; es un marco operativo que obliga a responder preguntas ejecutivas y dejar condiciones para un piloto racional. Los cuatro pilares son:</p><ol>
+  <li><strong>Gobernanza y seguridad</strong>: ¿quién autoriza acciones del agente? ¿qué límites legales y de cumplimiento aplican? Exija registros de decisiones y roles claros para intervención humana.</li>
+  <li><strong>Build &amp; Operations</strong>: trate agentes, herramientas y memoria como artefactos versionados. Esto permite rollback, auditoría y reproducibilidad.</li>
+  <li><strong>Evaluación</strong>: definición de métricas de éxito empresariales y pruebas definidas (incluyendo casos adversos). Mida no solo precisión, sino coste por resolución, tasa de intervención humana y tiempo hasta recuperación.</li>
+  <li><strong>Observabilidad</strong>: monitorización granular de uso, latencias y patrones de fallo, con alertas operativas hacia equipos responsables.</li>
+</ol><h2>Qué decidir antes de construir</h2><p>No todas las tareas merecen un agente. Use esta regla simple:</p><ul>
+  <li>Si la tarea es repetitiva, determinística y con variantes controladas: automatice con sistemas clásicos y RPA.</li>
+  <li>Si la tarea requiere razonamiento contextual y manejo de excepciones frecuentes: considere un agente, pero solo si cumple los requisitos de AgentOps.</li>
+  <li>Si la tarea es estratégica, sensible o afecta decisiones externas (clientes, finanzas, cumplimiento): trate el agente como servicio crítico desde el día uno.</li>
+</ul><h2>Checklist operativo mínimo antes de un piloto</h2><p>Exija lo siguiente. Si falta cualquiera de estos elementos, postergue el piloto.</p><ul>
+  <li>Definición clara del objetivo de negocio y métricas (KPI cuantificables).</li>
+  <li>Límites de gasto diarios y alertas de coste (circuit breakers).</li>
+  <li>Versionado de artefactos: agent config, herramientas, memoria, prompts.</li>
+  <li>Registro completo de decisiones y trazabilidad hasta el input y la versión usada.</li>
+  <li>Protocolos de intervención humana: cuándo y cómo se toma control manualmente.</li>
+  <li>Escenarios de prueba con casos adversos y métricas de aceptación/rechazo.</li>
+</ul><h2>Ejemplos operativos</h2><p>Dos casos que ayudan a aterrizar:</p><ul>
+  <li><strong>Atención al cliente escalada</strong>. Promesa: el agente responde y escala sólo los casos complejos. Riesgo sin AgentOps: responde mal y genera reclamos. Control mínimo: métricas por intentos resueltos, tasa de desvío a humano, y listado versionado de políticas de respuesta.</li>
+  <li><strong>Coordinación logística entre almacén y transporte</strong>. Promesa: el agente optimiza rutas y reasigna órdenes. Riesgo: decisiones que incumplen SLA o reglas de seguridad. Control mínimo: límites de acción automática, simulación previa a producción y monitorización en tiempo real con alertas.</li>
+</ul><h2>Métricas que importan (no las que suenan bien)</h2><p>Evite obsesionarse con métricas académicas. Para operaciones use:</p><ul>
+  <li>Coste por transacción (incluyendo coste de LLM y supervisión humana).</li>
+  <li>Tasa de resolución sin intervención humana.</li>
+  <li>Tiempo medio hasta intervención cuando falla.</li>
+  <li>Tasa de decisiones revertidas por usuarios o auditores.</li>
+</ul><h2>Arquitectura operativa: recomendaciones ejecutivas</h2><p>No necesita detalles de implementación en la sala de juntas, sí necesita decisiones arquitectónicas tempranas: cuentas separadas para ambientes, pipelines de despliegue que versionen artefactos, y capacidades de auditoría que preserven entradas y salidas.</p><p>Estos son trade-offs: más gobernanza significa menos velocidad inicial; menos gobernanza suele costar mucho más luego. Decida cuál riesgo está dispuesto a tolerar.</p><h2>Cierre consultivo: cómo empezar con sentido</h2><p>No propongo abstenerse de agentes. Propongo hacerlo con criterio. Un piloto efectivo deja tres cosas claras: 1) la mejora concreta en un KPI operativo; 2) los límites de coste y cómo controlarlos; 3) las reglas de gobernanza y las rutas de intervención humana. Si su organización puede definir eso, el piloto puede escalar; si no, no debería.</p><p>Si quiere avanzar sin fantasías ni desperdicio, proponga este plan en 4 pasos:</p><ol>
+  <li>Diagnóstico rápido (2 semanas): identificamos 3 procesos candidatos y evaluamos madurez operativa frente al checklist de AgentOps.</li>
+  <li>Prioridad y diseño del piloto (1 semana): escogemos un caso con impacto claro y bajo riesgo, definimos KPIs y límites de coste.</li>
+  <li>Piloto controlado (6-8 semanas): despliegue con control de versión, monitorización y human-in-the-loop; entregables con métricas intermedias.</li>
+  <li>Decisión de escala (2 semanas): criterios de éxito y plan de gobernanza para producción si cumple objetivos.</li>
+</ol><p>La tecnología hace posible más autonomía; la organización decide si esa autonomía suma o resta. AgentOps no es glamour; es disciplina. Sin disciplina, los agentes son solo otra fuente de ruido.</p>
+        </div>
+      </section>
+      <section class="cta-panel panel">
+        <span class="eyebrow">Siguiente paso</span>
+        <h2>Convierte un caso en un servicio fiable</h2>
+        <p>Si suena familiar —rápidos pilotos que terminan en deudas técnicas y alarmas de coste— propongamos un diagnóstico breve. En 4 sesiones evaluamos tres procesos candidatos y entregamos un plan de piloto con controles mínimos de AgentOps: gobernanza, métricas, límites de coste y criterios de salida. Hablemos para definir prioridades operativas y un piloto claro.</p>
+      </section>
+      <section class="sources panel">
+        <h2>Fuentes y referencias</h2>
+        <ul><li><a href="https://aws.amazon.com/blogs/machine-learning/agentops-operationalize-agentic-ai-at-scale-with-amazon-bedrock-agentcore/" target="_blank" rel="noopener noreferrer">https://aws.amazon.com/blogs/machine-learning/agentops-operationalize-agentic-ai-at-scale-with-amazon-bedrock-agentcore/</a></li><li><a href="https://aws.amazon.com/blogs/machine-learning/secure-ai-agents-with-policy-and-lambda-interceptors-in-amazon-bedrock-agentcore-gateway/" target="_blank" rel="noopener noreferrer">https://aws.amazon.com/blogs/machine-learning/secure-ai-agents-with-policy-and-lambda-interceptors-in-amazon-bedrock-agentcore-gateway/</a></li><li><a href="https://aws.amazon.com/blogs/machine-learning/evaluating-deep-agents-using-langsmith-on-aws/" target="_blank" rel="noopener noreferrer">https://aws.amazon.com/blogs/machine-learning/evaluating-deep-agents-using-langsmith-on-aws/</a></li><li><a href="https://aws.amazon.com/blogs/machine-learning/how-aws-smgs-uses-an-ai-powered-conversational-assistant-to-transform-business-management-with-amazon-bedrock-agentcore/" target="_blank" rel="noopener noreferrer">https://aws.amazon.com/blogs/machine-learning/how-aws-smgs-uses-an-ai-powered-conversational-assistant-to-transform-business-management-with-amazon-bedrock-agentcore/</a></li></ul>
+      </section>
+    </article>
+  </main>
+  <footer class="site-footer">
+  <div class="shell">
+    <p>Axon Labs (c) 2026. Contenido automatizado para posicionamiento orgánico.</p>
+  </div>
+</footer>
+</body>
+</html>

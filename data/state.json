@@ -1,5 +1,5 @@
 {
-  "last_run_at": "2026-05-25T16:32:32.046262+00:00",
+  "last_run_at": "2026-06-01T19:24:42.888733+00:00",
   "seen_source_urls": [
     "https://aws.amazon.com/blogs/machine-learning/toolsimulator-scalable-tool-testing-for-ai-agents/",
     "https://aws.amazon.com/blogs/machine-learning/omnichannel-ordering-with-amazon-bedrock-agentcore-and-amazon-nova-2-sonic/",
@@ -28,6 +28,10 @@
     "https://towardsdatascience.com/the-next-ai-bottleneck-isnt-the-model-its-the-inference-system/",
     "https://aws.amazon.com/blogs/machine-learning/build-ai-agents-for-business-intelligence-with-amazon-bedrock-agentcore/",
     "https://aws.amazon.com/blogs/machine-learning/build-ai-powered-dashboard-automation-agents-with-nlp-on-amazon-bedrock-agentcore/",
-    "https://towardsdatascience.com/optimizing-ai-agent-planning-with-operations-research-and-data-science/"
+    "https://towardsdatascience.com/optimizing-ai-agent-planning-with-operations-research-and-data-science/",
+    "https://aws.amazon.com/blogs/machine-learning/agentops-operationalize-agentic-ai-at-scale-with-amazon-bedrock-agentcore/",
+    "https://aws.amazon.com/blogs/machine-learning/secure-ai-agents-with-policy-and-lambda-interceptors-in-amazon-bedrock-agentcore-gateway/",
+    "https://aws.amazon.com/blogs/machine-learning/evaluating-deep-agents-using-langsmith-on-aws/",
+    "https://aws.amazon.com/blogs/machine-learning/how-aws-smgs-uses-an-ai-powered-conversational-assistant-to-transform-business-management-with-amazon-bedrock-agentcore/"
   ]
 }
