@@ -1,5 +1,64 @@
 [
   {
+    "id": "2026-06-15T18:47:19.003825+00:00",
+    "title": "Agentes de larga duración en la empresa: por qué la compra de Ona obliga a replantear procesos, gobernanza y arquitectura",
+    "deck": "La llegada de agentes persistentes deja de ser experimentación: es un nuevo modo operativo que exige criterios claros para ser útil y seguro.",
+    "slug": "agentes-larga-duracion-empresas-ona-openai",
+    "excerpt": "La capacidad de ejecutar agentes de IA persistentes transforma flujos críticos: oportunidad real, pero también riesgos operativos si no hay criterios de selección, controles de fidelidad y arquitectura integrada.",
+    "seo_description": "La adquisición de Ona por OpenAI generaliza agentes persistentes. ¿Cómo convertir esa capacidad en procesos útiles, gobernados y medibles? Criterios prácticos y checklists operativos.",
+    "pull_quote": "Agentes sin criterio son ruido; con criterio, son sistemas que entregan resultados.",
+    "key_takeaways": [
+      "Identificar procesos candidatos exige métricas operativas, no entusiasmo técnico.",
+      "Los controles de fidelidad y trazabilidad deben diseñarse antes del despliegue.",
+      "Arquitectura e integración con sistemas legados determinan si el piloto escala o queda en deuda técnica."
+    ],
+    "cover_label": "Agentes persistentes",
+    "cover_theme": "systems",
+    "cta_title": "Diagnóstico y piloto focalizado",
+    "cta_body": "Si su equipo considera desplegar agentes de IA persistentes, conviene un diagnóstico operacional que priorice procesos, diseñe controles de fidelidad y defina una arquitectura integrada. Proponemos una sesión de 90 minutos para mapear tres procesos candidatos y un piloto controlado.",
+    "keywords": [
+      "agentes de IA",
+      "agentes persistentes",
+      "automatización",
+      "gobernanza",
+      "integración de sistemas",
+      "operaciones",
+      "Trazabilidad",
+      "arquitectura",
+      "piloto IA"
+    ],
+    "image_query": "oficina corporativa con diagrama de flujo de agentes de IA y paneles de gobernanza",
+    "article_html": "<h2>Contradicción inicial</h2><p>La noticia de que OpenAI adquiere Ona —y con ello impulsa entornos seguros para ejecutar agentes de IA de larga duración— llega con una doble lectura: por un lado, desbloquea la promesa de que procesos complejos puedan orquestarse automáticamente; por otro, amplifica el peligro de decisiones autónomas que operan fuera de los controles habituales.</p><p><strong>Golpe editorial:</strong> Agentes sin criterio son ruido; con criterio, son sistemas que entregan resultados.</p><h2>Por qué importa para operaciones</h2><p>Hasta ahora, muchas iniciativas con IA en empresas han sido experimentos tácticos: PoC, notebooks, integraciones punto a punto. Los agentes persistentes cambian la unidad operativa: dejan de ser modelos que responden a consultas y pasan a ser ejecutores autónomos que mantienen estado, actúan en sistemas y encadenan tareas. Eso eleva el potencial de automatización —orquestar CRM, ERP, atención y back-office— pero también magnifica fallos: decisiones erradas, acciones fuera de política o acumulación de deuda técnica.</p><h2>Qué exige la adopción operativa (no técnica)</h2><p>Si su organización va a convertir esta capacidad en valor, no empiece por benchmarkear modelos. Empiece por responder tres preguntas prácticas:</p><ul>\n  <li>¿Qué proceso necesitamos que termine mejor —más rápido, menos errores, menos mano de obra? (objetivo operativo)</li>\n  <li>¿Qué límites deben respetar las decisiones automáticas? (política y riesgo)</li>\n  <li>¿Cómo medimos que el agente mejora métricas relevantes y no solo acorta pasos? (métrica y gobernanza)</li>\n</ul><h2>Procesos candidatos: criterios para seleccionar</h2><p>No todo proceso es apto. Priorice donde el retorno real sea medible y los riesgos contenibles:</p><ul>\n  <li>Volumen claro y repetible: tareas frecuentes donde la simplificación aporta ahorro visible.</li>\n  <li>Interacción con múltiples sistemas: el agente aporta orquestación entre CRM, ERP y plataformas externas.</li>\n  <li>Decisiones con reglas o datos verificables: límites de autonomía definidos.</li>\n  <li>Impacto operativo medible: tiempos de ciclo, tasa de errores evitados, carga de rework.</li>\n  <li>Baja latencia en consecuencias legales o reputacionales (preferible empezar donde el riesgo sea manejable).</li>\n</ul><h2>Controles de fidelidad y trazabilidad: checklist operativo</h2><p>Antes de desplegar, implemente controles mínimos que eviten sorpresas:</p><ul>\n  <li>Registro por acción: cada decisión del agente debe quedar con id, input, output y versión del modelo.</li>\n  <li>Puntos de intervención humana: gradas (gates) donde un operador revisa acciones de impacto crítico.</li>\n  <li>Fuentes de verdad verificadas: el agente debe consultar APIs autorizadas, no documentos locales no versionados.</li>\n  <li>Versionado de prompts y políticas: historial claro para auditoría y rollback.</li>\n  <li>Métricas de salud en tiempo real: latencia, tasa de reintentos, desviación respecto a reglas esperadas.</li>\n</ul><h2>Arquitectura práctica que funciona</h2><p>La promesa técnica de Ono/OpenAI o de otras infraestructuras de agentes es útil solo si se integra con la arquitectura empresarial. Un checklist mínimo:</p><ul>\n  <li>Runtime seguro y aislado con límites de ejecución y permisos por conector.</li>\n  <li>Conectores idempotentes a sistemas legados (ERP, CRM), para evitar acciones duplicadas.</li>\n  <li>Mecanismo de compensación: pasos que reviertan cambios automáticos cuando fallen validaciones.</li>\n  <li>Observabilidad centralizada: logs, trazas y dashboards que comuniquen a equipos de operaciones y riesgo.</li>\n  <li>Políticas de gestión de secretos y tokens con rotación y registro de acceso.</li>\n</ul><h2>Cómo medir impacto (TPR y otras métricas)</h2><p>Vincule resultados del agente a indicadores de negocio. Un marco útil: TPR —Throughput, Precision, Reliability— traducido a métricas operativas:</p><ul>\n  <li>Throughput: número de procesos completados por hora/día frente al baseline manual.</li>\n  <li>Precision: porcentaje de decisiones correctas / que no requieren intervención humana.</li>\n  <li>Reliability: tiempo de actividad del flujo y recuperación ante fallos.</li>\n</ul><p>Además, mida tiempos de ciclo, errores evitados (rework), costos evitados y satisfacción del cliente/usuario interno.</p><h2>Ejemplos operativos breves</h2><ul>\n  <li>Ventas: un agente persistente que prioriza leads, actualiza CRM y programa reuniones. Resultado esperado: reducción del tiempo entre lead y contacto inicial en 40% y aumento de oportunidades calificadas.</li>\n  <li>Back-office de facturación: agente que valida facturas contra órdenes y plugins fiscales, dejando solo excepciones para un operador. Resultado: menos rework y cierre de caja más rápido.</li>\n  <li>Soporte escalado: agente que orquesta diagnóstico preliminar entre sistemas y envía contexto a un humano con la ruta de remediación sugerida. Resultado: menor tiempo medio de resolución y menos transferencias.</li>\n</ul><h2>Riesgos más probables y cómo mitigarlos</h2><p>Los principales riesgos no son sofisticados: hallucinations, acciones fuera de política y deuda técnica. Medidas prácticas:</p><ul>\n  <li>Pruebas contra escenarios adversos antes de producción.</li>\n  <li>Políticas de fallback explícitas (si no hay certeza, escalar a humano).</li>\n  <li>Mantenimiento continuo: ciclos de actualización de prompts, validadores y conectores.</li>\n</ul><h2>Cierre consultivo: qué hacer los próximos 60 días</h2><p>Si su organización quiere convertir la oportunidad de agentes persistentes en ventaja real, proponga este plan:</p><ol>\n  <li>Sesión de diagnóstico (90 minutos): mapear 3 procesos candidatos y definir métricas objetivo.</li>\n  <li>Diseño de controles mínimos y arquitectura de integración (workshop técnico-operativo).</li>\n  <li>Piloto controlado de 6 semanas en uno de los procesos priorizados, con métricas TPR y puertas de intervención humana.</li>\n</ol><p>No se trata de frenar la adopción. Se trata de evitar que un agente cause problemas que cuesten más que el ahorro proyectado. La infraestructura ya está llegando al mainstream; la pregunta operativa es si su empresa tiene criterio para usarla y gobernarla.</p><p><strong>Axon Labs</strong> ayuda a transformar pilotos de agentes en sistemas útiles, gobernados y escalables: desde la selección de procesos hasta el piloto y la integración con sus sistemas críticos.</p>",
+    "linkedin_text": "La compra de Ona por OpenAI pone en manos de las empresas la capacidad de ejecutar agentes de IA persistentes. Oportunidad real. Riesgos operativos reales también. En este artículo explicamos cómo identificar procesos candidatos, qué controles de fidelidad y trazabilidad son imprescindibles y qué arquitectura evita que el piloto genere deuda técnica. ¿Listos para llevar un agente del experimento al resultado medible? Lea el artículo completo y propongamos un diagnóstico: https://edreirbs.github.io/conten-agents/blog/agentes-larga-duracion-empresas-ona-openai.html",
+    "source_name": "OpenAI Blog",
+    "source_urls": [
+      "https://openai.com/index/openai-to-acquire-ona",
+      "https://aws.amazon.com/blogs/machine-learning/evaluate-ai-agents-systematically-with-agent-evalkit/",
+      "https://aws.amazon.com/blogs/machine-learning/building-supercharger-how-rocket-close-optimized-title-operations-with-agentic-ai/",
+      "https://aws.amazon.com/blogs/machine-learning/stop-hand-tuning-kernels-how-neuron-agentic-development-accelerates-aws-trainium-optimizations/"
+    ],
+    "published_at": "2026-06-15T18:47:19.003825+00:00",
+    "canonical_url": "https://edreirbs.github.io/conten-agents/blog/agentes-larga-duracion-empresas-ona-openai.html",
+    "linkedin": {
+      "status": "skipped",
+      "post_reference": null
+    },
+    "editorial_role": {
+      "id": "tool_deep_dive",
+      "label": "Tool deep dive",
+      "goal": "explicar una herramienta o tecnología con profundidad y criterio operativo"
+    },
+    "cover_image": {
+      "provider": "pexels",
+      "url": "https://images.pexels.com/photos/8353793/pexels-photo-8353793.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+      "alt": "Professional in suit analyzing financial data on screens in a modern office setting.",
+      "photographer": "Kampus Production",
+      "photographer_url": "https://www.pexels.com/@kampus",
+      "source_url": "https://www.pexels.com/photo/man-looking-at-a-screen-with-stock-market-data-8353793/",
+      "attribution_label": "Foto vía Pexels"
+    }
+  },
+  {
     "id": "2026-06-08T17:29:27.465796+00:00",
     "title": "Cuando las tablas importan más que las promesas: cómo NEXUS convierte datos operativos en decisiones reproducibles",
     "deck": "NEXUS —un modelo creado para datos tabulares— reduce la ingeniería, mejora la reproducibilidad y abre rutas prácticas para automatizar procesos críticos sin apuestas especulativas.",
