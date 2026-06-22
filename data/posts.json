@@ -1,5 +1,63 @@
 [
   {
+    "id": "2026-06-22T18:18:11.280887+00:00",
+    "title": "Cuando los agentes autónomos deciden: peligro real y cómo gobernarlos sin paralizar la operación",
+    "deck": "La promesa de «hacer más con menos» choca con una verdad operativa: delegar decisiones sin contexto y reglas claras convierte la automatización en un riesgo fijo.",
+    "slug": "agentes-autonomos-contexto-gobernanza",
+    "excerpt": "Delegar decisiones críticas a agentes autónomos sin contexto, trazabilidad ni límites claros genera errores, costes ocultos y responsabilidad operacional. Un marco práctico reduce el riesgo y entrega valor real.",
+    "seo_description": "Cómo evaluar y gobernar agentes autónomos: identificar procesos aptos, garantizar contexto gobernado, circuitos de validación, medir costes ocultos y lanzar pilotos con guardrails.",
+    "pull_quote": "Un agente que decide sin contexto es un riesgo disfrazado de eficiencia.",
+    "key_takeaways": [
+      "No todos los procesos son aptos para agentes autónomos: priorice criticidad y reversibilidad.",
+      "El contexto gobernado (datos, reglas, SLAs) es la única base para decisiones confiables.",
+      "Diseñe validaciones humanas, métricas de coste real y un piloto con guardrails técnicos y operativos."
+    ],
+    "cover_label": "Agentes & Riesgo",
+    "cover_theme": "risk",
+    "cta_title": "Diagnóstico práctico de 30–60 días",
+    "cta_body": "Si la promesa de los agentes autónomos le interesa pero le inquieta el riesgo, propongamos un diagnóstico de 30–60 días: mapeamos procesos críticos, evaluamos contexto disponible, proponemos un caso piloto gobernado y entregamos un plan de mitigación de costes y responsabilidades. Conversamos?",
+    "keywords": [
+      "agentes autónomos",
+      "gobernanza IA",
+      "context intelligence",
+      "automatización",
+      "costes ocultos",
+      "piloto IA",
+      "operaciones",
+      "integración de datos"
+    ],
+    "image_query": "ejecutivo revisando tablero de control con agentes IA, diagrama de gobernanza y flujos de datos",
+    "article_html": "<p>Promesa: los agentes autónomos harán más con menos. Realidad: a menudo hacen algo más rápido —y equivocado— sin que nadie pueda explicar por qué.</p><p>La tensión es elemental: la automatización pretende transferir decisiones repetibles al software. Pero cuando esas decisiones exigen contexto (reglas comerciales, datos transaccionales confiables, límites regulatorios), la delegación sin control no es eficiencia: es riesgo operativo y financiero.</p><p><strong>Un agente que decide sin contexto es un riesgo disfrazado de eficiencia.</strong></p><p>Si dirige operaciones, TI o transformación digital, esta afirmación no es retórica: es práctica. Un agente que emite reembolsos, que aprueba descuentos, que ordena stock o que identifica clientes para cobrar puede ahorrar horas —y al mismo tiempo generar facturas millonarias por errores, sanciones regulatorias o daño reputacional.</p><h2>Por qué sucede —y por qué importa</h2><p>Hoy el «contexto» está fragmentado: data lakes, warehouse, CRMs, sistemas legados, procedimientos no documentados y conocimiento humano que nunca fue codificado. Los agentes suelen elegir la acción más probable según su entrenamiento, no la que cumple la regla comercial o legal vigente.</p><p>Consecuencias operativas concretas:</p><ul>\n  <li>Errores automáticos que se replican a gran escala (p. ej. descuentos masivos aplicados incorrectamente).</li>\n  <li>Costes ocultos por consumo de modelos y llamadas a APIs: cada «decisión» puede tener un precio directo.</li>\n  <li>Falta de trazabilidad: ¿quién autorizó la decisión? ¿qué datos la sustentaron?</li>\n  <li>Caída en la confianza de las áreas que reciben resultados automatizados (servicio, finanzas, cumplimiento).</li>\n</ul><h2>Marco ejecutivo para usar agentes sin cavar un hoyo</h2><p>Proponga este marco de cinco pasos en su comité de automatización. Es operativo y prioriza control por encima de experimentación ilimitada.</p><ol>\n  <li><strong>Clasificar procesos por criticidad y reversibilidad.</strong>\n    <ul>\n      <li>Alta criticidad: decisiones financieras, legales, atención al cliente con impacto legal. Requieren validación humana.</li>\n      <li>Media criticidad: operaciones que pueden automatizarse con supervisión humana temporal (p. ej. sugerencias de acción).</li>\n      <li>Baja criticidad: tareas de back office repetitivas y con impacto limitado son aptas para autonomía total.</li>\n    </ul>\n  </li>\n\n  <li><strong>Asegurar acceso gobernado al contexto.</strong>\n    <ul>\n      <li>Catálogo de contexto: datasets, fuentes, reglas comerciales y SLAs indispensables para cada decisión.</li>\n      <li>Políticas de acceso: qué puede leer el agente, con qué latencia, y qué se considera dato «autoritativo». (No más acceso a todo por defecto.)</li>\n    </ul>\n  </li>\n\n  <li><strong>Diseñar circuitos de validación y responsabilidad humana.</strong>\n    <ul>\n      <li>Defina quién revisa qué: aprobador final, umbrales automáticos y excepciones que escalan.</li>\n      <li>Trazabilidad mínima: registro de inputs, modelo usado, acción propuesta y quién la aprobó.</li>\n    </ul>\n  </li>\n\n  <li><strong>Medir impacto operativo y costes reales.</strong>\n    <ul>\n      <li>Métricas básicas: tasa de error por 1.000 decisiones, tiempo ahorrado por tarea, coste por llamada al modelo, coste de APIs externas.</li>\n      <li>Incluya métricas de riesgo: número de excepciones escaladas, incidentes de cumplimiento, pérdidas atribuibles.</li>\n    </ul>\n  </li>\n\n  <li><strong>Roadmap de piloto con guardrails técnicos y operativos.</strong>\n    <ul>\n      <li>Defina un piloto con objetivos cuantificables, límites de acción claros y un plan de rollback.</li>\n      <li>Itere: liberar capacidades gradualmente, desde sugerencias hacia acciones con autorización automática limitada.</li>\n    </ul>\n  </li>\n</ol><h2>Ejemplos operativos — errores evitables</h2><ul>\n  <li>Servicio al cliente: un agente que autoriza reembolsos basados en un CRM sin validar política de devoluciones provocó reembolsos indebidos. Solución: bloqueo automatizado para casos que exceden umbral económico y revisión humana obligatoria.</li>\n  <li>Compras: un agente que reordena stock cada 24 horas generó sobrecompra porque no consideró lead times ni contratos de abastecimiento. Solución: integrar la gráfica de contexto (lead times, contratos, punto de pedido) antes de automatizar órdenes.</li>\n  <li>Finanzas: automatización de conciliaciones con acceso parcial al ERP produjo ajustes en cuentas clave. Solución: reconciliación en modo «sugerencia» con aprobación contable hasta alcanzar tasa de precisión predefinida.</li>\n</ul><h2>Métricas prácticas para el tablero</h2><ul>\n  <li>Coste por decisión automatizada (USD por llamada + APIs).</li>\n  <li>Tasa de discrepancia pre/post automatización (% de casos que requieren corrección).</li>\n  <li>Tiempo medio hasta detección de error (horas).</li>\n  <li>Porcentaje de acciones automáticas revertidas por humanos.</li>\n  <li>Incidentes de cumplimiento vinculados a decisiones autónomas.</li>\n</ul><h2>Piloto gobernado en 30–60 días: una agenda práctica</h2><ol>\n  <li>Semana 1–2: Discovery — mapear 3 procesos candidatos, priorizar por criticidad y ROI potencial.</li>\n  <li>Semana 3–4: Diseño — catalogar contexto requerido, definir reglas y umbrales, diseñar trazabilidad.</li>\n  <li>Semana 5–6: Implementación técnica mínima — integrar fuentes clave, limitar acciones automáticas, instrumentar métricas.</li>\n  <li>Semana 7–8: Monitoreo y ajuste — medir, ajustar reglas, entrenar confianza con revisiones humanas progresivas.</li>\n  <li>Entrega: matriz de decisiones aprobadas, runbook de gobernanza y plan de escalado.</li>\n</ol><h2>Cierre consultivo</h2><p>Los agentes autónomos no son una promesa binaria: son una palanca que, mal aplicada, aumenta costos y riesgos. La alternativa es simple y exige criterio: identificar qué delegar, con qué contexto y bajo qué guardrails. Eso separa la automatización útil de la que genera agujeros.</p><p>Si busca avanzar con seguridad, lo recomendable es un diagnóstico práctico de 30–60 días que entregue mapa de riesgo, caso piloto con métricas y un plan de gobernanza operativo. ¿Hablamos de su primer piloto gobernado?</p>",
+    "linkedin_text": "La promesa de los agentes autónomos —hacer más con menos— choca con una verdad operativa: sin contexto y gobernanza, la automatización se convierte en fuente de errores y costes ocultos. En el artículo propongo un marco práctico en 5 pasos y un piloto de 30–60 días para avanzar con seguridad. Le interesa? https://edreirbs.github.io/conten-agents/blog/agentes-autonomos-contexto-gobernanza.html",
+    "source_name": "AWS Machine Learning Blog",
+    "source_urls": [
+      "https://aws.amazon.com/blogs/machine-learning/context-intelligence-for-your-data-and-ai-agents-at-scale/",
+      "https://aws.amazon.com/blogs/machine-learning/get-back-hours-every-day-with-autonomous-agents-in-amazon-quick/",
+      "https://aws.amazon.com/blogs/machine-learning/building-pay-per-intelligence-for-ai-agents-how-ampersend-uses-amazon-bedrock-agentcore-payments/",
+      "https://towardsdatascience.com/tool-calling-explained-how-ai-agents-decide-what-to-do-next/"
+    ],
+    "published_at": "2026-06-22T18:18:11.280887+00:00",
+    "canonical_url": "https://edreirbs.github.io/conten-agents/blog/agentes-autonomos-contexto-gobernanza.html",
+    "linkedin": {
+      "status": "skipped",
+      "post_reference": null
+    },
+    "editorial_role": {
+      "id": "reflective",
+      "label": "Reflexivo",
+      "goal": "publicar una tesis, opinión o marco mental con voz propia"
+    },
+    "cover_image": {
+      "provider": "pexels",
+      "url": "https://images.pexels.com/photos/29174499/pexels-photo-29174499.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+      "alt": "Traffic agent overseeing road operations in Londrina, Brazil, on a busy street.",
+      "photographer": "Rodolfo Gaion",
+      "photographer_url": "https://www.pexels.com/@gaion",
+      "source_url": "https://www.pexels.com/photo/traffic-agent-managing-city-street-in-londrina-29174499/",
+      "attribution_label": "Foto vía Pexels"
+    }
+  },
+  {
     "id": "2026-06-15T18:47:19.003825+00:00",
     "title": "Agentes de larga duración en la empresa: por qué la compra de Ona obliga a replantear procesos, gobernanza y arquitectura",
     "deck": "La llegada de agentes persistentes deja de ser experimentación: es un nuevo modo operativo que exige criterios claros para ser útil y seguro.",
