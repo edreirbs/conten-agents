@@ -1,5 +1,5 @@
 {
-  "last_run_at": "2026-06-22T18:18:11.574967+00:00",
+  "last_run_at": "2026-06-29T17:12:19.561926+00:00",
   "seen_source_urls": [
     "https://aws.amazon.com/blogs/machine-learning/toolsimulator-scalable-tool-testing-for-ai-agents/",
     "https://aws.amazon.com/blogs/machine-learning/omnichannel-ordering-with-amazon-bedrock-agentcore-and-amazon-nova-2-sonic/",
@@ -43,6 +43,8 @@
     "https://aws.amazon.com/blogs/machine-learning/context-intelligence-for-your-data-and-ai-agents-at-scale/",
     "https://aws.amazon.com/blogs/machine-learning/get-back-hours-every-day-with-autonomous-agents-in-amazon-quick/",
     "https://aws.amazon.com/blogs/machine-learning/building-pay-per-intelligence-for-ai-agents-how-ampersend-uses-amazon-bedrock-agentcore-payments/",
-    "https://towardsdatascience.com/tool-calling-explained-how-ai-agents-decide-what-to-do-next/"
+    "https://towardsdatascience.com/tool-calling-explained-how-ai-agents-decide-what-to-do-next/",
+    "https://aws.amazon.com/blogs/machine-learning/retrofit-dont-rebuild-agentic-overlays-for-transforming-legacy-enterprise-services/",
+    "https://aws.amazon.com/what-is/microservices/"
   ]
 }

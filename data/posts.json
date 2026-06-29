@@ -1,5 +1,61 @@
 [
   {
+    "id": "2026-06-29T17:12:19.285856+00:00",
+    "title": "No reconstruyas: cómo los agentic overlays modernizan servicios legados sin romper operaciones",
+    "deck": "Convertir REST comprobado en agentes colaborativos sin reescribir la lógica de negocio: pragmática para operaciones y TI.",
+    "slug": "agentic-overlays-retrofit-no-reconstruyas",
+    "excerpt": "Los agentic overlays permiten exponer servicios REST legacy como agentes A2A, acelerando pilotos de IA colaborativa sin reescrituras costosas ni riesgo operativo.",
+    "seo_description": "Estrategia práctica para convertir APIs REST en agentes A2A mediante overlays: criterios, arquitectura y checklist operativo para pilotos seguros.",
+    "pull_quote": "No necesitas rehacer lo que ya funciona; necesitas envolverlo con criterio.",
+    "key_takeaways": [
+      "Agentic overlays son capas delgadas que transforman APIs REST en agentes interoperables sin reescribir lógica.",
+      "La decisión overlay vs. reescritura debe basarse en riesgo operativo, coste de ownership y valor del rediseño.",
+      "Un piloto controlado con gobernanza y métricas acelera adopción y evita agent sprawl."
+    ],
+    "cover_label": "Agentic overlays",
+    "cover_theme": "systems",
+    "cta_title": "Diagnóstico y piloto guiado",
+    "cta_body": "Si su prioridad es obtener valor rápido sin poner en riesgo sistemas probados, propongamos un diagnóstico de 3 semanas para mapear candidatos, medir riesgo y diseñar un piloto de agentic overlay que entregue métricas operativas claras. Axon Labs acompaña desde el diseño hasta la primera iteración en producción.",
+    "keywords": [
+      "agentic overlays",
+      "agent-to-agent",
+      "REST",
+      "integración",
+      "automatización",
+      "gobernanza",
+      "piloto IA",
+      "arquitectura híbrida"
+    ],
+    "image_query": "arquitectura híbrida enterprise: capas legacy REST transformadas en agentes, conectores y gobernanza — estilo ejecutivo sobrio",
+    "article_html": "<p>Promesa: agentes autónomos que negocian, coordinan y automatizan tareas entre sí. Realidad: la columna vertebral de su operación sigue siendo una red de APIs REST, microservicios y procesos de negocio escritos hace años —probados, tensados y con contratos que nadie se atreve a cambiar de golpe.</p><p>No es una contradicción elegante. Es un problema operativo.</p><p><strong>Golpe editorial.</strong> No necesitas rehacer lo que ya funciona; necesitas envolverlo con criterio.</p><h2>La tesis: overlays, no reescrituras</h2><p>Los agentic overlays son capas delgadas que envuelven servicios REST existentes y los exponen como agentes capaces de participar en flujos A2A (agent-to-agent). En lugar de reescribir servicios, el overlay traduce entre dos mundos: la call-and-response determinista de HTTP y el intercambio estructurado y contextual que piden los agentes autónomos.</p><p>Esto no es una solución mágica. Es una estrategia pragmática con tres promesas medibles: menor tiempo hasta valor, menor riesgo de regresiones y control sobre el crecimiento de la malla de agentes (evitar el llamado agent sprawl).</p><h2>¿Por qué importa para operaciones y TI?</h2><ul>\n  <li><strong>Continuidad:</strong> evita introducir fallos por reescrituras masivas en servicios críticos (facturación, gestión de pedidos, CRM).</li>\n  <li><strong>Velocidad:</strong> habilita pilotos A2A que orquestan flujos entre agentes en semanas, no meses.</li>\n  <li><strong>Control:</strong> centraliza trazabilidad, políticas de seguridad y límites de acción en la capa overlay.</li>\n  <li><strong>Costo:</strong> reduce duplicación de lógica y costos de mantenimiento al reutilizar implementaciones existentes.</li>\n</ul><h2>Arquitectura operativa — qué esperar</h2><p>Un diseño típico incluye cuatro componentes:</p><ol>\n  <li><strong>Overlay adaptador</strong>: una fachada que transforma llamadas REST en mensajes y capacidades comprensibles por agentes (y viceversa).</li>\n  <li><strong>Broker/Bus A2A</strong>: infraestructura para encolar, enrutar y normalizar mensajes entre agentes.</li>\n  <li><strong>Políticas de gobernanza</strong>: autenticación, autorización, límites de ejecución y logging trazable.</li>\n  <li><strong>Monitorización y observabilidad</strong>: métricas end-to-end, auditoría de decisiones y líneas base de latencia/errores.</li>\n</ol><p>Implicación operativa: el overlay no elimina la necesidad de pruebas. Exige pruebas de contrato, tests de resiliencia y planes de rollback, pero permite aplicar esas medidas sin tocar la lógica de negocio central.</p><h2>Criterios para decidir: overlay vs. reescritura</h2><p>Antes de optar por un camino, evalúe estas preguntas:</p><ul>\n  <li>¿El servicio es estable y crítico para la operación? Si sí, prefiera overlay.</li>\n  <li>¿La lógica interna está obsoleta o es costosa de mantener? Si la mejora estructural aporta ahorro material, considere reescritura planificada.</li>\n  <li>¿Necesita cambios funcionales profundos (modelo de datos, transacciones distribuidas)? Entonces la reescritura puede ser inevitable.</li>\n  <li>¿El objetivo es validar flujos A2A con bajo riesgo? El overlay es la opción más sensata.</li>\n</ul><h2>Checklist operativo para un piloto de overlay</h2><p>Implementar un piloto exige disciplina. Use esta lista mínima:</p><ol>\n  <li>Identificar 1–3 servicios candidatos (alto impacto, bajo churn de contrato).</li>\n  <li>Definir capacidades expuestas y límites operativos (qué puede y no puede hacer el agente).</li>\n  <li>Diseñar el mapping entre endpoints REST y mensajes MCP o estructura A2A.</li>\n  <li>Implementar el overlay con autenticación y controles de cuota.</li>\n  <li>Desarrollar pruebas de contrato y escenarios de falla (latencia simulada, timeouts, errores parciales).</li>\n  <li>Establecer métricas clave: tiempo hasta respuesta, tasa de errores, decisiones automatizadas y ahorro en tareas manuales.</li>\n  <li>Plan de rollback y comunicación a equipos afectados.</li>\n</ol><h2>Riesgos comunes y cómo mitigarlos</h2><ul>\n  <li><strong>Agent sprawl:</strong> imponer políticas de onboarding y una única capa de gobierno que autorice nuevas instancias.</li>\n  <li><strong>Duplicación de lógica:</strong> garantizar que overlays llamen a la lógica existente, no la repliquen.</li>\n  <li><strong>Latencia acumulada:</strong> instrumentar trazas distribuidas y establecer SLAs entre overlay y backend.</li>\n  <li><strong>Falsas expectativas:</strong> dejar claro que overlays facilitan interoperabilidad; no sustituyen refactors arquitectónicos necesarios.</li>\n</ul><h2>Ejemplos prácticos</h2><p>1) Centro de servicio al cliente: un CRM expone endpoints para crear y actualizar tickets. Un overlay convierte esos endpoints en un agente que negocia prioridades con un agente de inventario y un agente de logística, automatizando reasignaciones sin cambiar el CRM.</p><p>2) Procesamiento de órdenes: el overlay expone capacidades (validar inventario, reservar stock, generar facturas) como acciones A2A. Un orquestador agente coordina la ejecución y maneja compensaciones cuando un servicio falla.</p><h2>Cierre consultivo</h2><p>La mayoría de las empresas no necesita más experimentos con IA; necesita criterio para convertir procesos manuales en sistemas útiles y rastreables. Los agentic overlays son una herramienta operativa para ese propósito: bajan el riesgo, aceleran pilotos y preservan la estabilidad de lo que ya está en producción.</p><p>Si su agenda prioriza entrega, continuidad y gobernanza, propongamos un diagnóstico corto y pragmático: tres semanas para mapear candidatos, evaluar riesgo y diseñar un piloto de overlay que produzca métricas operativas reales. En Axon Labs ayudamos a seleccionar el servicio correcto, diseñar la capa overlay y ejecutar la primera iteración con controles claros.</p><p><strong>Siguiente paso:</strong> identifique un servicio crítico y estable; nosotros lo evaluamos en 5 días y proponemos un camino piloto con estimaciones de tiempo y riesgo.</p>",
+    "linkedin_text": "Reescribir servicios legacy para conectar agentes A2A no siempre es la respuesta. Los agentic overlays permiten exponer APIs REST como agentes colaborativos, reduciendo riesgo y acelerando pilotos con métricas claras. ¿Quiere validar un caso sin romper producción? Le proponemos un diagnóstico rápido y concreto. Más detalles: https://edreirbs.github.io/conten-agents/blog/agentic-overlays-retrofit-no-reconstruyas.html",
+    "source_name": "AWS Machine Learning Blog",
+    "source_urls": [
+      "https://aws.amazon.com/blogs/machine-learning/retrofit-dont-rebuild-agentic-overlays-for-transforming-legacy-enterprise-services/",
+      "https://aws.amazon.com/what-is/microservices/"
+    ],
+    "published_at": "2026-06-29T17:12:19.285856+00:00",
+    "canonical_url": "https://edreirbs.github.io/conten-agents/blog/agentic-overlays-retrofit-no-reconstruyas.html",
+    "linkedin": {
+      "status": "skipped",
+      "post_reference": null
+    },
+    "editorial_role": {
+      "id": "hot_news",
+      "label": "Hot news",
+      "goal": "capturar atención con actualidad y una tesis de negocio clara"
+    },
+    "cover_image": {
+      "provider": "pexels",
+      "url": "https://images.pexels.com/photos/33681189/pexels-photo-33681189.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+      "alt": "A charming classic-style house surrounded by lush greenery located in Valparaíso, Chile.",
+      "photographer": "Hernan Berwart",
+      "photographer_url": "https://www.pexels.com/@hernan-berwart-1212356",
+      "source_url": "https://www.pexels.com/photo/classic-architecture-house-in-valparaiso-chile-33681189/",
+      "attribution_label": "Foto vía Pexels"
+    }
+  },
+  {
     "id": "2026-06-22T18:18:11.280887+00:00",
     "title": "Cuando los agentes autónomos deciden: peligro real y cómo gobernarlos sin paralizar la operación",
     "deck": "La promesa de «hacer más con menos» choca con una verdad operativa: delegar decisiones sin contexto y reglas claras convierte la automatización en un riesgo fijo.",
