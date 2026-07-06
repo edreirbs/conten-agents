@@ -1,5 +1,5 @@
 {
-  "last_run_at": "2026-06-29T17:12:19.561926+00:00",
+  "last_run_at": "2026-07-06T17:15:04.162023+00:00",
   "seen_source_urls": [
     "https://aws.amazon.com/blogs/machine-learning/toolsimulator-scalable-tool-testing-for-ai-agents/",
     "https://aws.amazon.com/blogs/machine-learning/omnichannel-ordering-with-amazon-bedrock-agentcore-and-amazon-nova-2-sonic/",
@@ -45,6 +45,10 @@
     "https://aws.amazon.com/blogs/machine-learning/building-pay-per-intelligence-for-ai-agents-how-ampersend-uses-amazon-bedrock-agentcore-payments/",
     "https://towardsdatascience.com/tool-calling-explained-how-ai-agents-decide-what-to-do-next/",
     "https://aws.amazon.com/blogs/machine-learning/retrofit-dont-rebuild-agentic-overlays-for-transforming-legacy-enterprise-services/",
-    "https://aws.amazon.com/what-is/microservices/"
+    "https://aws.amazon.com/what-is/microservices/",
+    "https://aws.amazon.com/blogs/machine-learning/structured-memory-filtering-with-metadata-in-agentcore-memory/",
+    "https://aws.amazon.com/blogs/machine-learning/build-generative-ui-for-ai-agents-on-amazon-bedrock-agentcore-with-the-ag-ui-protocol/",
+    "https://news.mit.edu/2026/agentic-ai-and-what-do-we-want-it-be-0630",
+    "https://towardsdatascience.com/ai-agents-explained-what-is-a-react-loop-and-how-does-it-work/"
   ]
 }

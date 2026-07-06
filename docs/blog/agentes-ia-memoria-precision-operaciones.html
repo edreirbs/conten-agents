@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cuando los agentes de IA fallan en producción: memoria, precisión y riesgo operativo | Axon Labs</title>
+  <meta name="description" content="La mayoría de los fracasos de agentes de IA no vienen del modelo, sino de la memoria: datos contaminados, filtros débiles y límites de acción que convierten automatizaciones prometedoras en riesgo operativo.">
+  <link rel="stylesheet" href="../assets/site.css">
+  <link rel="canonical" href="https://edreirbs.github.io/conten-agents/blog/agentes-ia-memoria-precision-operaciones.html">
+</head>
+<body>
+  <header class="site-header">
+  <div class="shell masthead">
+    <a class="brand" href="../">Axon Labs</a>
+    <nav class="nav">
+      <a href="../">Inicio</a>
+      <a href="../blog/">Blog</a>
+    </nav>
+  </div>
+</header>
+  <main class="shell">
+    <article class="story">
+      <section class="story-hero">
+        <div class="story-copy">
+          <span class="eyebrow">Memoria y riesgo</span>
+          <h1>Cuando los agentes de IA fallan en producción: memoria, precisión y riesgo operativo</h1>
+          <p class="deck">Los modelos no son el problema principal: son las decisiones operativas sobre memoria, recuperación y control las que determinan si un agente aporta valor o genera caos.</p>
+          <div class="meta meta-hero">
+            <span>06 Jul 2026</span>
+            <span>AWS Machine Learning Blog</span>
+            <span>4 min de lectura</span>
+            <span>Buena práctica</span>
+          </div>
+        </div>
+        <div class="story-cover panel">
+          <img src="https://images.pexels.com/photos/38440383/pexels-photo-38440383.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="A large airplane taxiing on the runway at Charles de Gaulle Airport, Roissy-en-France, France.">
+          <p class="image-credit">Foto vía Pexels · <a href="https://www.pexels.com/@ic-zf-12409478" target="_blank" rel="noopener noreferrer">IC ZF</a> · <a href="https://www.pexels.com/photo/airplane-on-runway-at-roissy-en-france-airport-38440383/" target="_blank" rel="noopener noreferrer">ver fuente</a></p>
+        </div>
+      </section>
+      <section class="takeaways panel">
+  <span class="eyebrow">En 30 segundos</span>
+  <h2>Lo que importa de verdad</h2>
+  <ul><li>Los fallos de agentes suelen ser decisiones operativas (memoria, filtros, límites), no la calidad del modelo.</li><li>Diseñar metadata, namespaces y TTL reduce ruido y mejora precisión de recuperación.</li><li>Pilotos controlados con observabilidad, límites de acción y aprobación humana reducen riesgo y aceleran ROI.</li></ul>
+</section>
+      <section class="quote-band">
+  <blockquote>Sin memoria clara, el agente inventa contexto.</blockquote>
+</section>
+      <section class="article-shell">
+        <div class="article-body">
+          <p>Las presentaciones muestran agentes que resuelven tickets, cierran ventas y automatizan tareas repetitivas como si fueran asistentes infalibles. En producción, muchos terminan alimentando más trabajo del que ahorran: respuestas incorrectas, acciones fuera de contexto y mezclas de información entre clientes. No falla la arquitectura en teoría. Fallan las decisiones operativas que rodean la memoria y la recuperación.</p><p><strong>Sin memoria clara, el agente inventa contexto.</strong></p><p>Es una frase corta, pero permite ver el punto: un buen modelo puede generar texto plausible. Lo que no puede hacer sin ayuda es elegir la porción correcta de la historia operacional de un cliente cuando esa historia es larga, desordenada o mal clasificada.</p><h2>Por qué esto importa: dos escenarios ejecutivos</h2><p>Escenario A: un agente de soporte identifica un “problema de facturación” y recomienza una conversación trayendo tickets técnicos y notas de ventas del mismo cliente, porque la búsqueda semántica encuentra similitud pero no distinción por tipo de incidencia. Resultado: resolución errónea, retrabajo y cliente molesto.</p><p>Escenario B: un agente comercial revisa oportunidades y sugiere reabrir una propuesta antigua; la memoria no distingue entre una oferta cancelada y una en negociación. Un SDR ejecuta una llamada basada en información obsoleta. Resultado: daño reputacional y pérdida de confianza interna.</p><p>En ambos casos la causa real no es el LLM, sino cómo se estructura la memoria, qué metadata se adjunta y qué reglas de recuperación se aplican.</p><h2>Marco operativo: cinco palancas para evitar fracaso</h2><p>No se trata de añadir más datos al modelo. Se trata de controlar qué datos llegan, cuándo y cómo se usan.</p><ul>
+  <li><strong>1. Scoping y namespaces.</strong> Separe recuerdos por entidad operacional (cliente, cuenta, contrato) y por contexto (soporte, facturación, ventas). La aislación evita mezclar estados. Checklist práctico: mapear 3–5 namespaces iniciales; prohibir cruces automáticos salvo reglas explícitas.</li>
+  <li><strong>2. Metadata y filtros antes de la similitud.</strong> Use atributos (tipo de incidencia, fecha, estado, prioridad) para prefiltrar antes de la búsqueda semántica. Resultado esperado: reducción drástica del ruido en la recuperación. Implementación mínima: 5 campos obligatorios en cada inserción de memoria.</li>
+  <li><strong>3. Caducidad y versiones (TTL y snapshots).</strong> Defina cuánto tiempo un recuerdo es relevante y mantenga versiones: eventos recientes pesan más. Operativo: TTL por tipo de dato (ej. tickets: 90 días; interacciones comerciales: 365 días) y un log de cambios por memoria.</li>
+  <li><strong>4. Límites de acción y human-in-the-loop.</strong> Divida acciones en categorías: sugerir, ejecutar con confirmación, ejecutar autónomo. Ponga umbrales claros (valor monetario, impacto de cumplimiento) que disparen revisión humana. UI mínima: un panel de aprobación con razón y historial accesible en 2 clics.</li>
+  <li><strong>5. Observabilidad y métricas de salud.</strong> Mida precisión de recuperación, tasa de contaminación, tasa de rechazo humano y tiempo de rollback. Estas son métricas operativas, no de ML: deben integrarse al dashboard de operaciones.</li>
+</ul><h2>Checklist operativo para un diagnóstico de 4 semanas</h2><ul>
+  <li>Inventario de memorias: tipos, volumen y lag estimado.</li>
+  <li>Mapa de namespaces y reglas de acceso entre equipos.</li>
+  <li>Definición de metadata mínima por tipo de registro.</li>
+  <li>Reglas de TTL y política de archivado.</li>
+  <li>Clasificación de acciones por riesgo y diseño de UI de aprobación.</li>
+  <li>Conjunto inicial de métricas con umbrales y alertas (ver abajo).</li>
+</ul><h3>Métricas prácticas y umbrales sugeridos</h3><ul>
+  <li>QA de recuperación: porcentaje de respuestas correctas por tipo (objetivo piloto: &gt;65% para consultas con filtro).</li>
+  <li>Tasa de contaminación: % de recuperaciones que mezclan contextos distintos (objetivo: &lt;5% en producción).</li>
+  <li>Tasa de acciones rechazadas por humanos: indicador de sobreconfianza (objetivo: 10–20% inicialmente, decreciente).</li>
+  <li>MTTR (tiempo medio de reversión): &lt;2 horas para acciones automáticas críticas.</li>
+</ul><h2>Pilotos que reducen riesgo e incrementan confianza</h2><p>No lance una versión “autónoma” del agente como primera entrega. Proponga tres fases:</p><ol>
+  <li>Lectura y sugerencia: el agente recupera y sugiere acciones; revisión humana obligatoria.</li>
+  <li>Semiautónomo: acciones de bajo impacto con aprobación mínima (one-click) y trazabilidad completa.</li>
+  <li>Autonomía limitada: ejecuciones automáticas en dominios con baja variabilidad y métricas de salud estabilizadas.</li>
+</ol><p>Cada fase debe cerrarse con criterios objetivos para avanzar: precisión de recuperación, tasa de incidentes y satisfacción de usuarios internos.</p><h2>Cierro con criterio</h2><p>Si su organización está midiendo despliegues de agentes solo por velocidad de entrega o por cuántas tareas “ahorran”, está perdiendo la señal que importa: la calidad operativa del recuerdo y la seguridad de las acciones. Preparar la memoria —con namespaces, metadata, TTL y filtros— y controlar la capacidad de acción con human-in-loop y observabilidad es lo que convierte un piloto en un servicio útil.</p><p>Si quiere, podemos iniciar con un diagnóstico de 4 semanas que revela las decisiones operativas que más riesgo generan y propone un piloto controlado con métricas claras. No es más tecnología: es criterio aplicado a cómo la tecnología se integra con procesos reales.</p>
+        </div>
+      </section>
+      <section class="cta-panel panel">
+        <span class="eyebrow">Siguiente paso</span>
+        <h2>Diagnóstico de memoria y pilotaje</h2>
+        <p>Si su organización está desplegando agentes, la prioridad debe ser definir límites operativos claros antes que ajustar prompts. Propongamos un diagnóstico corto de 4 semanas: auditamos cómo se guarda y recupera la memoria, definimos filtros críticos, implementamos guardrails de acción y proponemos un piloto controlado con métricas operativas. No es un experimento; es una manera de convertir una demostración en un servicio fiable.</p>
+      </section>
+      <section class="sources panel">
+        <h2>Fuentes y referencias</h2>
+        <ul><li><a href="https://aws.amazon.com/blogs/machine-learning/structured-memory-filtering-with-metadata-in-agentcore-memory/" target="_blank" rel="noopener noreferrer">https://aws.amazon.com/blogs/machine-learning/structured-memory-filtering-with-metadata-in-agentcore-memory/</a></li><li><a href="https://aws.amazon.com/blogs/machine-learning/build-generative-ui-for-ai-agents-on-amazon-bedrock-agentcore-with-the-ag-ui-protocol/" target="_blank" rel="noopener noreferrer">https://aws.amazon.com/blogs/machine-learning/build-generative-ui-for-ai-agents-on-amazon-bedrock-agentcore-with-the-ag-ui-protocol/</a></li><li><a href="https://news.mit.edu/2026/agentic-ai-and-what-do-we-want-it-be-0630" target="_blank" rel="noopener noreferrer">https://news.mit.edu/2026/agentic-ai-and-what-do-we-want-it-be-0630</a></li><li><a href="https://towardsdatascience.com/ai-agents-explained-what-is-a-react-loop-and-how-does-it-work/" target="_blank" rel="noopener noreferrer">https://towardsdatascience.com/ai-agents-explained-what-is-a-react-loop-and-how-does-it-work/</a></li></ul>
+      </section>
+    </article>
+  </main>
+  <footer class="site-footer">
+  <div class="shell">
+    <p>Axon Labs (c) 2026. Contenido automatizado para posicionamiento orgánico.</p>
+  </div>
+</footer>
+</body>
+</html>
