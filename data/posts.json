@@ -1,5 +1,64 @@
 [
   {
+    "id": "2026-07-20T16:01:24.727111+00:00",
+    "title": "Cuando los agentes fallan por mala base de conocimiento: guía práctica sobre Knowledge Bases gestionadas",
+    "deck": "Las soluciones gestionadas prometen acelerar agentes de IA en producción. También introducen riesgos operativos que pocas empresas planifican.",
+    "slug": "knowledge-bases-gestionadas-para-agentes-ia",
+    "excerpt": "Knowledge bases gestionadas acortan el camino a producción, pero exigen decisiones claras sobre calidad de datos, control de acceso y gobernanza para evitar respuestas erróneas y pérdidas de confianza.",
+    "seo_description": "Cómo evaluar, configurar y gobernar knowledge bases gestionadas (p. ej. Amazon Bedrock) para que agentes de IA funcionen de verdad en operaciones empresariales.",
+    "pull_quote": "Un modelo brillante no tapa una base de conocimiento mediocre.",
+    "key_takeaways": [
+      "Las knowledge bases gestionadas reducen complejidad técnica, pero trasladan trade-offs operativos: calidad de datos, control y coste.",
+      "Antes de adoptar una KB gestionada, valide datos, políticas de acceso, latencia y estrategias de chunking/embeddings con casos reales.",
+      "La transición de piloto a producción requiere roles claros, métricas de precisión y un plan de gobernanza y actualización continua."
+    ],
+    "cover_label": "Knowledge Base",
+    "cover_theme": "systems",
+    "cta_title": "Diagnóstico operativo de knowledge base",
+    "cta_body": "Si estás probando agentes o piensas integrarlos en procesos críticos, lo prudente es diagnosticar la calidad de tu capa de conocimiento antes de invertir en servicios gestionados. Proponemos una conversación de diagnóstico de 90 minutos para evaluar fuentes, riesgos de acceso, métricas clave y un piloto de ingestión controlada que minimice riesgos operativos.",
+    "keywords": [
+      "knowledge base gestionada",
+      "Amazon Bedrock",
+      "agentes de IA",
+      "gobernanza de datos",
+      "retrieval augmented generation",
+      "producción IA",
+      "control de acceso",
+      "embeddings",
+      "chunking",
+      "observabilidad"
+    ],
+    "image_query": "ejecutivo en sala de control con dashboard de knowledge base y flujo de agentes de IA, estética sobria corporativa",
+    "article_html": "<p>Contradicción: muchas demos de agentes de IA funcionan impecables en salas de presentación y fracasan cuando se conectan a procesos reales. ¿Por qué? Porque el talento está en el modelo, pero la valía está en la base de conocimiento.</p><p><strong>Un modelo brillante no tapa una base de conocimiento mediocre.</strong></p><p>Más que una frase hecha, es la regla práctica que hemos visto cuando acompañamos pilotos en empresas medianas y grandes: el componente más frágil de un pipeline agente —el lugar donde se guarda y se busca el conocimiento empresarial— es precisamente el que menos atención recibe en etapa de pruebas.</p><h2>Qué prometen las knowledge bases gestionadas (y por qué importan)</h2><p>Servicios como Amazon Bedrock Managed Knowledge Base prometen abstraer la ingeniería pesada: conectores, almacenamiento vectorial, re-rankers, seguridad y escalado. En la teoría, te llevan de cero a recuperación en minutos con sensible configuración por defecto. En la práctica, acortan la curva técnica pero generan decisiones nuevas: elección de embedding, estrategia de fragmentación (chunking), niveles de control de acceso y políticas de actualización.</p><h2>Riesgos operativos reales que emergen tras la prueba</h2><ul>\n  <li><strong>Garbage-in / Garbage-out.</strong> Ingestar documentos sin limpieza ni normalización produce respuestas imprecisas: contratos mal parseados, versiones antiguas o documentos internos no estructurados confunden al retrieval.</li>\n  <li><strong>Control de acceso insuficiente.</strong> Un agente que responde con fragmentos de documentos internos a usuarios poco autorizados expone riesgo legal y reputacional.</li>\n  <li><strong>Coherencia y deriva.</strong> Respuestas inconsistentes entre sesiones erosionan confianza; la KB debe soportar trazabilidad y mecanismo para corregir y retractar información.</li>\n  <li><strong>Latencia y SLA.</strong> Respuestas rápidas en demo no garantizan latencias aceptables en picos reales: la KB gestionada introduce sus propias limitaciones y costes por consulta.</li>\n  <li><strong>Vendor lock-in y personalización.</strong> Facilita la puesta en marcha, pero puede complicar migraciones si la estrategia de embeddings o el formato de chunking son propietarios.</li>\n</ul><h2>Mini caso: piloto que no llegó a producción</h2><p>Un cliente desplegó un agente de soporte que usaba una KB gestionada. En demo, el modelo resolvía tickets complejos; en producción, comenzó a reciclar políticas internas obsoletas. Resultado: aumento de re-abiertos y pérdida de confianza entre agentes humanos. Diagnóstico: ingestión automática sin validación de versión, ausencia de etiquetas de confidencialidad y sin métricas de precisión por fuente. Solución limitada: pausar el despliegue, limpiar índices y añadir controles de acceso por rol; pero el daño de confianza costó semanas.</p><h2>Checklist operacional antes de elegir una KB gestionada</h2><ol>\n  <li><strong>Mapea fuentes y calidad.</strong> ¿Qué tipos de documentos (contratos, FAQ, tickets, manuales) y en qué estado? Prioriza fuentes con baja tasa de cambios y alto valor de consulta.</li>\n  <li><strong>Prueba chunking/embedding con datos reales.</strong> Ejecuta experimentos A/B: diferentes tamaños de chunk y modelos de embeddings afectan precisión y latencia.</li>\n  <li><strong>Control de acceso y trazabilidad.</strong> Define políticas por rol y asegúrate de que la KB soporta políticas a nivel de documento y auditoría de consultas.</li>\n  <li><strong>Métricas que importan.</strong> Precisión de recuperación, tasa de hallazgo correcto (ground-truth hit rate), latencia 95p y tasa de re-abiertos en flujo humano.</li>\n  <li><strong>Plan de actualización.</strong> Frecuencia y proceso para invalidar o corregir documentos; quién es responsable por cada fuente.</li>\n</ol><h2>Decisión práctica: ¿gestionar o construir?</h2><p>No hay respuesta única. Considera tres variables:</p><ul>\n  <li><strong>Velocidad al mercado:</strong> si necesitas pruebas rápidas y no tienes equipo infra, una KB gestionada reduce fricción.</li>\n  <li><strong>Control y personalización:</strong> si necesitas lógica de negocio compleja en retrieval o integración con sistemas propietarios, puede convenir una capa propia encima de la KB gestionada o un enfoque híbrido.</li>\n  <li><strong>Coste operativo y exposición:</strong> evalúa costes por consulta, límites de tasa y riesgo de lock‑in frente al coste de mantener infraestructura propia.</li>\n</ul><h2>Pipelines y roles: cómo organizar la adopción para pasar a producción</h2><p>Un pipeline operativo típico y las responsabilidades mínimas:</p><ul>\n  <li><strong>Ingestión y normalización (Data Engineer).</strong> Parsers, OCR, deduplicación y etiquetado de sensibilidad.</li>\n  <li><strong>Modelos de embedding y retrieval (ML Ops / Platform).</strong> Pruebas de modelos, re-rankers y tuning de chunk size.</li>\n  <li><strong>Governance &amp; Legal.</strong> Políticas de acceso, retención y cumplimiento.</li>\n  <li><strong>Operaciones (Owner del proceso).</strong> Métricas de negocio, SLA y plan de rollback.</li>\n  <li><strong>Soporte humano.</strong> Flujos de escalado cuando el agente falla y procesos para corregir la KB.</li>\n</ul><h2>Métricas de éxito que debes vigilar desde el día uno</h2><ul>\n  <li>Hit rate: porcentaje de consultas resueltas por la KB.</li>\n  <li>Precision@k y recall en pruebas con conjuntos etiquetados.</li>\n  <li>Latencia P95 y coste por consulta.</li>\n  <li>Tasa de intervención humana y re-abiertos en procesos donde el agente actúa.</li>\n  <li>Tasa de falsos positivos con riesgo de exposición de datos sensibles.</li>\n</ul><h2>Checklist rápido para un piloto controlado (3 pasos)</h2><ol>\n  <li>Selecciona un dominio limitado (p. ej. devoluciones de producto) con fuentes acotadas.</li>\n  <li>Define 5–10 preguntas clave y un conjunto de respuestas correctas para medir precisión.</li>\n  <li>Establece políticas de acceso y monitoreo desde el primer día; revisa resultados diario las dos primeras semanas.</li>\n</ol><h2>Cierre consultivo</h2><p>Las knowledge bases gestionadas son una palanca potente para acelerar agentes hacia producción, pero no son una solución milagrosa. La diferencia entre un despliegue exitoso y uno que erosiona confianza suele reducirse a decisiones operativas sencillas: qué datos ingresas, quién controla versiones, cómo mides precisión y quién repara la KB cuando falla.</p><p>Si tu organización está en la fase de pilotos o planea llevar agentes a procesos críticos, proponemos empezar por un diagnóstico operativo: mapear fuentes, pruebas de chunking/embeddings con casos reales y un piloto de ingestión controlada con métricas acordadas. Eso convierte una promesa técnica en una herramienta útil para la operación.</p>",
+    "linkedin_text": "Las knowledge bases gestionadas (p. ej. Amazon Bedrock) acortan la puesta en producción de agentes de IA —pero trasladan riesgos operativos que pocas empresas planifican: calidad de datos, control de acceso, latencia y gobernanza. En este artículo práctico explicamos qué comprobar antes de apostar por una KB gestionada y cómo estructurar un piloto con métricas reales. Lee la guía completa y plantea un diagnóstico estratégico: https://edreirbs.github.io/conten-agents/blog/knowledge-bases-gestionadas-para-agentes-ia.html",
+    "source_name": "AWS Machine Learning Blog",
+    "source_urls": [
+      "https://aws.amazon.com/blogs/machine-learning/build-enterprise-search-for-agents-with-amazon-bedrock-managed-knowledge-base/",
+      "https://towardsdatascience.com/prepare-these-5-assets-before-your-ai-agents-take-on-more-work/",
+      "https://towardsdatascience.com/using-classical-ml-to-empower-ai-agents/"
+    ],
+    "published_at": "2026-07-20T16:01:24.727111+00:00",
+    "canonical_url": "https://edreirbs.github.io/conten-agents/blog/knowledge-bases-gestionadas-para-agentes-ia.html",
+    "linkedin": {
+      "status": "skipped",
+      "post_reference": null
+    },
+    "editorial_role": {
+      "id": "tool_deep_dive",
+      "label": "Tool deep dive",
+      "goal": "explicar una herramienta o tecnología con profundidad y criterio operativo"
+    },
+    "cover_image": {
+      "provider": "pexels",
+      "url": "https://images.pexels.com/photos/32787295/pexels-photo-32787295.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+      "alt": "A man in an ornate chair reads a newspaper in a sophisticated library setting.",
+      "photographer": "Patricia Bozan",
+      "photographer_url": "https://www.pexels.com/@patricia-bozan-2151752743",
+      "source_url": "https://www.pexels.com/photo/man-reading-newspaper-in-elegant-library-32787295/",
+      "attribution_label": "Foto vía Pexels"
+    }
+  },
+  {
     "id": "2026-07-06T17:15:03.823147+00:00",
     "title": "Cuando los agentes de IA fallan en producción: memoria, precisión y riesgo operativo",
     "deck": "Los modelos no son el problema principal: son las decisiones operativas sobre memoria, recuperación y control las que determinan si un agente aporta valor o genera caos.",
