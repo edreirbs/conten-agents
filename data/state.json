@@ -1,5 +1,5 @@
 {
-  "last_run_at": "2026-07-20T16:01:25.043686+00:00",
+  "last_run_at": "2026-07-27T16:34:14.633866+00:00",
   "seen_source_urls": [
     "https://aws.amazon.com/blogs/machine-learning/toolsimulator-scalable-tool-testing-for-ai-agents/",
     "https://aws.amazon.com/blogs/machine-learning/omnichannel-ordering-with-amazon-bedrock-agentcore-and-amazon-nova-2-sonic/",
@@ -52,6 +52,10 @@
     "https://towardsdatascience.com/ai-agents-explained-what-is-a-react-loop-and-how-does-it-work/",
     "https://aws.amazon.com/blogs/machine-learning/build-enterprise-search-for-agents-with-amazon-bedrock-managed-knowledge-base/",
     "https://towardsdatascience.com/prepare-these-5-assets-before-your-ai-agents-take-on-more-work/",
-    "https://towardsdatascience.com/using-classical-ml-to-empower-ai-agents/"
+    "https://towardsdatascience.com/using-classical-ml-to-empower-ai-agents/",
+    "https://towardsdatascience.com/why-adding-more-ai-agents-made-our-system-slower/",
+    "https://openai.com/index/introducing-openai-presence",
+    "https://aws.amazon.com/blogs/machine-learning/building-trade-assistant-how-jefferies-optimized-front-office-trading-operations-with-ai/",
+    "https://aws.amazon.com/blogs/machine-learning/beyond-rag-task-aware-knowledge-compression-for-enterprise-ai-on-aws/"
   ]
 }
