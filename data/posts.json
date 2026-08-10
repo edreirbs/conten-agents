@@ -1,5 +1,62 @@
 [
   {
+    "id": "2026-08-10T15:15:32.108163+00:00",
+    "title": "Políticas temporales: convertir agentes de IA prometedores en procesos empresariales confiables",
+    "deck": "Los agentes autónomos fallan por lo que hacen con el tiempo, no por lo que saben. Gobernarlos es un problema operativo, no solo técnico.",
+    "slug": "politicas-temporales-agentes-ia-empresa",
+    "excerpt": "Las políticas temporales y los límites operativos transforman agentes de IA en componentes controlables: secuenciación, techos de coste y aprobaciones humanas son imprescindibles antes de producción.",
+    "seo_description": "Cómo diseñar políticas temporales y controles operativos para poner agentes de IA en producción sin crear riesgos financieros o de proceso.",
+    "pull_quote": "Autonomía sin límites es riesgo.",
+    "key_takeaways": [
+      "Los fallos reales de los agentes aparecen en la operación: secuencias imprevistas, costes acumulados y acciones fuera de proceso.",
+      "Las políticas temporales (stateful rules) permiten decidir según el historial de sesión: secuencias, techos de coste y checkpoints humanos.",
+      "Antes de producción: mapa de riesgos, reglas temporales, límites de coste, aprobaciones y pruebas en entorno con observabilidad."
+    ],
+    "cover_label": "Gobernanza",
+    "cover_theme": "risk",
+    "cta_title": "Diagnóstico de políticas para agentes",
+    "cta_body": "Si su organización ya tiene agentes en pruebas o planea desplegarlos, el siguiente paso no es más experimentos: es fijar reglas que protejan procesos y presupuesto. Proponemos un diagnóstico de 4 semanas para mapear riesgos, diseñar políticas temporales y lanzar un piloto seguro que demuestre control operacional. Hablemos y armemos un plan práctico.",
+    "keywords": [
+      "agentes de IA",
+      "políticas temporales",
+      "gobernanza",
+      "automatización",
+      "controles operativos",
+      "límites de coste",
+      "aprobación humana",
+      "observabilidad"
+    ],
+    "image_query": "ejecutivo revisando tablero de control de IA con alertas de costes y checkpoints — oficina sobria, gráfico de políticas y aprobaciones",
+    "article_html": "<h2>La contradicción inicial</h2><p>Las empresas compran agentes de IA para quitar trabajo, ganar velocidad y reducir fricción. Y, sin embargo, lo primero que ocurre al integrarlos es que la organización gana algo que nunca pidió: incertidumbre acumulativa. Un agente que toma decisiones encadena acciones a lo largo del tiempo; esas cadenas generan exposición financiera, cambian flujos críticos y, con frecuencia, escalan fallos en lugar de resolverlos.</p><p><strong>Autonomía sin límites es riesgo.</strong></p><h3>Por qué la promesa tropieza en lo operativo</h3><p>Los equipos suelen pensar en agentes como modelos que responden a una instrucción. La realidad operativa es distinta: un agente en producción mantiene estado, decide secuencias de llamadas a APIs, mueve datos y —lo más peligroso— repite acciones que acumulan coste. El problema no es el modelo; es la falta de reglas que midan y limiten su comportamiento a lo largo del tiempo.</p><p>Vea esto en términos simples: un agente que «optimiza» órdenes de compra puede ejecutar 10 acciones pequeñas que, juntas, duplican un gasto previsto. O un asistente que reitera peticiones a sistemas externos sin respetar tasa y límites de coste. La falla empieza a ser sistémica cuando esas acciones se repiten bajo condiciones reales de uso.</p><h3>Qué son las políticas temporales y por qué importan</h3><p>Las políticas temporales (stateful rules) son reglas que evalúan autorización y comportamiento en función del historial de la sesión del agente y del tiempo. A diferencia de una política estática que permite o niega acciones basadas solo en atributos, una política temporal puede:</p><ul>\n  <li>Restringir secuencias: negar un segundo o tercer intento de ejecución sin revisión.</li>\n  <li>Establecer techos de coste por sesión o por usuario.</li>\n  <li>Forzar checkpoints humanos para acciones de alto impacto.</li>\n  <li>Aplicar rate limits y ventanas de enfriamiento para llamadas externas.</li>\n  <li>Registrar eventos y activar alertas cuando las reglas se aproximan a sus umbrales.</li>\n</ul><h3>Ejemplos operativos</h3><p>Un caso real (simplificado) que ilustra la diferencia: Mobileye usó agentes integrados para soporte técnico, pero su avance no fue solo modelo ni integración; fue aplicar reglas operativas que limitaron el acceso a sistemas críticos y definieron flujos de escalación. Con políticas temporales, pudieron automatizar tareas recurrentes sin poner en riesgo procesos de soporte ni generar cargas imprevistas sobre equipos humanos.</p><p>En finanzas, imagine un agente que negocia precios o crea órdenes comerciales. Sin un ceiling por sesión y una regla que requiera aprobación humana sobre variaciones superiores al 5%, el agente puede ejecutar operaciones que comprometan márgenes o liquidez.</p><h3>Checklist operativo antes de pasar a producción</h3><p>Antes de cualquier despliegue, verifique al menos estos elementos:</p><ol>\n  <li>Mapa de acciones: lista completa de cada acción que puede ejecutar el agente y su impacto (coste, riesgo operativo, cambio de estado).</li>\n  <li>Reglas temporales por acción: secuencia permitida, límites por sesión, ventanas de retry y condiciones de bloqueo.</li>\n  <li>Límites financieros: ceilings por sesión, por usuario y por cuenta; alertas a porcentajes críticos.</li>\n  <li>Puntos de aprobación humana: definir quién revisa qué y con qué información mínima.</li>\n  <li>Observabilidad y trazabilidad: logs estructurados, contexto de sesión y dashboards de coste en tiempo real.</li>\n  <li>Plan de respuesta: rollback, bloqueo automático y comunicación a stakeholders cuando se dispare un umbral.</li>\n</ol><h3>Diseño práctico de políticas (criterios)</h3><p>Al diseñar políticas temporales, priorice criterios operativos sobre sofisticaciones técnicas:</p><ul>\n  <li>Prioridad 1 — Simplicidad: las reglas deben ser interpretables por operaciones y gobernanza sin necesidad de un manual técnico extenso.</li>\n  <li>Prioridad 2 — Conservadurismo: empezar con límites estrictos y relajarlos con evidencia operacional.</li>\n  <li>Prioridad 3 — Observabilidad: cada regla debe producir una métrica y una alerta.</li>\n  <li>Prioridad 4 — Intervención humana clara: si una regla solicita revisión, el operador debe disponer del histórico de la sesión y la decisión esperada.</li>\n</ul><h3>Paso a paso para un piloto seguro</h3><p>Una hoja de ruta mínima para llevar un agente a producción con control:</p><ul>\n  <li>Diagnóstico de 2 semanas: mapear procesos candidatos, identificar acciones de alto impacto y estimar exposición de coste.</li>\n  <li>Diseño de políticas (1–2 semanas): reglas temporales, ceilings, puntos de revisión y métricas clave.</li>\n  <li>Implementación en staging: activar observabilidad, simular cargas y escenarios de fallo.</li>\n  <li>Piloto limitado: usuarios selectos, presupuesto controlado y revisión diaria de métricas por el equipo de operaciones.</li>\n  <li>Iteración y escalado: ajustar reglas con datos y extender alcance cuando los indicadores estén estables.</li>\n</ul><h3>Cierre consultivo</h3><p>Construir agentes de IA ya no es la ventaja competitiva; hacerlo sin reglas que limiten su comportamiento en el tiempo es una fuente de riesgo operativo. Las políticas temporales convierten promesas en procesos controlables: control de secuencias, techos de coste, aprobaciones y trazabilidad. Ese es el criterio que separa un prototipo que impresiona en demos de un sistema que opera con confianza.</p><p>Si su empresa está en la fase de pruebas o planea desplegar agentes, lo sensato es detener nuevos experimentos y definir reglas. Un diagnóstico corto y un piloto con políticas temporales pueden evitar pérdidas de presupuesto y fricciones operativas que, de otro modo, solo se detectan cuando ya hacen daño.</p><p><em>Propuesta práctica: mapeamos riesgos, diseñamos las políticas temporales y ejecutamos un piloto controlado. Resultado: agentes útiles, previsibles y operables.</em></p>",
+    "linkedin_text": "Los agentes de IA dejan de ser experimentos cuando dejan de generar riesgos imprevistos. Las políticas temporales —secuencias permitidas, techos de coste y checkpoints humanos— son el pegamento operativo que los convierte en procesos confiables. ¿Quiere validar las reglas antes de pasar a producción? Hablemos de un diagnóstico y piloto práctico. https://edreirbs.github.io/conten-agents/blog/politicas-temporales-agentes-ia-empresa.html",
+    "source_name": "AWS Machine Learning Blog",
+    "source_urls": [
+      "https://aws.amazon.com/blogs/machine-learning/securing-ai-agents-with-temporal-policies-in-amazon-bedrock-agentcore/",
+      "https://aws.amazon.com/blogs/machine-learning/control-agent-behaviors-and-cost-beyond-a-single-action-new-capabilities-in-amazon-bedrock-agentcore/",
+      "https://aws.amazon.com/blogs/machine-learning/how-mobileye-transformed-support-operations-using-amazon-bedrock-agentcore/"
+    ],
+    "published_at": "2026-08-10T15:15:32.108163+00:00",
+    "canonical_url": "https://edreirbs.github.io/conten-agents/blog/politicas-temporales-agentes-ia-empresa.html",
+    "linkedin": {
+      "status": "skipped",
+      "post_reference": null
+    },
+    "editorial_role": {
+      "id": "good_practice",
+      "label": "Buena práctica",
+      "goal": "convertir experiencia y mejores prácticas en guías accionables"
+    },
+    "cover_image": {
+      "provider": "pexels",
+      "url": "https://images.pexels.com/photos/35398565/pexels-photo-35398565.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+      "alt": "A picturesque winter scene in Real Sitio de San Ildefonso with snow-laden trees aligning a path.",
+      "photographer": "Alinson Torres",
+      "photographer_url": "https://www.pexels.com/@alinson-torres-2157639132",
+      "source_url": "https://www.pexels.com/photo/snow-covered-trees-in-real-sitio-de-san-ildefonso-35398565/",
+      "attribution_label": "Foto vía Pexels"
+    }
+  },
+  {
     "id": "2026-08-03T16:40:36.688240+00:00",
     "title": "Cuando un agente de IA reemplaza un proceso de reservas de 15 minutos — y por qué eso no basta",
     "deck": "Un caso real revela que los agentes stateful pueden automatizar cotizaciones, negociación y agenda. La decisión clave no es construir el bot: es desplegarlo con reglas, trazabilidad y conexiones a sistemas.",
