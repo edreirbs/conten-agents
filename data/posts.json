@@ -1,5 +1,62 @@
 [
   {
+    "id": "2026-08-17T14:43:15.567110+00:00",
+    "title": "Cuando los agentes de IA dejan de ser un experimento: cómo convertir 50 prototipos en servicios operativos",
+    "deck": "La promesa agent‑first choca con la operativa: solo el criterio convierte agentes en servicios seguros, observables y conectados al negocio.",
+    "slug": "agentes-ia-50-despliegue-soberania-observabilidad",
+    "excerpt": "Las empresas ya no necesitan prototipos creativos: necesitan convertir agentes de IA en servicios seguros, observables y conectados a procesos críticos. Aquí están los criterios operativos para hacerlo.",
+    "seo_description": "Cómo pasar de prototipos de agentes de IA a servicios operativos: arquitectura, observabilidad, guardrails y métricas para escalar sin perder control.",
+    "pull_quote": "Un agente sin límites es deuda técnica con esteroides.",
+    "key_takeaways": [
+      "Decidir usar agentes no es técnico: es un problema de procesos y riesgos. Priorice casos con impacto operativo medible.",
+      "Arquitectura soberana y desacoplada (sovereign cloud, self‑hosting, vector DB externos) reduce vendor lock‑in y riesgos de cumplimiento.",
+      "Instrumentación mínima: trazabilidad de requests, límites de loop, coste por sesión y SLAs de latencia son imprescindibles antes de escalar."
+    ],
+    "cover_label": "agentes operativos",
+    "cover_theme": "systems",
+    "cta_title": "Validemos un piloto operativo",
+    "cta_body": "No se trata de más demos. Propongamos un diagnóstico-piloto: identificar uno o dos procesos críticos, definir límites de loop y SLAs, montar la observabilidad mínima y validar costos reales en 6 semanas. Si quiere, lo hacemos con un plan que prioriza soberanía y control desde el día uno.",
+    "keywords": [
+      "agentes de IA",
+      "observabilidad",
+      "RAG",
+      "soberanía de datos",
+      "automatización",
+      "gobernanza",
+      "arquitectura",
+      "costos"
+    ],
+    "image_query": "mosaico profesional servidores cloud y diagrama agentes IA conectados a ERP/CRM, estilo ejecutivo sobrio",
+    "article_html": "<p>Promesa: los agentes de IA harán que los procesos se automaticen solos. Realidad: muchos proyectos terminan siendo un conjunto de prototipos creativos que nadie opera. Esa contradicción no es una exageración: es la diferencia entre ventaja competitiva y deuda técnica que crece rápido.</p><p><strong>Un agente sin límites es deuda técnica con esteroides.</strong></p><p>La pregunta para directores generales y líderes de operaciones ya no es «¿podemos usar agentes?». Es «¿podemos operarlos con criterio?». Cuando OneAdvanced desplegó más de 50 agentes en un entorno AWS soberano, no celebró sólo la innovación; resolvió tres problemas prácticos que salen en cualquier intento serio de escalar: soberanía de datos, observabilidad y control de loops en pipelines RAG. Esa es la lección útil: el valor real aparece cuando los agentes pasan del laboratorio al contrato de servicio.</p><h2>De prototipo a servicio: la tesis operativa</h2><p>Los agentes tienen sentido cuando sustituyen o potencian procesos críticos que ya tienen métricas de negocio. Si el objetivo es «probar la tecnología», acabará en una colección de notebooks brillantes y nada más.</p><p>Priorice casos con estas características:</p><ul>\n  <li>Impacto medible en tiempo/costo o en tasa de resolución (por ejemplo, automatizar la clasificación de incidentes que hoy consume horas de back office).</li>\n  <li>Flujos con fuentes de verdad (ERP, CRM, bases documentales) que pueden conectarse de forma segura.</li>\n  <li>Requisito de cumplimiento o soberanía de datos que obliga a control de hosting y trazabilidad.</li>\n</ul><h2>Arquitectura: no es nube contra on‑prem; es desacoplar y controlar</h2><p>Para evitar vendor lock‑in y preservar soberanía, hay dos principios operativos:</p><ul>\n  <li>Desacoplar modelos de inferencia, vector DB y orquestación. Por ejemplo: modelos self‑hosted o en sovereign cloud, pgvector o un vector DB administrado por la empresa, y un layer de agentes que haga dispatch y control de loops.</li>\n  <li>Evitar paths monolíticos: el dispatcher debe decidir cuándo invocar el modelo, cuándo consultar la base de conocimiento y cuándo parar. Esa lógica es la que previene bucles infinitos y llamadas innecesarias al modelo.</li>\n</ul><p>El caso de OneAdvanced mostró una pila efectiva: modelos (self‑hosted en entorno soberano), RAG con pgvector y una plataforma de agentes sobre contenedores orquestados. La consecuencia operativa: cumplimiento más claro y razonamiento sobre costes por sesión.</p><h2>Guardrails operativos mínimos (si falla uno, todo falla)</h2><p>Antes de escalar a decenas de agentes, implemente estos guardrails:</p><ol>\n  <li>Tracing y observabilidad centralizada: request ID, latencias por componente, número de invocaciones a modelo y a la DB vectorial. Sin trazabilidad no hay recuperación ni mejora continua.</li>\n  <li>Límites de loop y políticas de retry: contador de iteraciones por sesión, timers y reglas de salida explícitas del dispatcher.</li>\n  <li>Controles de costos: presupuesto por agente, alertas por uso anómalo y simulaciones de coste por carga esperada.</li>\n  <li>Data governance: clasificación de datos, enmascaramiento en pipelines RAG y políticas de retención en vector DB.</li>\n  <li>Métricas de negocio ligadas a SLA técnicos: % de automatización, tiempo medio de resolución, ratio de invocaciones humanas por evento.</li>\n</ol><h2>Métricas que importan (no todas las métricas son iguales)</h2><p>Olvídese del número de agentes desplegados como KPI. Priorice:</p><ul>\n  <li>Costo por interacción verdadera (no por token).</li>\n  <li>Tasa de fallo operacional (loops, timeouts, fallos de integración) por agente.</li>\n  <li>Porcentaje de decisiones automatizadas válidas sin intervención humana.</li>\n  <li>Trazabilidad: tiempo medio para reconstruir una sesión y su resultado.</li>\n</ul><h2>Integración con sistemas legados</h2><p>Los agentes deben ser ciudadanos de la arquitectura corporativa: exponer APIs estándares, respetar colas y contratos de mensajes, y registrar eventos en el sistema de eventos empresarial. Si se conectan al ERP o CRM, exija transacciones idempotentes y reglas de reconciliación.</p><p>Un patrón útil: el agente actúa como un orquestador que propone cambios a través de un canal controlado (ticket, cola, API de staging) y nunca escribe directamente en la fuente de verdad sin una confirmación humana o una regla de negocio clara.</p><h2>Checklist rápida para decidir si un caso merece agentes</h2><ul>\n  <li>¿Hay una métrica de proceso que mejore sustancialmente? (sí/no)</li>\n  <li>¿Puedo conectar fuentes de verdad de forma segura? (sí/no)</li>\n  <li>¿Existen reglas de salida claras para evitar loops? (sí/no)</li>\n  <li>¿Puedo instrumentar trazas desde día uno? (sí/no)</li>\n  <li>¿El coste incremental está calculado y presupuestado? (sí/no)</li>\n</ul><p>Si alguna respuesta es no, transforme el caso en una prueba de hipótesis limitada antes de construir agentes productivos.</p><h2>Ejemplo operativo: cómo plantear el piloto de 6 semanas</h2><p>Objetivo: validar que un agente reduce tiempo de gestión de incidencias en un 30% y que el coste por interacción se mantiene dentro del presupuesto.</p><ol>\n  <li>Semana 1: mapear flujo, identificar fuentes de verdad y definir métricas y SLAs.</li>\n  <li>Semana 2–3: construir RAG mínimo, montar pgvector o equivalente y crear dispatcher con límites de loop.</li>\n  <li>Semana 4: instrumentación: tracing, métricas de latencia y coste, alertas básicas.</li>\n  <li>Semana 5: pruebas en producción controlada (canary) y validación de gobernanza de datos.</li>\n  <li>Semana 6: medir resultados, ajustar límites y decidir escalado o rollback.</li>\n</ol><h2>Decisiones que definen si el proyecto es escalable</h2><p>Las empresas que escalan agentes toman decisiones explícitas sobre hosting, governance y costos antes de ampliar. No creen que «más automatización» sea una estrategia por sí misma; es una consecuencia de controlar riesgo, visibilidad y alineación con métricas de negocio.</p><p>Si quiere acelerar sin correr, empiece por tres cosas: (1) priorice casos con métricas claras; (2) construya un dispatcher con límites firmes; (3) monte observabilidad desde el primer día.</p><p><strong>Siguiente paso: un diagnóstico‑piloto de 6 semanas</strong></p><p>Si su organización ya prueba agentes pero no tiene control sobre costes, trazabilidad o soberanía, la recomendación práctica es un diagnóstico‑piloto que valide un caso real, establezca SLAs y entregue la instrumentación mínima para operar con seguridad. No es una demo más; es el inicio de convertir agentes en servicios.</p>",
+    "linkedin_text": "¿Agentes de IA o prototipos bonitos? La diferencia es operativa: soberanía, observabilidad y límites. En este artículo explicamos cómo pasar de 50 prototipos a servicios que funcionan con criterio y control. Leer y comentar: https://edreirbs.github.io/conten-agents/blog/agentes-ia-50-despliegue-soberania-observabilidad.html",
+    "source_name": "AWS Machine Learning Blog",
+    "source_urls": [
+      "https://aws.amazon.com/blogs/machine-learning/how-oneadvanced-deployed-over-50-ai-agents-on-uk-sovereign-aws/",
+      "https://aws.amazon.com/blogs/machine-learning/monitor-on-premises-and-multi-cloud-ai-agents-with-agentcore-observability/",
+      "https://towardsdatascience.com/rag-workflow-and-loop-engineering-the-dispatcher-that-decides-when-to-loop-and-when-to-stop/"
+    ],
+    "published_at": "2026-08-17T14:43:15.567110+00:00",
+    "canonical_url": "https://edreirbs.github.io/conten-agents/blog/agentes-ia-50-despliegue-soberania-observabilidad.html",
+    "linkedin": {
+      "status": "skipped",
+      "post_reference": null
+    },
+    "editorial_role": {
+      "id": "tool_deep_dive",
+      "label": "Tool deep dive",
+      "goal": "explicar una herramienta o tecnología con profundidad y criterio operativo"
+    },
+    "cover_image": {
+      "provider": "pexels",
+      "url": "https://images.pexels.com/photos/5453809/pexels-photo-5453809.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+      "alt": "Dedicated call center agents working diligently at their desks in an office.",
+      "photographer": "Tima Miroshnichenko",
+      "photographer_url": "https://www.pexels.com/@tima-miroshnichenko",
+      "source_url": "https://www.pexels.com/photo/man-in-white-long-sleeve-shirt-wearing-black-headset-5453809/",
+      "attribution_label": "Foto vía Pexels"
+    }
+  },
+  {
     "id": "2026-08-10T15:15:32.108163+00:00",
     "title": "Políticas temporales: convertir agentes de IA prometedores en procesos empresariales confiables",
     "deck": "Los agentes autónomos fallan por lo que hacen con el tiempo, no por lo que saben. Gobernarlos es un problema operativo, no solo técnico.",
