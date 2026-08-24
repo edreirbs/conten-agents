@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cuando los agentes de IA hacen más daño que bien: gobernanza práctica para procesos críticos | Axon Labs</title>
+  <meta name="description" content="Los agentes de IA pueden acelerar operaciones, pero su mayor riesgo no es el modelo: es el acceso irrestricto a sistemas críticos y la ausencia de reglas operativas. Propongo un marco práctico para evaluar, controlar y escalar agentes con responsabilidad.">
+  <link rel="stylesheet" href="../assets/site.css">
+  <link rel="canonical" href="https://edreirbs.github.io/conten-agents/blog/gobernanza-agentes-ia-procesos-criticos.html">
+</head>
+<body>
+  <header class="site-header">
+  <div class="shell masthead">
+    <a class="brand" href="../">Axon Labs</a>
+    <nav class="nav">
+      <a href="../">Inicio</a>
+      <a href="../blog/">Blog</a>
+    </nav>
+  </div>
+</header>
+  <main class="shell">
+    <article class="story">
+      <section class="story-hero">
+        <div class="story-copy">
+          <span class="eyebrow">Riesgo</span>
+          <h1>Cuando los agentes de IA hacen más daño que bien: gobernanza práctica para procesos críticos</h1>
+          <p class="deck">Los agentes prometen automatizar decisiones; sin límites claros, automatizan errores. Un marco pragmático para decidir qué delegar y cómo gobernarlo.</p>
+          <div class="meta meta-hero">
+            <span>24 Aug 2026</span>
+            <span>AWS Machine Learning Blog</span>
+            <span>4 min de lectura</span>
+            <span>Reflexivo</span>
+          </div>
+        </div>
+        <div class="story-cover panel">
+          <img src="https://images.pexels.com/photos/32529354/pexels-photo-32529354.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Close-up of an industrial control panel with colorful buttons in a factory setting.">
+          <p class="image-credit">Foto vía Pexels · <a href="https://www.pexels.com/@fernando-narvaez-2150621466" target="_blank" rel="noopener noreferrer">Fernando Narvaez</a> · <a href="https://www.pexels.com/photo/industrial-control-panel-with-colorful-buttons-32529354/" target="_blank" rel="noopener noreferrer">ver fuente</a></p>
+        </div>
+      </section>
+      <section class="takeaways panel">
+  <span class="eyebrow">En 30 segundos</span>
+  <h2>Lo que importa de verdad</h2>
+  <ul><li>Priorice procesos según impacto, frecuencia y coste de supervisión antes de desplegar agentes.</li><li>Gobierne el acceso a herramientas: catálogo, límites, auditoría y políticas traducidas a reglas ejecutables.</li><li>Convierta pilotos en producción con métricas operativas claras y controles incrementales (Connect → Control → Catalog → Harden).</li></ul>
+</section>
+      <section class="quote-band">
+  <blockquote>El problema no es que los agentes fallen; es que sigan fallando sin trazabilidad ni límites.</blockquote>
+</section>
+      <section class="article-shell">
+        <div class="article-body">
+          <p>Las presentaciones prometen agentes que actúan, negocian y corrigen sin intervención humana. En la práctica, los primeros incidentes no provienen de respuestas pobres del modelo, sino de agentes que tuvieron acceso irrestricto a sistemas core y tomaron decisiones que nadie autorizó.</p><p><strong>Frase corta, certera:</strong> delegar sin límites es automatizar errores a escala.</p><p>Esta contradicción —potencia operativa frente a riesgo real— ya está en las hojas de ruta de muchas empresas medianas y grandes. Aquí no discutimos qué modelo usar ni si la IA es inevitable: partimos de otra premisa más útil para directores de operaciones y TI: si va a delegar acciones a un agente, necesita criterios claros para elegir qué procesos delegar, qué controles imponer y cómo medir cuándo un piloto merece escalar.</p><h2>Un marco pragmático: Connect → Control → Catalog → Harden</h2><p>Inspirado en prácticas emergentes de plataformas y experiencias en campo, propongo una secuencia de madurez simple y operacional para gobernar agentes:</p><ul>
+  <li><strong>Connect (conectar)</strong>: limitar el alcance de acceso. Conectar significa definir qué sistemas puede ver el agente y en qué modo (lectura, consulta, acción limitada).</li>
+  <li><strong>Control (controlar)</strong>: imponer límites y reglas ejecutables (quién puede autorizar qué, umbrales de acción automática, escalados obligatorios).</li>
+  <li><strong>Catalog (catalogar)</strong>: mantener un catálogo operable de herramientas y capacidades autorizadas para cada agente, con versiones y anotaciones de riesgo.</li>
+  <li><strong>Harden (endurecer)</strong>: añadir auditabilidad, pruebas adversariales, canary deployments y endurecimiento de permisos antes de escalar.</li>
+</ul><p>Avance solo cuando una etapa ha mitigado riesgos concretos; no convierta la gobernanza en un freno eterno al piloto, pero tampoco en una excusa para la negligencia.</p><h2>Cómo elegir procesos: criterios operativos, no técnicos</h2><p>No todos los procesos merecen un agente. Decida con criterios de negocio y operacionales:</p><ul>
+  <li><strong>Impacto por error:</strong> ¿qué costo (monetario, reputacional, regulatorio) tiene que el agente cometa un error puntual?</li>
+  <li><strong>Frecuencia y volumen:</strong> tareas repetitivas y de alto volumen son candidatos mejores que decisiones esporádicas de alto impacto.</li>
+  <li><strong>Tolerancia humana:</strong> ¿cuánto supervisión humana requiere la acción? Compare ahorro proyectado vs. coste de revisión humana.</li>
+  <li><strong>Transparencia necesaria:</strong> ¿requiere auditoría forense y trazabilidad para cumplir regulaciones?</li>
+  <li><strong>Acoplamiento sistémico:</strong> ¿la acción del agente altera varios sistemas críticos (ERP, CRM, finanzas)? Más acoplamiento implica más controles.</li>
+</ul><p>Ejemplo práctico: un agente que sugiere respuestas en atención al cliente y adjunta referencias tiene distinto perfil de riesgo que uno que emite reembolsos financieros. El primero puede operar con supervisión aleatoria; el segundo necesita reglas ejecutables, límites de monto y doble aprobación humana.</p><h2>Controles mínimos operativos</h2><p>Antes de dar acceso de escritura a un agente, implemente estas medidas básicas:</p><ol>
+  <li>Catálogo de herramientas: una lista autorizada y versionada de las integraciones que cada agente puede usar.</li>
+  <li>Límites de acción: montos, frecuencias, ventanas horarias y comportamientos prohibidos traducidos a reglas ejecutables.</li>
+  <li>Registro inmutable de acciones y razonamientos: trazabilidad que vincule entrada, decisión y cambio en el sistema.</li>
+  <li>Canary y entornos controlados: desplegar primero en subconjuntos de datos o usuarios con rollback automático.</li>
+  <li>Escalado humano obligatorio en condiciones de incertidumbre (umbral de confianza, casos atípicos, errores detectados).</li>
+  <li>Métricas operativas definidas: tasa de acciones fallidas, tiempo medio de detección y de reparación, coste de supervisión por transacción.</li>
+</ol><h2>Historias breves que ilustran el riesgo</h2><p>1) Un equipo desplegó un agente para migraciones de datos que tenía permisos de escritura directa sobre un repositorio. Un error de mapeo actualizó miles de registros; la falta de rollback automatizado convirtió la corrección en una parada operativa de días.</p><p>2) Un piloto de atención al cliente permitió a un agente emitir descuentos. Un caso de abuso se multiplicó porque no existía un límite diario ni auditoría en tiempo real; el coste financiero fue menor que el daño reputacional y el tiempo de recuperación.</p><p>En ambos casos la falla no fue el modelo: fue la decisión operativa de otorgar permisos sin controles de catálogo, límites ni trazabilidad.</p><h2>Checklist para pasar de piloto a producción</h2><ul>
+  <li>Definir métricas y umbrales de tolerancia a errores antes del piloto.</li>
+  <li>Implementar catálogo y permisos mínimos necesarios (principio de menor privilegio).</li>
+  <li>Establecer flujo de revisión humana con SLAs y responsabilidades claras.</li>
+  <li>Crear registros inmutables y alertas automáticas para acciones fuera de patrón.</li>
+  <li>Plan de rollback y canary deployments por segmento de clientes o dataset.</li>
+  <li>Revisiones periódicas del rendimiento y re-evaluación del permiso al subir de escala.</li>
+</ul><h2>Conclusión: gobernar no es frenar; es decidir</h2><p>Si su empresa prueba agentes, la decisión operativa más valiosa no es qué modelo elegir, sino qué procesos delegar y bajo qué condiciones. Gobernar el acceso a herramientas, traducir políticas en reglas ejecutables y medir el coste real de supervisión humana transforma experimentos en automatizaciones confiables.</p><p>Si quiere avanzar sin improvisar: proponga un diagnóstico acotado (3 procesos críticos), definimos límites y ejecutamos un piloto con controles mínimos para probar retorno y seguridad antes de escalar.</p>
+        </div>
+      </section>
+      <section class="cta-panel panel">
+        <span class="eyebrow">Siguiente paso</span>
+        <h2>Diagnóstico breve de riesgo y retorno</h2>
+        <p>Si su organización ya prueba agentes o planea hacerlo, propongo una conversación de diagnóstico: evaluamos 3 procesos críticos, definimos límites de acción y cerramos un piloto con controles mínimos. No vendemos magia: garantizamos criterios para que la automatización mejore operaciones sin crear nuevos fallos.</p>
+      </section>
+      <section class="sources panel">
+        <h2>Fuentes y referencias</h2>
+        <ul><li><a href="https://aws.amazon.com/blogs/machine-learning/govern-ai-agent-tool-access-with-amazon-bedrock-agentcore-gateway/" target="_blank" rel="noopener noreferrer">https://aws.amazon.com/blogs/machine-learning/govern-ai-agent-tool-access-with-amazon-bedrock-agentcore-gateway/</a></li><li><a href="https://aws.amazon.com/blogs/machine-learning/authoring-dogwood-policies-from-natural-language-in-amazon-bedrock-agentcore/" target="_blank" rel="noopener noreferrer">https://aws.amazon.com/blogs/machine-learning/authoring-dogwood-policies-from-natural-language-in-amazon-bedrock-agentcore/</a></li><li><a href="https://towardsdatascience.com/ai-agents-dont-need-more-context-they-need-typed-context/" target="_blank" rel="noopener noreferrer">https://towardsdatascience.com/ai-agents-dont-need-more-context-they-need-typed-context/</a></li></ul>
+      </section>
+    </article>
+  </main>
+  <footer class="site-footer">
+  <div class="shell">
+    <p>Axon Labs (c) 2026. Contenido automatizado para posicionamiento orgánico.</p>
+  </div>
+</footer>
+</body>
+</html>
