@@ -1,5 +1,5 @@
 {
-  "last_run_at": "2026-08-24T14:59:00.178517+00:00",
+  "last_run_at": "2026-08-31T20:02:50.843257+00:00",
   "seen_source_urls": [
     "https://aws.amazon.com/blogs/machine-learning/toolsimulator-scalable-tool-testing-for-ai-agents/",
     "https://aws.amazon.com/blogs/machine-learning/omnichannel-ordering-with-amazon-bedrock-agentcore-and-amazon-nova-2-sonic/",
@@ -67,6 +67,9 @@
     "https://towardsdatascience.com/rag-workflow-and-loop-engineering-the-dispatcher-that-decides-when-to-loop-and-when-to-stop/",
     "https://aws.amazon.com/blogs/machine-learning/govern-ai-agent-tool-access-with-amazon-bedrock-agentcore-gateway/",
     "https://aws.amazon.com/blogs/machine-learning/authoring-dogwood-policies-from-natural-language-in-amazon-bedrock-agentcore/",
-    "https://towardsdatascience.com/ai-agents-dont-need-more-context-they-need-typed-context/"
+    "https://towardsdatascience.com/ai-agents-dont-need-more-context-they-need-typed-context/",
+    "https://aws.amazon.com/blogs/machine-learning/manage-agents-tools-and-skills-at-scale-with-aws-agent-registry/",
+    "https://aws.amazon.com/blogs/machine-learning/evaluate-any-agent-framework-with-amazon-bedrock-agentcore-evaluations/",
+    "https://aws.amazon.com/blogs/machine-learning/build-observable-enterprise-agentic-retrieval-using-managed-amazon-bedrock-knowledge-base-with-aws-cloudformation/"
   ]
 }
