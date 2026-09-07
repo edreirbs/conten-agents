@@ -1,5 +1,63 @@
 [
   {
+    "id": "2026-09-07T18:43:43.976214+00:00",
+    "title": "Cuando los agentes recuerdan mal: por qué la política de memoria es una decisión operativa, no solo técnica",
+    "deck": "Un agente que acumula recuerdos sin reglas degrada respuestas, amplifica sesgos y crea riesgos de cumplimiento. Aquí está el criterio operativo para evitarlo.",
+    "slug": "politicas-memoria-agentes-ia",
+    "excerpt": "El verdadero riesgo de los agentes de IA en producción no es solo que fallen al responder, sino que recuerden mal: memorias mal gestionadas degradan calidad, generan sesgos y exponen datos. Una política de ciclo de vida evita eso.",
+    "seo_description": "Aprenda a diseñar políticas de retención, consolidación y poda de memoria para agentes de IA en producción; criterios operativos, métricas y fases para implementarlas con seguridad y escalabilidad.",
+    "pull_quote": "El problema no es que un agente falle; es que siga fallando porque no supimos qué debía olvidar.",
+    "key_takeaways": [
+      "La memoria de un agente es un activo operativo: sin políticas, degrada rendimiento y aumenta riesgo.",
+      "Diseñe ciclo de vida: score, consolidación, poda, versión y auditoría; cada fase con responsables y métricas.",
+      "Empiece con inventario y políticas simples: retención por caso, consolidación nocturna y rutas de remediación."
+    ],
+    "cover_label": "memoria y riesgo",
+    "cover_theme": "risk",
+    "cta_title": "Diagnóstico práctico de memoria para agentes",
+    "cta_body": "Si su organización despliega agentes que interactúan con clientes, datos o decisiones comerciales, agendemos un diagnóstico de 4 semanas: inventario de memorias, política mínima viable y piloto de consolidación. No es un experimento; es reducir riesgo operativo y recuperar eficiencia.",
+    "keywords": [
+      "agentes de IA",
+      "memoria de agentes",
+      "políticas de retención",
+      "gobernanza",
+      "automatización",
+      "operaciones IA",
+      "consolidación de memoria",
+      "poda de datos"
+    ],
+    "image_query": "agente de IA empresarial con iconos de memoria, retención y poda, estilo sobrio y ejecutivo",
+    "article_html": "<p>Hay dos narrativas circulando en las salas de dirección: una celebra el brillo de los agentes de IA; la otra pide cautela por riesgos evidentes. Ambas son ciertas. Pero hay una tercera, más peligrosa por invisible: la memoria de esos agentes. No falla de forma espectacular. Fallan silenciosamente, acumulando errores que, con el tiempo, degradan procesos, dañan reputación y abren exposiciones regulatorias.</p><p><strong>El riesgo no siempre es lo que responde mal: es lo que recuerda mal.</strong></p><p>Un agente que actúa sin reglas sobre qué conservar, cuándo consolidar y cuándo olvidar es una deuda técnica que se convierte en deuda operativa. La consecuencia no es un bug aislado: es un patrón. Mensajes contradictorios a clientes. Decisiones automatizadas que reproducen sesgos pasados. Fugas de información por retención innecesaria. Y, en el peor de los casos, multas o interrupciones porque nadie diseñó la vida de esos recuerdos.</p><h2>Por qué importa en operaciones (y antes de lo que imagina)</h2><p>Considere este escenario realista: un agente de atención que mantiene historiales de interacción como “memoria” para personalizar respuestas. Al principio mejora NPS. Después de seis meses, la memoria contiene instrucciones obsoletas—promociones vencidas, excepciones procesales antiguas, o notas internas erróneas—y el agente empieza a dar información inconsistente. Los supervisores detectan el problema semanas después, cuando el volumen de reclamaciones ya afecta SLAs.</p><p>Eso no es solo una falla técnica: es un mal diseño operativo. El equipo de producto no tenía métricas de degradación; operaciones no sabía quién decidía retener; legal no era consultado sobre datos sensibles almacenados. Resultado: trabajo de reparación costoso y pérdida de confianza.</p><h2>Modos de fallo que conviene anotar</h2><ul>\n  <li>Stale context: información antigua que confunde decisiones presentes.</li>\n  <li>Amplificación de sesgos: recuerdos repetidos refuerzan patrones incorrectos.</li>\n  <li>Privacidad y fuga de PII: retención innecesaria expone datos sensibles.</li>\n  <li>Costos y latencia: memorias crecidas encarecen búsquedas y respuestas.</li>\n  <li>Complejidad operativa: falta de versionado dificulta reproducir decisiones.</li>\n</ul><h2>Principios operativos para políticas de ciclo de vida de memoria</h2><p>No es tecnología por tecnología. Son reglas que conectan política, procesos y roles. Propongo cinco principios claros:</p><ol>\n  <li><strong>Minimizar por defecto.</strong> Guardar lo mínimo necesario para la función operativa. Si no hay valor claro, no lo almacene.</li>\n  <li><strong>Score antes de guardar.</strong> Clasificar eventos/memorias por relevancia y riesgo (freshness, PII, costo) y asignar reglas según score.</li>\n  <li><strong>Consolidar periódicamente.</strong> Transformar fragmentos volátiles en recuerdos compactos y verificables: resúmenes, hechos validados, enlaces a evidencias.</li>\n  <li><strong>Podar con reglas auditable.</strong> TTL por categoría, excepciones documentadas y procesos de apelación humana.</li>\n  <li><strong>Versionar y auditar.</strong> Registrar cambios de memoria y permitir rollback; auditar qué se borró, cuándo y por qué.</li>\n</ol><h2>Fases prácticas para implantar una política</h2><p>La política debe traducirse en un ciclo operativo, con entregables y responsables claros.</p><ul>\n  <li><strong>Diseño (2–4 semanas):</strong> Inventario de agentes, tipos de memoria, clasificación de riesgo y owner por área.</li>\n  <li><strong>Definición (2 semanas):</strong> Reglas de retención por categoría (ej.: conversaciones, acciones, metadata), esquema de scoring y SLAs de frescura.</li>\n  <li><strong>Implementación piloto (4–8 semanas):</strong> Automatizar scoring y una rutina nocturna de consolidación/poda; aislar un agente o flujo crítico.</li>\n  <li><strong>Operación y monitoreo continuo:</strong> Métricas diarias/semanales, alertas por degradación y playbook de remediación.</li>\n  <li><strong>Revisión trimestral:</strong> Ajustes de reglas según evidencia de producción y hallazgos de auditoría.</li>\n</ul><h2>Métricas que importan</h2><p>Sin métricas, las reglas son buenas intenciones. Controle al menos:</p><ul>\n  <li>Freshness score medio por tipo de memoria.</li>\n  <li>Tasa de inconsistencia reportada por usuarios (%) vinculada a memoria.</li>\n  <li>Eventos de exposición de datos o detecciones de PII.</li>\n  <li>Tamaño de la memoria por agente y coste asociado.</li>\n  <li>Frecuencia de rollbacks y motivos.</li>\n</ul><h2>Patrones de implementación</h2><ul>\n  <li>Contexto efímero en RAM para cada interacción; memoria persistente solo si el score lo justifica.</li>\n  <li>Consolidación nocturna: resumir, validar y persistir solo elementos aprobados.</li>\n  <li>Almacenamiento jerárquico: caché de trabajo, base de memorias recientes, archivo inmutable.</li>\n  <li>Red humana de revisión para excepciones y entrenamiento continuo.</li>\n</ul><h2>Lista accionable para los próximos 90 días</h2><ol>\n  <li>Hacer inventario rápido: ¿qué agentes almacenan memoria y qué tipo?</li>\n  <li>Clasificar riesgos: identificar PII, decisiones críticas y datos sensibles.</li>\n  <li>Definir política mínima viable: TTL por categoría + consolidación nocturna.</li>\n  <li>Implementar un piloto en un flujo crítico con métricas básicas (freshness, tamaño, inconsistencias).</li>\n  <li>Establecer owners: Tecnología, Operaciones y Legal con reuniones semanales de seguimiento.</li>\n</ol><p>La memoria de un agente no es un apéndice técnico: es parte del proceso. Tratarla como variable operativa reduce incidentes, protege cumplimiento y convierte a los agentes en ventaja, no en deuda.</p><p>Si quiere, podemos revisar su inventario de agentes y proponer una política mínima viable en 4 semanas: inventario, reglas, piloto y métricas—todo con entregables operativos y responsables definidos.</p><p>Lecturas y referencias: AWS — Designing lifecycle policies for AgentCore memory; AWS — Best practices for building agentic automations; OpenAI — AI-native company workflows. (Links en referencias).</p>",
+    "linkedin_text": "Los agentes de IA no fallan de repente: fallan por memoria. Memorias mal gestionadas degradan calidad, amplifican sesgos y generan riesgo regulatorio. En este artículo explico cómo convertir la memoria de un agente en una política operativa: criterios, fases y métricas para implementarla sin rodeos. Lea el artículo completo y proponga un diagnóstico práctico: https://edreirbs.github.io/conten-agents/blog/politicas-memoria-agentes-ia.html",
+    "source_name": "AWS Machine Learning Blog",
+    "source_urls": [
+      "https://aws.amazon.com/blogs/machine-learning/designing-lifecycle-policies-for-agentcore-memory/",
+      "https://aws.amazon.com/blogs/machine-learning/best-practices-for-building-agentic-automations-with-amazon-quick-automate/",
+      "https://aws.amazon.com/blogs/machine-learning/migrate-agentic-workloads-to-amazon-bedrock-agentcore/",
+      "https://openai.com/index/ai-native-company-workflows"
+    ],
+    "published_at": "2026-09-07T18:43:43.976214+00:00",
+    "canonical_url": "https://edreirbs.github.io/conten-agents/blog/politicas-memoria-agentes-ia.html",
+    "linkedin": {
+      "status": "skipped",
+      "post_reference": null
+    },
+    "editorial_role": {
+      "id": "good_practice",
+      "label": "Buena práctica",
+      "goal": "convertir experiencia y mejores prácticas en guías accionables"
+    },
+    "cover_image": {
+      "provider": "pexels",
+      "url": "https://images.pexels.com/photos/29612400/pexels-photo-29612400.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+      "alt": "Organic CBD oil from The Green Brand with various concentrations for wellness.",
+      "photographer": "GB  The Green Brand",
+      "photographer_url": "https://www.pexels.com/@gb-the-green-brand-1259697174",
+      "source_url": "https://www.pexels.com/photo/high-quality-organic-cbd-oil-packaging-29612400/",
+      "attribution_label": "Foto vía Pexels"
+    }
+  },
+  {
     "id": "2026-08-31T20:02:48.730591+00:00",
     "title": "Cuando los agentes proliferan: por qué un registro gobernado es la prioridad operativa, no otro experimento",
     "deck": "La siguiente fase de los proyectos de agentes no es más pruebas: es convertir activos dispersos en un catálogo auditable, reutilizable y gobernado.",
