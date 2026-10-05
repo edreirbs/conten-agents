@@ -1,5 +1,63 @@
 [
   {
+    "id": "2026-10-05T21:28:58.789920+00:00",
+    "title": "Cuando los agentes prometen acelerar migraciones: convertir velocidad en control",
+    "deck": "Los agentes 'agentic' pueden recortar semanas en una migración, pero sin guardrails operativos la rapidez se vuelve riesgo. Criterios claros para pasar de piloto a proceso repetible y auditable.",
+    "slug": "agentes-ia-migraciones-riesgos-oportunidad",
+    "excerpt": "Los agentes autónomos aceleran migraciones cloud, pero también multiplican errores y deuda técnica si no hay control, idempotencia y métricas operativas. Guía práctica para evitarlo.",
+    "seo_description": "Cómo diseñar guardrails operativos, control plane y métricas para que agentes IA aceleren migraciones sin introducir riesgo empresarial.",
+    "pull_quote": "Velocidad sin control es endeudamiento técnico.",
+    "key_takeaways": [
+      "Diseñar un control plane que haga auditable cada decisión del agente antes de ejecutarla.",
+      "Garantizar idempotencia y validaciones previas al despliegue para evitar cambios no deseados en producción.",
+      "Medir impacto operativo con métricas concretas que distingan velocidad de riesgo."
+    ],
+    "cover_label": "Agentes y riesgo",
+    "cover_theme": "risk",
+    "cta_title": "¿Probamos un piloto con criterio?",
+    "cta_body": "Un piloto de agentes puede demostrar valor en días o volcarse en problemas en semanas. Proponemos un diagnóstico operativo de 5 días para mapear riesgos, definir guardrails y construir un primer control plane seguro. Si prefiere, diseñamos un piloto acotado que valide idempotencia y trazabilidad antes de escalar.",
+    "keywords": [
+      "agentes IA",
+      "migración cloud",
+      "gobernanza",
+      "automatización de despliegues",
+      "IaC",
+      "control plane",
+      "idempotencia",
+      "operaciones"
+    ],
+    "image_query": "equipo ejecutivo revisando tablero operativo de migración cloud con diagramas de agentes IA y panel de gobernanza",
+    "article_html": "<p>Los proveedores muestran demos donde agentes IA descubren aplicaciones, generan Infrastructure as Code y promueven recursos entre cuentas en minutos. Suena bien. Suena muy bien. Y ahí está el problema: velocidad y autonomía rara vez llegan acompañadas de control operativo.</p><p><strong>Velocidad sin control es endeudamiento técnico.</strong></p><p>Si su equipo ya ha probado un piloto de agentes, quizá reconozca el patrón: reducción inicial de trabajo manual, seguido de resultados inesperados —recursos creados en la cuenta equivocada, configuraciones inconsistentes, alertas que se disparan o, peor, interrupciones visibles para clientes internos. Los agentes amplifican tanto el beneficio como el error. La diferencia la marcan dos cosas: diseño de control plane y criterios operativos claros.</p><h2>De la promesa técnica a la realidad operativa</h2><p>No vamos a discutir modelos ni benchmarks. Hablamos de operaciones: quién aprueba qué, cómo se verifica que una acción es segura, cómo se revierte, qué métricas indican que la automatización reduce fricción y no crea deuda. Si su objetivo es mover cargas a la nube sin paralizar la operación, estas son las decisiones que importan.</p><h2>Caso ejecutivo (breve)</h2><p>Empresa mediana con 200 aplicaciones. Piloto de agente que automatiza discovery y generación de IaC. Resultado: el agente promovió un cluster con configuración por defecto en la cuenta de producción, provocando sobrecostos y una caída parcial. Causa raíz: ausencia de políticas de allowlist, falta de dry-runs obligatorios y carencia de logs auditablemente enlazados a la aprobación humana.</p><p>Lección: la automatización falla en procesos donde el control y la trazabilidad son opcionales.</p><h2>Criterios operativos para convertir un piloto de agente en proceso repetible</h2><ul>\n  <li><strong>Diagnóstico de superficie de riesgo</strong>: inventario de activos, dependencias críticas, límites de blast radius (aplicaciones y cuentas que un agente puede afectar), y clasificación de impacto (alta, media, baja).</li>\n  <li><strong>Control plane auditable</strong>: canalizar todas las acciones del agente a un plan intermedio (preflight) que incluya diff de IaC, evaluación de políticas y firma humana para acciones sensibles.</li>\n  <li><strong>Política de autorización</strong>: reglas explícitas por recurso, por cuenta y por tipo de acción. Integrar con el Identity Provider y RBAC existente; evitar hojas de cálculo con excepciones.</li>\n  <li><strong>Idempotencia y declaratividad</strong>: generar IaC declarativo, realizar checksums/versión de estado, y exigir &#x27;plan&#x27; y &#x27;apply&#x27; separados, con dry-run obligatorio en entornos productivos.</li>\n  <li><strong>Canary y segmentación</strong>: promover cambios por grupos limitados de recursos, validar métricas y solo entonces escalar la promoción a todo el portfolio.</li>\n  <li><strong>Registro y trazabilidad</strong>: cada decisión del agente debe quedar registrada con quién la aprobó, por qué, y la evidencia técnica (diff, logs, outputs).</li>\n  <li><strong>Mecanismos de reversión</strong>: playbooks de rollback automatizados y pruebas de reversión periódicas como parte del ciclo de la migración.</li>\n</ul><h2>Checklist operativo para un piloto seguro</h2><ul>\n  <li>Definir blast radius y cuentas permitidas (no más de 2 cuentas con acceso de agente en fase inicial).</li>\n  <li>Implementar un control plane que exponga un &#x27;plan&#x27; que humanos verifiquen antes del &#x27;apply&#x27;.</li>\n  <li>Hacer obligatoria la ejecución de dry-runs y pruebas de idempotencia en entornos staging.</li>\n  <li>Configurar políticas de prevent/deny en recursos críticos (VPC, subnets, IAM, bases de datos).</li>\n  <li>Medir: tiempo de aprobación, número de intervenciones manuales, tasa de rollback, costos extra por cambios no previstos.</li>\n</ul><h2>Métricas que separan velocidad de riesgo</h2><p>No confunda «tiempo ahorrado» con «valor real». Añada estas métricas operativas:</p><ul>\n  <li><strong>Tiempo de ciclo seguro</strong>: tiempo desde propuesta (plan) hasta despliegue autorizado.</li>\n  <li><strong>Tasa de reversión</strong>: porcentaje de despliegues que requieren rollback o corrección manual.</li>\n  <li><strong>Intervenciones humanas</strong>: cantidad y tipo (seguridad, redes, datos) por sprint de migración.</li>\n  <li><strong>Costo de corrección</strong>: horas/herramientas necesarias para resolver incidencias originadas por agentes.</li>\n  <li><strong>Porcentaje de acciones idempotentes</strong>: cuántas operaciones pueden repetirse sin efectos secundarios.</li>\n</ul><h2>Arquitectura mínima recomendada</h2><p>Para que un agente actúe sin convertirse en vector de riesgo, proponga una arquitectura en capas:</p><ol>\n  <li>Agente (actores autónomos con permisos mínimos).</li>\n  <li>Control plane (orquesta planes, políticas y aprobaciones).</li>\n  <li>Política y motor de reglas (evaluación automática de seguridad y compliance).</li>\n  <li>Pipelines de promoción (canary → staging → producción) con dry-runs y pruebas automatizadas.</li>\n  <li>Observabilidad y auditoría (logs, trazas, evidencias almacenadas y enlazadas a tickets).</li>\n</ol><h2>Un último ejemplo práctico</h2><p>En un proyecto real, introdujimos un control plane que interceptaba cualquier cambio de red y exigía una aprobación automática contra una matriz de riesgos. Resultado: el tiempo de despliegue aumentó ligeramente en la fase inicial, pero la tasa de rollback cayó a cero y la confianza del equipo de TI subió lo suficiente para aumentar el scope del agente sin supervisión humana constante.</p><h2>Siguiente paso operativo</h2><p>No se trata de renunciar a los agentes; se trata de integrarlos con criterios. Propongo un camino de tres pasos y 5–15 días hábiles:</p><ul>\n  <li>Diagnóstico rápido (3–5 días): mapa de riesgos, blast radius y lista de recursos críticos.</li>\n  <li>Diseño del control plane mínimo viable (5–7 días): políticas, plan/approve/apply, dry-run obligatorio.</li>\n  <li>Piloto acotado (7–15 días): canary de 10–20 aplicaciones con métricas y playbooks de reversión.</li>\n</ul><p>Si el piloto demuestra reducción de fricción y bajos incidentes, escalar con la misma disciplina: más controles, no menos.</p><p><strong>Axon Labs integra IA de forma inteligente</strong>: no vendemos experimentos; diseñamos sistemas útiles, claros y escalables. Si quiere, agendamos un diagnóstico operativo de 5 días para mapear riesgos y proponer un control plane ajustado a su entorno.</p>",
+    "linkedin_text": "Los agentes IA prometen acelerar migraciones cloud —pero sin guardrails operativos esa velocidad puede convertirse en deuda técnica y riesgo. En nuestro último artículo explicamos criterios prácticos: diagnóstico de riesgo, control plane auditable, idempotencia en IaC y métricas operativas. Ideal para directores y líderes de operaciones que necesitan resultados reproducibles. Leer más: https://edreirbs.github.io/conten-agents/blog/agentes-ia-migraciones-riesgos-oportunidad.html",
+    "source_name": "AWS Machine Learning Blog",
+    "source_urls": [
+      "https://aws.amazon.com/blogs/machine-learning/scaling-cloud-migrations-with-agentic-ai-on-amazon-bedrock-agentcore/",
+      "https://aws.amazon.com/blogs/machine-learning/making-amazon-quick-enterprise-ready-automated-auditable-cross-account-resource-promotion/",
+      "https://towardsdatascience.com/how-to-govern-ai-agents/",
+      "https://towardsdatascience.com/how-to-build-a-control-plane-for-ai-agents/"
+    ],
+    "published_at": "2026-10-05T21:28:58.789920+00:00",
+    "canonical_url": "https://edreirbs.github.io/conten-agents/blog/agentes-ia-migraciones-riesgos-oportunidad.html",
+    "linkedin": {
+      "status": "skipped",
+      "post_reference": null
+    },
+    "editorial_role": {
+      "id": "good_practice",
+      "label": "Buena práctica",
+      "goal": "convertir experiencia y mejores prácticas en guías accionables"
+    },
+    "cover_image": {
+      "provider": "pexels",
+      "url": "https://images.pexels.com/photos/8353799/pexels-photo-8353799.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+      "alt": "Colleagues discussing financial charts during a corporate meeting in a modern office.",
+      "photographer": "Kampus Production",
+      "photographer_url": "https://www.pexels.com/@kampus",
+      "source_url": "https://www.pexels.com/photo/man-and-woman-presenting-at-work-8353799/",
+      "attribution_label": "Foto vía Pexels"
+    }
+  },
+  {
     "id": "2026-09-28T20:32:46.274813+00:00",
     "title": "Cuando los agentes de IA cruzan cuentas: oportunidad y riesgo en la arquitectura multi‑cuenta",
     "deck": "Una solución técnica para romper silos que puede crear nuevas fricciones operativas si la dirección no decide con criterio.",
