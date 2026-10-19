@@ -1,5 +1,62 @@
 [
   {
+    "id": "2026-10-19T19:54:33.527140+00:00",
+    "title": "Autonomía con freno: cómo implantar agentes de IA que actúen sin sorprenderte",
+    "deck": "Permitir autonomía no es un salto de fe: es un diseño deliberado de límites, métricas y pilotos que garantizan decisiones correctas y trazables.",
+    "slug": "autonomia-limites-agentes-ia",
+    "excerpt": "Los agentes de IA prometen reducir trabajo operativo; fallan cuando la autonomía carece de límites claros. Propongo un marco operativo —criterio, gobernanza y métricas— para otorgar autonomía limitada y verificable sin perder control.",
+    "seo_description": "Marco práctico para implantar agentes de IA con autonomía limitada: cuándo permitir acción, controles mínimos, métricas de degradación y cómo estructurar pilotos que entreguen valor.",
+    "pull_quote": "La autonomía sin límites no es innovación; es riesgo.",
+    "key_takeaways": [
+      "Definir qué decisiones puede tomar un agente según impacto y verificación posible.",
+      "Implementar controles mínimos: scope, límites operativos, trazabilidad y supervisión automática.",
+      "Pilotos estrechos, métricas sensibles y canary releases detectan degradación antes de escalar."
+    ],
+    "cover_label": "Autonomía segura",
+    "cover_theme": "risk",
+    "cta_title": "¿Probamos autonomía con control?",
+    "cta_body": "Si su equipo evalúa agentes para automatizar tareas críticas, conviene empezar por un diagnóstico corto: identificamos procesos candidatos, acordamos límites operativos y montamos un piloto capaz de entregar valor desde la primera iteración. Hablemos de un piloto de 8 semanas con métricas que importan, no de experimentos técnicos.",
+    "keywords": [
+      "agentes de IA",
+      "autonomía limitada",
+      "gobernanza IA",
+      "pilotos",
+      "monitorización",
+      "automatización",
+      "operaciones"
+    ],
+    "image_query": "ejecutivo observando tablero con indicadores de control y alertas para agentes de IA",
+    "article_html": "<p>Hay una contradicción que vemos en casi todas las reuniones de comité de dirección: se quiere delegar decisiones repetitivas a agentes de IA para acelerar operaciones, pero nadie está dispuesto a aceptar las primeras equivocaciones. Se desea eficiencia. Se teme la falla automática.</p><p>Autonomía sin límites es irresponsable. Y sin autonomía, la promesa se queda en piloto perpetuo.</p><p>Nuestra tesis es simple y práctica: no se trata de elegir entre confiar ciegamente o no confiar nunca. Se trata de diseñar niveles de autonomía basados en impacto, verificabilidad y métricas de degradación. Cuando la autonomía se diseña así, reduce carga operativa y acelera retorno; cuando no, genera errores silenciosos, daños reputacionales y costes imprevistos.</p><p>Un director de operaciones nos contó un caso reciente: un agente configurado para gestionar reembolsos aplicó una regla obsoleta tras un cambio de política. Resultado: cientos de reembolsos incorrectos antes de que alguien lo detectara. No fue un problema técnico complejo; fue una ausencia de límites y de monitorización sensible. Ese es el punto de quiebre: fallas por gobernanza deficiente, no por IA &#x27;caprichosa&#x27;.</p><p>Golpe editorial: la autonomía sin diseño es delegación sin responsabilidad.</p><p>¿Qué significa diseñar autonomía? Proponemos un marco operativo, condensado en cinco decisiones ejecutivas que traducen la promesa tecnológica en reglas de operación claras: scope, know, bound, observe y prove —conceptos prácticos para decidir cuándo y cómo dejar actuar a un agente.</p><ul>\n  <li><strong>Scope (alcance):</strong> defina tareas concretas, entradas y salidas permitidas. Priorice dominios transaccionales y de bajo impacto en la primera fase (p. ej., clasificación de tickets, propuestas de respuesta, extracción de datos). Evite transacciones financieras o cambios contractuales hasta que el agente pase por controles estrictos.</li>\n  <li><strong>Know (conocimiento):</strong> documente las fuentes de verdad, las reglas de negocio y las excepciones. Un agente que actúa debe poder referenciar una fuente verificable para cada decisión automatizada.</li>\n  <li><strong>Bound (límites):</strong> establezca reglas ejecutables: límites por monto, listas blancas y negras, tasas máximas de acciones por hora, y reglas de escalado automático a humano cuando se superan umbrales.</li>\n  <li><strong>Observe (observar):</strong> instrumente métricas operativas y alarmas. No basta con logs: hay que medir tasa de éxito, tasa de overrides humanos, latencia y señales de deriva semántica.</li>\n  <li><strong>Prove (probar y comprobar):</strong> tenga evidencia que demuestre que el agente produce resultados correctos antes de ampliar su autonomía. Auditorías periódicas y sampling aleatorio son imprescindibles.</li>\n</ul><p>Traducido al terreno operativo, estas cinco decisiones implican controles mínimos que cualquier líder de operaciones debe exigir antes de desplegar un agente con privilegios de acción:</p><ol>\n  <li>Registro audit trail inmutable por acción del agente (quién, cuándo, por qué).</li>\n  <li>Autorización basada en riesgos: límites de transacción y necesidad de aprobación humana para excepciones por impacto.</li>\n  <li>Modo “sombra” o canary: el agente actúa en paralelo y sus decisiones se comparan con humanos antes de permitir ejecución en producción.</li>\n  <li>Pruebas de regresión automatizadas contra un set de “casos oro” después de cada actualización del modelo o cambio de reglas.</li>\n  <li>Métricas operativas con umbrales definidos: precisión operacional, tasa de rechazo humano, tiempo medio de intervención y tasa de anomalías por volumen.</li>\n</ol><p>Ejemplos para calibrar autonomía</p><p>- Atención al cliente: permitir que un agente sugiera respuestas y ejecute devoluciones de crédito menores a X cuando la verificación del cliente y la razón estén en listas aprobadas. Para casos fuera de lista, escalar a humano con prioridad alta.</p><p>- Gestión de cuentas: permitir que un agente re-asigne tareas internas y actualice estados de workflow; no le permita modificar condiciones contractuales ni emitir facturas sin doble firma.</p><p>- Pagos y transacciones: en general, iniciar en sombra; si se valida, permitir crear órdenes de pago <em>para aprobación</em>, nunca ejecutar pagos netos hasta comprobar controles externos (2FA, límites diarios, validación contra ERP).</p><p>Cómo medir la degradación silenciosa</p><ul>\n  <li>Sampling continuo: muestreo aleatorio de decisiones automatizadas para revisión humana. Si la tasa de errores del sample supera el umbral, activar rollback parcial.</li>\n  <li>Canary releases: desplegar al 1–5% del tráfico o volumen con seguimiento intensivo antes de escalar.</li>\n  <li>Golden queries: un conjunto fijo de entradas con resultados esperados que se ejecutan tras cada cambio de modelo.</li>\n  <li>Alertas de drift: monitoreo de distribución de entradas (p. ej., cambios en lenguaje de los clientes) y salida semántica. Un cambio súbito debe disparar retraining o reevaluación.</li>\n</ul><p>Checklist operativo rápido antes de asignar autonomía:</p><ul>\n  <li>¿Se documentó la fuente de verdad y la regla de negocio? Sí/No</li>\n  <li>¿Existen límites transaccionales y un plan de escalado? Sí/No</li>\n  <li>¿Hay trazabilidad inmutable y dashboards con KPIs? Sí/No</li>\n  <li>¿Se configuró modo sombra y canary? Sí/No</li>\n  <li>¿Se definieron tolerancias de error y acciones de rollback? Sí/No</li>\n</ul><p>Diseñar el piloto correcto</p><p>Un piloto efectivo debe responder tres preguntas en ocho semanas: 1) ¿Reduce trabajo humano medible? 2) ¿Mantiene error por debajo del umbral aceptable? 3) ¿Genera métricas accionables que permitan escalar? Estructura recomendada:</p><ol>\n  <li>Semana 0–1: identificar proceso, stakeholders y métricas base (línea de base).</li>\n  <li>Semana 2–3: preparar datos, definir reglas de scope y montar modo sombra.</li>\n  <li>Semana 4–5: canary operativo (1–5% volumen) con reportes diarios; ajustar límites.</li>\n  <li>Semana 6–7: ampliar si tolerancias se cumplen; documentar casos de excepción.</li>\n  <li>Semana 8: decisión de escala, retraining plan y calendario de auditoría. Entregar paquete de gobernanza reproducible.</li>\n</ol><p>Conclusión consultiva</p><p>La pregunta operativa no es si los agentes pueden tomar decisiones; es cuáles decisiones deben tomar, con qué condiciones y cómo sabremos que siguen siendo correctas en el tiempo. La respuesta efectiva combina diseño de alcance, controles operativos y métricas de degradación sensibles —no más experimentos interminables, sino pilotos con criterio y trazabilidad.</p><p>Si su organización está lista para dejar actuar a un agente sin exponerse, el siguiente paso razonable es un diagnóstico corto que identifique candidatos tempranos, defina límites operativos y proponga un piloto de 8 semanas con KPIs que importan. No es optimismo tecnológico; es disciplina operativa.</p>",
+    "linkedin_text": "Autonomía y control no son opuestos inevitables. Se pueden diseñar agentes de IA que actúen por cuenta propia sin convertirse en riesgos ocultos. En el nuevo artículo explicamos un marco operativo (scope, know, bound, observe, prove), controles mínimos y una plantilla de piloto de 8 semanas para entregar valor desde la primera iteración. ¿Le interesa un diagnóstico práctico para sus procesos críticos? https://edreirbs.github.io/conten-agents/blog/autonomia-limites-agentes-ia.html",
+    "source_name": "AWS Machine Learning Blog",
+    "source_urls": [
+      "https://aws.amazon.com/blogs/machine-learning/trust-in-depth-giving-agents-more-autonomy-without-losing-control/",
+      "https://aws.amazon.com/blogs/machine-learning/building-trust-in-ai-agents-a-production-ready-evaluation-framework-with-amazon-bedrock-agentcore/",
+      "https://openai.com/index/amp-beyond-coding",
+      "https://towardsdatascience.com/a-scaffold-at-the-gate-building-ai-applications-that-can-evolve/"
+    ],
+    "published_at": "2026-10-19T19:54:33.527140+00:00",
+    "canonical_url": "https://edreirbs.github.io/conten-agents/blog/autonomia-limites-agentes-ia.html",
+    "linkedin": {
+      "status": "skipped",
+      "post_reference": null
+    },
+    "editorial_role": {
+      "id": "reflective",
+      "label": "Reflexivo",
+      "goal": "publicar una tesis, opinión o marco mental con voz propia"
+    },
+    "cover_image": {
+      "provider": "pexels",
+      "url": "https://images.pexels.com/photos/16862085/pexels-photo-16862085.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+      "alt": "Traffic agent in bright uniform managing vehicles on a busy Londrina street.",
+      "photographer": "Rodolfo Gaion",
+      "photographer_url": "https://www.pexels.com/@gaion",
+      "source_url": "https://www.pexels.com/photo/man-in-uniform-next-to-car-16862085/",
+      "attribution_label": "Foto vía Pexels"
+    }
+  },
+  {
     "id": "2026-10-12T22:08:11.065671+00:00",
     "title": "Cuando los agentes empiezan a pagar por cada inferencia: riesgo, control y ventaja operativa",
     "deck": "Pagar por inferencia cambia la conversación: deja de ser un experimento técnico para convertirse en un reto financiero y de gobernanza que decide si la IA aporta valor o gasto discrecional.",
