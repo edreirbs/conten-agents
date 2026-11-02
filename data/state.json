@@ -1,5 +1,5 @@
 {
-  "last_run_at": "2026-10-26T19:55:53.885603+00:00",
+  "last_run_at": "2026-11-02T22:46:41.872367+00:00",
   "seen_source_urls": [
     "https://aws.amazon.com/blogs/machine-learning/toolsimulator-scalable-tool-testing-for-ai-agents/",
     "https://aws.amazon.com/blogs/machine-learning/omnichannel-ordering-with-amazon-bedrock-agentcore-and-amazon-nova-2-sonic/",
@@ -99,6 +99,9 @@
     "https://towardsdatascience.com/a-scaffold-at-the-gate-building-ai-applications-that-can-evolve/",
     "https://aws.amazon.com/blogs/machine-learning/groundhog-day-for-ai-agents-prompt-caching-patterns-for-using-openai-models-on-amazon-bedrock/",
     "https://aws.amazon.com/blogs/machine-learning/stream-low-latency-speech-from-ai-agents-using-kokoro-tts-on-amazon-sagemaker-ai/",
-    "https://openai.com/index/scaling-ai-research-for-complex-biological-data"
+    "https://openai.com/index/scaling-ai-research-for-complex-biological-data",
+    "https://towardsdatascience.com/the-enterprise-context-layer-a-practitioners-guide-to-6-advanced-architectural-patterns/",
+    "https://towardsdatascience.com/how-to-make-ai-work-for-end-to-end-business-processes/",
+    "https://openai.com/index/oracle-apps-in-chatgpt"
   ]
 }
